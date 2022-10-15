@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/kifloni/static/css/main.3c45f62f.css",
+    "main.js": "/kifloni/static/js/main.1961a0f1.js",
+    "static/media/background.jpg": "/kifloni/static/media/background.4a1ae51a43fb79a67675.jpg",
+    "static/media/win.mp3": "/kifloni/static/media/win.81e374a1878db308eb7d.mp3",
+    "static/media/correct-answer.mp3": "/kifloni/static/media/correct-answer.88a0517e29b303fd61b5.mp3",
+    "static/media/quack.mp3": "/kifloni/static/media/quack.9dd0a15f98b716890cf7.mp3",
+    "index.html": "/kifloni/index.html",
+    "main.3c45f62f.css.map": "/kifloni/static/css/main.3c45f62f.css.map",
+    "main.1961a0f1.js.map": "/kifloni/static/js/main.1961a0f1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3c45f62f.css",
+    "static/js/main.1961a0f1.js"
+  ]
+}
