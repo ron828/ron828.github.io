@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ממשק המחלקה תור</title>
+  <style>
+    :root {
+      --primary: #4A90E2;
+      --background: #f8f9fa;
+      --text: #2d3436;
+      --code-bg: #2d2d2d;
+      --keyword: #cc99cd;
+      --datatype: #f08d49;
+      --variable: #f8c555;
+      --operator: #67cdcc;
+      --number: #aeaeae;
+      --string: #7ec699;
+      --comment: #999999;
+      --border: #ddd;
+      --error: #e74c3c;
+      --modal-bg: rgba(0, 0, 0, 0.5);
+      --success: #27ae60;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 1rem 2rem;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: var(--primary);
+    }
+
+    /* Placeholder image styles */
+    .image-placeholder {
+      width: 100%;
+      max-width: 800px;
+      height: 300px;
+      background: var(--border);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem auto;
+      color: var(--comment);
+      font-size: 1.2rem;
+    }
+	
+	.image-container {
+		max-width: 100%;
+		display: flex;
+      justify-content: center;
+      align-items: center;
+	}
+	
+	.image-container img {
+		max-width: 80%;
+	}
+
+    /* Frame for explanations */
+    .frame {
+	  direction: rtl;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #fff;
+    }
+
+    /* Code block styling */
+    pre {
+      background: var(--code-bg);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #fff;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.95rem;
+      margin: 1rem 0;
+    }
+    .keyword { color: var(--keyword); }
+    .datatype { color: var(--datatype); }
+    .variable { color: var(--variable); }
+    .operator { color: var(--operator); }
+    .number { color: var(--number); }
+    .string { color: var(--string); }
+    .comment { color: var(--comment); }
+
+    /* Container to hold code block and queue widget side by side */
+    .side-by-side {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .side-by-side > * {
+      /*flex: 1 1 300px;*/
+    }
+	
+	.side-by-side-vars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Queue widget styles (English version) */
+    .queue-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+      position: relative;
+    }
+    .queue-title {
+      margin: 0 0 1.5rem 0;
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary);
+      text-align: center;
+    }
+    .arrow {
+      width: 100%;
+      text-align: left;
+      font-size: 1.5em;
+      color: var(--primary);
+      user-select: none;
+    }
+    .queue-items {
+      min-height: 45px;
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.5rem;
+      overflow-x: auto;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      background: rgba(0, 0, 0, 0.02);
+    }
+    .person {
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      min-width: 120px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: slideIn 0.3s ease-out;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      to { transform: translateX(-30px); opacity: 0; }
+    }
+    .removing {
+      animation: slideOut 0.3s ease-in forwards;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .controls input {
+      flex: 1;
+      min-width: 150px;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .controls button {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(to bottom, var(--primary), #357ABD);
+      color: white;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .controls button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      opacity: 0.95;
+    }
+
+    /* Modal for English alerts */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--modal-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .modal h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    .modal .icon {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    /* Variable frames styling */
+    .variable-frame {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem auto;
+      width: 150px;
+      background: #fff;
+      text-align: center;
+    }
+    .variable-frame label {
+	font-size: 18px;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .variable-frame input {
+	  font-size: 18px;
+      width: 50%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-align: center;
+    }
+	
+	.section-start {
+	  margin-top: 200px;
+	 }
+  </style>
+</head>
+<body>
+  <!-- 1. Title -->
+  <h1>ממשק המחלקה תור</h1>
+
+  <!-- 2. Placeholder for big image -->
+    <div class="frame">
+    <p>1. מבנה נתונים מופשט (Abstract Data Type)</p>
+    <p>2. מחלקה גנרית</p>
+  </div>
+  <div class="image-container">
+  <img id="image-api" src="image_api.png"/>
+  </div>
+
+  <!-- 3. בניית תור -->
+  <div class="section-start">
+  <h2>בניית תור</h2>
+  <div class="frame">
+    <p>1. הצהרה על משתנה</p>
+    <p>2. בניית התור</p>
+    <p>3. השמת ההפניה במשתנה</p>
+  </div>
+  <pre>
+<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+  </pre>
+  <div class="image-container">
+  <img id="image-api" src="image_empty_q.png"/>
+  </div>
+  </div>
+
+  <!-- 4. פעולות על התור - Code block and Queue Widget side by side -->
+    <div class="section-start">
+  <h2>פעולות על התור</h2>
+  <div class="side-by-side">
+    <pre>
+<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+
+<span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="number">6</span>);
+<span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="number">10</span>);
+
+<span class="datatype">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="variable">q</span>.<span class="keyword">Head</span>();
+
+<span class="datatype">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="variable">q</span>.<span class="keyword">Remove</span>();
+
+<span class="variable">q</span>.<span class="keyword">Remove</span>();
+
+<span class="variable">x</span> <span class="operator">=</span> <span class="variable">q</span>.<span class="keyword">Remove</span>();
+
+<span class="keyword">if</span> (<span class="operator">!</span><span class="variable">q</span>.<span class="keyword">IsEmpty</span>()) {
+    <span class="variable">x</span> <span class="operator">=</span> <span class="variable">q</span>.<span class="keyword">Remove</span>();
+}
+    </pre>
+
+    <!-- English Queue Widget -->
+	<div>
+	<br/>
+    <div class="queue-container" data-queue-id="eng">
+      <h2 class="queue-title">Queue</h2>
+      <!-- Top arrow -->
+      <div class="arrow top">←</div>
+      <div class="queue-items" id="queue-eng"></div>
+      <div class="controls">
+        <input type="text" placeholder="Value to Insert" data-queue-input="eng" />
+        <button onclick="handleInsert('eng')">Insert</button>
+        <button onclick="handleRemove('eng')">Remove</button>
+        <button onclick="handleHead('eng')">Head</button>
+        <button onclick="handleIsEmpty('eng')">IsEmpty</button>
+      </div>
+      <div data-queue-error="eng" class="error"></div>
+    </div>
+	  <!-- 4.1 Variable Frames for num and x placed below the queue widget -->
+  <div class="side-by-side-vars">
+  <div class="variable-frame">
+    <label for="var-num">num</label>
+    <input type="text" id="var-num" placeholder="" />
+  </div>
+
+  <div class="variable-frame">
+    <label for="var-x">x</label>
+    <input type="text" id="var-x" placeholder="" />
+  </div>
+  </div>
+	</div>
+  </div>
+</div>
+
+
+  <!-- Modal for English alerts -->
+  <div class="modal-overlay" id="modal-eng">
+    <div class="modal">
+      <div class="icon" id="modal-icon-eng">❌</div>
+      <h1 id="modal-message-eng">Error</h1>
+    </div>
+  </div>
+
+	<div style="margin-top: 50px; text-align: center;">
+	<a href="/exercise.html">תרגילים</a>
+	</div>
+  
+
+  <script>
+    // Queue widget for English version
+    const queues = {
+      eng: { items: [] }
+    };
+
+    function getRandomColor() {
+      return `hsl(${Math.random() * 360}, 70%, 50%)`;
+    }
+
+    function handleInsert(id) {
+      const input = document.querySelector(`[data-queue-input="${id}"]`);
+      const value = input.value.trim();
+      if (!value) {
+        showError(id, 'Please enter a value');
+        return;
+      }
+      const color = getRandomColor();
+      queues[id].items.push({ value, color });
+      renderPerson(id, value, color);
+      input.value = '';
+      clearError(id);
+    }
+
+    function renderPerson(id, value, color) {
+      const container = document.querySelector(`#queue-${id}`);
+      const person = document.createElement('div');
+      person.className = 'person';
+      person.textContent = value;
+      person.style.backgroundColor = color;
+      container.appendChild(person);
+    }
+
+    function handleRemove(id) {
+      if (queues[id].items.length === 0) {
+        showError(id, 'Queue is empty!');
+        showModalError("Error", "❌");
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (firstPerson) {
+        // Capture the removed value for modal display
+        const removedValue = firstPerson.textContent;
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues[id].items.shift();
+          firstPerson.remove();
+          showModalMessage(`Removed: ${removedValue}`, "ℹ️");
+        }, 300);
+      }
+    }
+
+    function handleHead(id) {
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (!firstPerson) {
+        showError(id, 'Queue is empty!');
+        showModalError("Error", "❌");
+        return;
+      }
+      // Show modal with head value
+      showModalMessage(`Head: ${firstPerson.textContent}`, "ℹ️");
+      firstPerson.classList.add('highlight');
+      setTimeout(() => {
+        firstPerson.classList.remove('highlight');
+      }, 1000);
+    }
+
+    function handleIsEmpty(id) {
+      const isEmpty = queues[id].items.length === 0;
+      if(isEmpty) {
+        showModalMessage("True", "✅");
+      } else {
+        showModalMessage("False", "ℹ️");
+      }
+    }
+
+    function showError(id, message) {
+      const errorContainer = document.querySelector(`[data-queue-error="${id}"]`);
+      errorContainer.textContent = message;
+      setTimeout(() => (errorContainer.textContent = ''), 2000);
+    }
+
+    function clearError(id) {
+      document.querySelector(`[data-queue-error="${id}"]`).textContent = '';
+    }
+
+    function showModalError(message, icon) {
+      showModalMessage(message, icon);
+    }
+
+    function showModalMessage(message, icon) {
+      const modal = document.getElementById('modal-eng');
+      const modalMessage = document.getElementById('modal-message-eng');
+      const modalIcon = document.getElementById('modal-icon-eng');
+      modalMessage.textContent = message;
+      modalIcon.textContent = icon;
+      modal.classList.add('active');
+      setTimeout(() => {
+        modal.classList.remove('active');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>סריקה של תור - ספירת איברים</title>
+  <style>
+    :root {
+      --primary: #4A90E2;
+      --background: white;
+      --text: #2d3436;
+      --code-bg: #2d2d2d;
+      --keyword: #cc99cd;
+      --datatype: #f08d49;
+      --variable: #f8c555;
+      --operator: #67cdcc;
+      --number: #aeaeae;
+      --string: #7ec699;
+      --comment: #999999;
+      --border: #ddd;
+      --error: #e74c3c;
+      --success: #27ae60;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 1rem 2rem;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Code block styling */
+    pre {
+      background: var(--code-bg);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #fff;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+    .keyword { color: var(--keyword); }
+    .datatype { color: var(--datatype); }
+    .variable { color: var(--variable); }
+    .operator { color: var(--operator); }
+    .number { color: var(--number); }
+    .string { color: var(--string); }
+    .comment { color: var(--comment); }
+
+    /* Explanation text in RTL */
+    .explanation {
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      line-height: 1.8;
+      direction: rtl;
+      text-align: right;
+    }
+    .explanation ul {
+      list-style-type: disc;
+      padding-right: 20px;
+    }
+
+    /* Side-by-side layout: used in the Count and Find sections */
+    .side-by-side {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .side-by-side > * {
+      
+    }
+  
+    .image-container {
+      margin-top: 50px;
+      text-align: center;
+    }
+  
+    #method {
+      margin-top: 500px;
+    }
+
+    /* Queue widget styles */
+    .queue-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1rem 1.5rem;
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .queue-title {
+      margin: 0 0 1rem 0;
+      color: var(--primary);
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid var(--primary);
+      text-align: center;
+    }
+    .queue-items {
+      min-height: 45px;
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.5rem;
+      overflow-x: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: rgba(0, 0, 0, 0.02);
+    }
+    .person {
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      min-width: 70px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: slideIn 0.3s ease-out;
+      font-size: 1.0em;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      to { transform: translateX(-30px); opacity: 0; }
+    }
+    .removing {
+      animation: slideOut 0.3s ease-in forwards;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .controls input {
+      flex: 1;
+      min-width: 100px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .controls button {
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      border: none;
+      background: linear-gradient(to bottom, var(--primary), #357ABD);
+      color: white;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+    }
+    .controls button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      opacity: 0.95;
+    }
+    .error {
+      color: var(--error);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* Counter frame */
+    .variable-frame {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #fff;
+      text-align: center;
+      width: 150px;
+    }
+    .variable-frame label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .variable-frame input {
+      width: 50%;
+      padding: 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+	
+	.exercise-section { margin-top: 400px; }
+  </style>
+</head>
+<body>
+
+  <h1>סריקה של תור - ספירת איברים</h1>
+
+  <!-- Main code block: Code blocks are now on top -->
+  <div class="side-by-side">
+    <div>
+      <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">void</span> <span class="keyword">Main</span>()
+{
+    <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+    <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="number">3</span>);
+    <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="number">-1</span>);
+    <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="number">17</span>);
+    <span class="datatype">int</span> <span class="variable">size1</span> <span class="operator">=</span> <span class="keyword">Count</span>(<span class="variable">q</span>);
+    <span class="datatype">int</span> <span class="variable">size2</span> <span class="operator">=</span> <span class="keyword">Count</span>(<span class="variable">q</span>);
+}
+      </pre>
+      <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">int</span> <span class="keyword">Count</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>)
+      </pre>
+    </div>
+  </div>
+  
+  <!-- Moved image below the code blocks -->
+  <div class="image-container">
+    <img src="image_pointers.png" alt="Pointers Image"/>
+  </div>
+
+  <!-- Side-by-side layout: Code on the left, Queues & counter on the right (Count function) -->
+  <div class="side-by-side" id="method">
+
+    <!-- Code block for Count function -->
+    <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">int</span> <span class="keyword">Count</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>)
+{
+    <span class="datatype">int</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="number">0</span>;
+    <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">temp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">q</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="variable">temp</span>.<span class="keyword">Insert</span>(<span class="variable">q</span>.<span class="keyword">Remove</span>());
+        <span class="variable">counter</span><span class="operator">++</span>;
+    }
+
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">temp</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="variable">temp</span>.<span class="keyword">Remove</span>());
+    }
+
+    <span class="keyword">return</span> <span class="variable">counter</span>;
+}
+    </pre>
+
+    <!-- Queues & Counter area -->
+    <div>
+      <br/>
+      <!-- Queue widget for q -->
+      <div class="queue-container" data-queue-id="q">
+        <h2 class="queue-title">Queue: q</h2>
+        <div class="queue-items" id="queue-q"></div>
+        <div class="controls">
+          <input type="text" placeholder="Value" data-queue-input="q" />
+          <button onclick="handleInsert('q')">Insert</button>
+          <button onclick="handleRemove('q')">Remove</button>
+          <button onclick="handleTransferQToTemp()">temp.Insert(q.Remove())</button>
+        </div>
+        <div data-queue-error="q" class="error"></div>
+      </div>
+
+      <!-- Queue widget for temp -->
+      <div class="queue-container" data-queue-id="temp">
+        <h2 class="queue-title">Queue: temp</h2>
+        <div class="queue-items" id="queue-temp"></div>
+        <div class="controls">
+          <input type="text" placeholder="Value" data-queue-input="temp" />
+          <button onclick="handleInsert('temp')">Insert</button>
+          <button onclick="handleRemove('temp')">Remove</button>
+          <button onclick="handleTransferTempToQ()">q.Insert(temp.Remove())</button>
+        </div>
+        <div data-queue-error="temp" class="error"></div>
+      </div>
+
+      <!-- Counter frame -->
+      <div class="variable-frame">
+        <label for="counter-input">counter</label>
+        <input type="text" id="counter-input" />
+      </div>
+    </div>
+  </div>
+
+  <!-- New Section: תרגיל - חיפוש ערך בתור -->
+  <div class="exercise-section">
+    <h2 style="text-align:center; color: var(--primary);">תרגיל: חיפוש ערך בתור</h2>
+    <p class="explanation" style="text-align:center; font-size: 1.2rem;">כתבו פעולה המחזירה true אם מספר נמצא בתור, ו false אחרת</p>
+    <!-- Short code block with only the function signature -->
+    <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">bool</span> <span class="keyword">Find</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>, <span class="datatype">int</span> <span class="variable">num</span>)
+    </pre>
+
+    <!-- New side-by-side block: Code for iterating over the queue and the accompanying image -->
+    <div class="side-by-side">
+      <div>
+        <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">void</span> <span class="keyword">PrintQueue</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>)
+{
+    <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">temp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">q</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="keyword">Console</span>.<span class="keyword">WriteLine</span>(<span class="variable">q</span>.<span class="keyword">Head</span>());
+        <span class="variable">temp</span>.<span class="keyword">Insert</span>(<span class="variable">q</span>.<span class="keyword">Remove</span>());
+    }
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">temp</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="variable">temp</span>.<span class="keyword">Remove</span>());
+    }
+}
+        </pre>
+      </div>
+      <div style="max-width:50%; margin-top: 20px;">
+        <img src="image_api.png" alt="API Diagram" style="max-width:100%;"/>
+      </div>
+    </div>
+
+    <!-- Side-by-side layout: Code on the left, Queues & Variable area for Find function -->
+    <div class="side-by-side" style="margin-top: 400px;">
+      <!-- Code block for Find function -->
+      <div>
+        <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">bool</span> <span class="keyword">Find</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>, <span class="datatype">int</span> <span class="variable">num</span>)
+{
+    <span class="datatype">bool</span> <span class="variable">found</span> <span class="operator">=</span> <span class="keyword">false</span>;
+    <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">temp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+    
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">q</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="keyword">if</span> (<span class="variable">q</span>.<span class="keyword">Head</span>() <span class="operator">==</span> <span class="variable">num</span>)
+            <span class="variable">found</span> <span class="operator">=</span> <span class="keyword">true</span>;
+        <span class="variable">temp</span>.<span class="keyword">Insert</span>(<span class="variable">q</span>.<span class="keyword">Remove</span>());
+    }
+    
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">temp</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="variable">temp</span>.<span class="keyword">Remove</span>());
+    }
+    
+    <span class="keyword">return</span> <span class="variable">found</span>;
+}
+        </pre>
+      </div>
+      <!-- Queues & Variable area for Find function -->
+      <div>
+        <!-- Queue widget for q in Find exercise -->
+		<br/>
+        <div class="queue-container" data-queue-id="q-find">
+          <h2 class="queue-title">Queue: q</h2>
+          <div class="queue-items" id="queue-q-find"></div>
+          <div class="controls">
+            <input type="text" placeholder="Value" data-queue-input="q-find" />
+            <button onclick="handleInsertFind('q-find')">Insert</button>
+            <button onclick="handleRemoveFind('q-find')">Remove</button>
+            <button onclick="handleTransferQToTempFind()">temp.Insert(q.Remove())</button>
+          </div>
+          <div data-queue-error="q-find" class="error"></div>
+        </div>
+  
+        <!-- Queue widget for temp in Find exercise -->
+        <div class="queue-container" data-queue-id="temp-find">
+          <h2 class="queue-title">Queue: temp</h2>
+          <div class="queue-items" id="queue-temp-find"></div>
+          <div class="controls">
+            <input type="text" placeholder="Value" data-queue-input="temp-find" />
+            <button onclick="handleInsertFind('temp-find')">Insert</button>
+            <button onclick="handleRemoveFind('temp-find')">Remove</button>
+            <button onclick="handleTransferTempToQFind()">q.Insert(temp.Remove())</button>
+          </div>
+          <div data-queue-error="temp-find" class="error"></div>
+        </div>
+  
+        <!-- Variable frame for 'found' -->
+        <div class="variable-frame">
+          <label for="found-input">found</label>
+          <input type="text" id="found-input" readonly />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Two separate queues: q, temp, and for the Find exercise: q-find, temp-find
+    const queues = {
+      q: { items: [] },
+      temp: { items: [] },
+      "q-find": { items: [] },
+      "temp-find": { items: [] }
+    };
+
+    function getRandomColor() {
+      return `hsl(${Math.floor(0.85 * 360)}, 70%, 50%)`;
+    }
+
+    // Common queue operations for main section
+    function handleInsert(id) {
+      const input = document.querySelector(`[data-queue-input="${id}"]`);
+      const value = input.value.trim();
+      if (!value) {
+        showError(id, 'Please enter a value');
+        return;
+      }
+      const color = getRandomColor();
+      queues[id].items.push({ value, color });
+      renderPerson(id, value, color);
+      input.value = '';
+    }
+
+    function renderPerson(id, value, color) {
+      const container = document.querySelector(`#queue-${id}`);
+      const person = document.createElement('div');
+      person.className = 'person';
+      person.textContent = value;
+      person.style.backgroundColor = color;
+      container.appendChild(person);
+    }
+
+    function handleRemove(id) {
+      if (queues[id].items.length === 0) {
+        showError(id, 'Queue is empty!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues[id].items.shift();
+          firstPerson.remove();
+        }, 300);
+      }
+    }
+
+    function handleTransferQToTemp() {
+      if (queues.q.items.length === 0) {
+        showError('q', 'Queue is empty!');
+        return;
+      }
+      const containerQ = document.querySelector(`#queue-q`);
+      const firstPerson = containerQ.querySelector('.person:first-child');
+      if (firstPerson) {
+        const removedValue = firstPerson.textContent;
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues.q.items.shift();
+          firstPerson.remove();
+          const color = getRandomColor();
+          queues.temp.items.push({ value: removedValue, color: color });
+          renderPerson('temp', removedValue, color);
+        }, 300);
+      }
+    }
+
+    function handleTransferTempToQ() {
+      if (queues.temp.items.length === 0) {
+        showError('temp', 'Queue is empty!');
+        return;
+      }
+      const containerTemp = document.querySelector(`#queue-temp`);
+      const firstPerson = containerTemp.querySelector('.person:first-child');
+      if (firstPerson) {
+        const removedValue = firstPerson.textContent;
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues.temp.items.shift();
+          firstPerson.remove();
+          const color = getRandomColor();
+          queues.q.items.push({ value: removedValue, color: color });
+          renderPerson('q', removedValue, color);
+        }, 300);
+      }
+    }
+
+    // Functions for the Find exercise section
+    function handleInsertFind(id) {
+      const input = document.querySelector(`[data-queue-input="${id}"]`);
+      const value = input.value.trim();
+      if (!value) {
+        showError(id, 'Please enter a value');
+        return;
+      }
+      const color = getRandomColor();
+      queues[id].items.push({ value, color });
+      renderPerson(id, value, color);
+      input.value = '';
+    }
+
+    function handleRemoveFind(id) {
+      if (queues[id].items.length === 0) {
+        showError(id, 'Queue is empty!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues[id].items.shift();
+          firstPerson.remove();
+        }, 300);
+      }
+    }
+
+    function handleTransferQToTempFind() {
+      if (queues["q-find"].items.length === 0) {
+        showError('q-find', 'Queue is empty!');
+        return;
+      }
+      const container = document.querySelector(`#queue-q-find`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (firstPerson) {
+        const removedValue = firstPerson.textContent;
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues["q-find"].items.shift();
+          firstPerson.remove();
+          const color = getRandomColor();
+          queues["temp-find"].items.push({ value: removedValue, color: color });
+          const tempContainer = document.querySelector(`#queue-temp-find`);
+          const person = document.createElement('div');
+          person.className = 'person';
+          person.textContent = removedValue;
+          person.style.backgroundColor = color;
+          tempContainer.appendChild(person);
+        }, 300);
+      }
+    }
+
+    function handleTransferTempToQFind() {
+      if (queues["temp-find"].items.length === 0) {
+        showError('temp-find', 'Queue is empty!');
+        return;
+      }
+      const container = document.querySelector(`#queue-temp-find`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (firstPerson) {
+        const removedValue = firstPerson.textContent;
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues["temp-find"].items.shift();
+          firstPerson.remove();
+          const color = getRandomColor();
+          queues["q-find"].items.push({ value: removedValue, color: color });
+          const qContainer = document.querySelector(`#queue-q-find`);
+          const person = document.createElement('div');
+          person.className = 'person';
+          person.textContent = removedValue;
+          person.style.backgroundColor = color;
+          qContainer.appendChild(person);
+        }, 300);
+      }
+    }
+
+    // Error handling (common for all sections)
+    function showError(id, message) {
+      const errorContainer = document.querySelector(`[data-queue-error="${id}"]`);
+      errorContainer.textContent = message;
+      setTimeout(() => (errorContainer.textContent = ''), 2000);
+    }
+
+    // Initialize main queue q with 3 numbers: 3, -1, 17
+    window.onload = function(){
+      const initValues = ["3", "-1", "17"];
+      initValues.forEach(val => {
+        const color = getRandomColor();
+        queues.q.items.push({ value: val, color: color });
+        renderPerson('q', val, color);
+      });
+    }
+  </script>
+</body>
+</html>
