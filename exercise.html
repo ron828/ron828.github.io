@@ -29,6 +29,8 @@
       margin: 0;
       padding: 1rem 2rem;
       line-height: 1.6;
+      /* Fix 2: Increase base font size so Hebrew text is bigger */
+      font-size: 18px;
     }
 
     h1 {
@@ -309,43 +311,53 @@
   </div>
 
   <!-- New Section: תרגיל - חיפוש ערך בתור -->
-  <div class="exercise-section">
-    <h2 style="text-align:center; color: var(--primary);">תרגיל: חיפוש ערך בתור</h2>
-    <p class="explanation" style="text-align:center; font-size: 1.2rem;">כתבו פעולה המחזירה true אם מספר נמצא בתור, ו false אחרת</p>
-    <!-- Short code block with only the function signature -->
-    <pre>
+<div class="exercise-section">
+  <h2 style="text-align:center; color: var(--primary);">תרגיל: חיפוש ערך בתור</h2>
+  <ul class="explanation" font-size: 1.2rem;">
+    <li>כתבו פעולה המחזירה true אם מספר נמצא בתור, ו false אחרת</li>
+    <li>יש לשמור על מצב התור</li>
+	<li>צרו תור של מספרים שלמים בתוכנית הראשית ובידקו את נכונות הפעולה עבור ערכים שונים</li>
+  </ul>
+  
+  <!-- Short code block with only the function signature -->
+  <div style="display: flex; flex-direction: column; align-items: center">
+  <pre style="width: 50%; ">
 <span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">bool</span> <span class="keyword">Find</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>, <span class="datatype">int</span> <span class="variable">num</span>)
-    </pre>
-
-    <!-- New side-by-side block: Code for iterating over the queue and the accompanying image -->
-    <div class="side-by-side">
-      <div>
-        <pre>
-<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">void</span> <span class="keyword">PrintQueue</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>)
+  </pre>
+  </div>
+  
+  <!-- (The rest of the section remains unchanged) -->
+  <div class="side-by-side">
+    <div>
+      <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">int</span> <span class="keyword">Count</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>)
 {
+    <span class="datatype">int</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="number">0</span>;
     <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">temp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+
     <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">q</span>.<span class="keyword">IsEmpty</span>())
     {
-        <span class="keyword">Console</span>.<span class="keyword">WriteLine</span>(<span class="variable">q</span>.<span class="keyword">Head</span>());
         <span class="variable">temp</span>.<span class="keyword">Insert</span>(<span class="variable">q</span>.<span class="keyword">Remove</span>());
+        <span class="variable">counter</span><span class="operator">++</span>;
     }
+
     <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">temp</span>.<span class="keyword">IsEmpty</span>())
     {
         <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="variable">temp</span>.<span class="keyword">Remove</span>());
     }
-}
-        </pre>
-      </div>
-      <div style="max-width:50%; margin-top: 20px;">
-        <img src="image_api.png" alt="API Diagram" style="max-width:100%;"/>
-      </div>
-    </div>
 
-    <!-- Side-by-side layout: Code on the left, Queues & Variable area for Find function -->
-    <div class="side-by-side" style="margin-top: 400px;">
-      <!-- Code block for Find function -->
-      <div>
-        <pre>
+    <span class="keyword">return</span> <span class="variable">counter</span>;
+}
+      </pre>
+    </div>
+    <div style="max-width:50%; margin-top: 20px;">
+      <img src="image_api.png" alt="API Diagram" style="max-width:100%;"/>
+    </div>
+  </div>
+
+  <div class="side-by-side" style="margin-top: 400px;">
+    <div>
+      <pre>
 <span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">bool</span> <span class="keyword">Find</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>, <span class="datatype">int</span> <span class="variable">num</span>)
 {
     <span class="datatype">bool</span> <span class="variable">found</span> <span class="operator">=</span> <span class="keyword">false</span>;
@@ -365,71 +377,295 @@
     
     <span class="keyword">return</span> <span class="variable">found</span>;
 }
+      </pre>
+    </div>
+    <div>
+      <!-- Queue widget for q in Find exercise -->
+      <br/>
+      <div class="queue-container" data-queue-id="q-find">
+        <h2 class="queue-title">Queue: q</h2>
+        <div class="queue-items" id="queue-q-find"></div>
+        <div class="controls">
+          <input type="text" placeholder="Value" data-queue-input="q-find" />
+          <button onclick="handleInsertFind('q-find')">Insert</button>
+          <button onclick="handleRemoveFind('q-find')">Remove</button>
+          <button onclick="handleTransferQToTempFind()">temp.Insert(q.Remove())</button>
+        </div>
+        <div data-queue-error="q-find" class="error"></div>
+      </div>
+
+      <!-- Queue widget for temp in Find exercise -->
+      <div class="queue-container" data-queue-id="temp-find">
+        <h2 class="queue-title">Queue: temp</h2>
+        <div class="queue-items" id="queue-temp-find"></div>
+        <div class="controls">
+          <input type="text" placeholder="Value" data-queue-input="temp-find" />
+          <button onclick="handleInsertFind('temp-find')">Insert</button>
+          <button onclick="handleRemoveFind('temp-find')">Remove</button>
+          <button onclick="handleTransferTempToQFind()">q.Insert(temp.Remove())</button>
+        </div>
+        <div data-queue-error="temp-find" class="error"></div>
+      </div>
+
+      <!-- Variable frame for 'found' -->
+      <div class="variable-frame">
+        <label for="found-input">found</label>
+        <input type="text" id="found-input" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New Section: תרגיל - הוצאת ערך מהתור -->
+  <div class="exercise-section" style="margin-top: 400px;">
+    <h2 style="text-align:center; color: var(--primary);">תרגיל: הוצאת ערך מהתור</h2>
+    <ul class="explanation">
+      <li>כתבו פעולה המסירה את המופע הראשון של המספר num מהתור ומחזירה true</li>
+      <li>אם המספר לא נמצא, יש להחזיר false ללא שינוי התור</li>
+      <li>יש לשמור על סדר האיברים הנותרים בתור</li>
+    </ul>
+
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <pre style="width: 50%;">
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">bool</span> <span class="keyword">RemoveValue</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>, <span class="datatype">int</span> <span class="variable">num</span>)
+      </pre>
+    </div>
+
+    <div class="side-by-side" style="margin-top: 400px;">
+      <div>
+        <pre>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="datatype">bool</span> <span class="keyword">RemoveValue</span>(<span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">q</span>, <span class="datatype">int</span> <span class="variable">num</span>)
+{
+    <span class="datatype">bool</span> <span class="variable">removed</span> <span class="operator">=</span> <span class="keyword">false</span>;
+    <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt; <span class="variable">temp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="datatype">Queue</span>&lt;<span class="datatype">int</span>&gt;();
+    
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">q</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="keyword">if</span> (<span class="operator">!</span><span class="variable">removed</span> <span class="operator">&&</span> <span class="variable">q</span>.<span class="keyword">Head</span>() <span class="operator">==</span> <span class="variable">num</span>)
+        {
+            <span class="variable">q</span>.<span class="keyword">Remove</span>();
+            <span class="variable">removed</span> <span class="operator">=</span> <span class="keyword">true</span>;
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="variable">temp</span>.<span class="keyword">Insert</span>(<span class="variable">q</span>.<span class="keyword">Remove</span>());
+        }
+    }
+    
+    <span class="keyword">while</span> (<span class="operator">!</span><span class="variable">temp</span>.<span class="keyword">IsEmpty</span>())
+    {
+        <span class="variable">q</span>.<span class="keyword">Insert</span>(<span class="variable">temp</span>.<span class="keyword">Remove</span>());
+    }
+    
+    <span class="keyword">return</span> <span class="variable">removed</span>;
+}
         </pre>
       </div>
-      <!-- Queues & Variable area for Find function -->
       <div>
-        <!-- Queue widget for q in Find exercise -->
-		<br/>
-        <div class="queue-container" data-queue-id="q-find">
+        <!-- Queue widget for q in Remove exercise -->
+        <br/>
+        <div class="queue-container" data-queue-id="q-remove">
           <h2 class="queue-title">Queue: q</h2>
-          <div class="queue-items" id="queue-q-find"></div>
+          <div class="queue-items" id="queue-q-remove"></div>
           <div class="controls">
-            <input type="text" placeholder="Value" data-queue-input="q-find" />
-            <button onclick="handleInsertFind('q-find')">Insert</button>
-            <button onclick="handleRemoveFind('q-find')">Remove</button>
-            <button onclick="handleTransferQToTempFind()">temp.Insert(q.Remove())</button>
+            <input type="text" placeholder="Value" data-queue-input="q-remove" />
+            <button onclick="handleInsert('q-remove')">Insert</button>
+            <button onclick="handleRemove('q-remove')">Remove</button>
+            <!-- Fix 3: Replaced "Process Element" button -->
+            <button onclick="handleTransferQToTempRemove()">temp.Insert(q.Remove())</button>
           </div>
-          <div data-queue-error="q-find" class="error"></div>
+          <div data-queue-error="q-remove" class="error"></div>
         </div>
-  
-        <!-- Queue widget for temp in Find exercise -->
-        <div class="queue-container" data-queue-id="temp-find">
+
+        <!-- Queue widget for temp in Remove exercise -->
+        <div class="queue-container" data-queue-id="temp-remove">
           <h2 class="queue-title">Queue: temp</h2>
-          <div class="queue-items" id="queue-temp-find"></div>
+          <div class="queue-items" id="queue-temp-remove"></div>
           <div class="controls">
-            <input type="text" placeholder="Value" data-queue-input="temp-find" />
-            <button onclick="handleInsertFind('temp-find')">Insert</button>
-            <button onclick="handleRemoveFind('temp-find')">Remove</button>
-            <button onclick="handleTransferTempToQFind()">q.Insert(temp.Remove())</button>
+            <input type="text" placeholder="Value" data-queue-input="temp-remove" />
+            <button onclick="handleInsert('temp-remove')">Insert</button>
+            <button onclick="handleRemove('temp-remove')">Remove</button>
+            <!-- Fix 3: Replaced "Restore Elements" button -->
+            <button onclick="handleTransferTempToQRemove()">q.Insert(temp.Remove())</button>
           </div>
-          <div data-queue-error="temp-find" class="error"></div>
+          <div data-queue-error="temp-remove" class="error"></div>
         </div>
-  
-        <!-- Variable frame for 'found' -->
+
+        <!-- Variable frame for 'removed' -->
         <div class="variable-frame">
-          <label for="found-input">found</label>
-          <input type="text" id="found-input" readonly />
+          <label for="removed-input">removed</label>
+          <input type="text" id="removed-input" />
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Two separate queues: q, temp, and for the Find exercise: q-find, temp-find
+    // Initialize queues
     const queues = {
       q: { items: [] },
       temp: { items: [] },
       "q-find": { items: [] },
-      "temp-find": { items: [] }
+      "temp-find": { items: [] },
+      "q-remove": { items: [] },
+      "temp-remove": { items: [] }
     };
 
-    function getRandomColor() {
-      return `hsl(${Math.floor(0.85 * 360)}, 70%, 50%)`;
-    }
-
-    // Common queue operations for main section
+    // Common queue functions
     function handleInsert(id) {
       const input = document.querySelector(`[data-queue-input="${id}"]`);
       const value = input.value.trim();
       if (!value) {
-        showError(id, 'Please enter a value');
+        showError(id, 'נא להזין ערך');
         return;
       }
+      // Fix 1: Use a fixed color for all items
       const color = getRandomColor();
       queues[id].items.push({ value, color });
       renderPerson(id, value, color);
       input.value = '';
+    }
+
+    function handleRemove(id) {
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          queues[id].items.shift();
+          firstPerson.remove();
+        }, 300);
+      }
+    }
+
+    // --- Functions for Count widget transfers (used in the Count section) ---
+    function handleTransferQToTemp() {
+      const id = 'q';
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      const element = queues[id].items.shift();
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          firstPerson.remove();
+        }, 300);
+      }
+      queues['temp'].items.push(element);
+      renderPerson('temp', element.value, element.color);
+    }
+    function handleTransferTempToQ() {
+      const id = 'temp';
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      const element = queues[id].items.shift();
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          firstPerson.remove();
+        }, 300);
+      }
+      queues['q'].items.push(element);
+      renderPerson('q', element.value, element.color);
+    }
+
+    // --- Functions for Find exercise ---
+    function handleInsertFind(id) {
+      handleInsert(id);
+    }
+    function handleRemoveFind(id) {
+      handleRemove(id);
+    }
+    function handleTransferQToTempFind() {
+      const id = 'q-find';
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      const element = queues[id].items.shift();
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          firstPerson.remove();
+        }, 300);
+      }
+      queues['temp-find'].items.push(element);
+      renderPerson('temp-find', element.value, element.color);
+    }
+    function handleTransferTempToQFind() {
+      const id = 'temp-find';
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      const element = queues[id].items.shift();
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          firstPerson.remove();
+        }, 300);
+      }
+      queues['q-find'].items.push(element);
+      renderPerson('q-find', element.value, element.color);
+    }
+
+    // --- Functions for Remove exercise ---
+    function handleTransferQToTempRemove() {
+      const id = 'q-remove';
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      const element = queues[id].items.shift();
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          firstPerson.remove();
+        }, 300);
+      }
+      queues['temp-remove'].items.push(element);
+      renderPerson('temp-remove', element.value, element.color);
+    }
+    function handleTransferTempToQRemove() {
+      const id = 'temp-remove';
+      if (queues[id].items.length === 0) {
+        showError(id, 'התור ריק!');
+        return;
+      }
+      const container = document.querySelector(`#queue-${id}`);
+      const firstPerson = container.querySelector('.person:first-child');
+      const element = queues[id].items.shift();
+      if (firstPerson) {
+        firstPerson.classList.add('removing');
+        setTimeout(() => {
+          firstPerson.remove();
+        }, 300);
+      }
+      queues['q-remove'].items.push(element);
+      renderPerson('q-remove', element.value, element.color);
+    }
+
+    // Helper functions
+    // Fix 1: Always return the same color for all items
+    function getRandomColor() {
+      return '#4A90E2';
     }
 
     function renderPerson(id, value, color) {
@@ -441,156 +677,21 @@
       container.appendChild(person);
     }
 
-    function handleRemove(id) {
-      if (queues[id].items.length === 0) {
-        showError(id, 'Queue is empty!');
-        return;
-      }
-      const container = document.querySelector(`#queue-${id}`);
-      const firstPerson = container.querySelector('.person:first-child');
-      if (firstPerson) {
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues[id].items.shift();
-          firstPerson.remove();
-        }, 300);
-      }
-    }
-
-    function handleTransferQToTemp() {
-      if (queues.q.items.length === 0) {
-        showError('q', 'Queue is empty!');
-        return;
-      }
-      const containerQ = document.querySelector(`#queue-q`);
-      const firstPerson = containerQ.querySelector('.person:first-child');
-      if (firstPerson) {
-        const removedValue = firstPerson.textContent;
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues.q.items.shift();
-          firstPerson.remove();
-          const color = getRandomColor();
-          queues.temp.items.push({ value: removedValue, color: color });
-          renderPerson('temp', removedValue, color);
-        }, 300);
-      }
-    }
-
-    function handleTransferTempToQ() {
-      if (queues.temp.items.length === 0) {
-        showError('temp', 'Queue is empty!');
-        return;
-      }
-      const containerTemp = document.querySelector(`#queue-temp`);
-      const firstPerson = containerTemp.querySelector('.person:first-child');
-      if (firstPerson) {
-        const removedValue = firstPerson.textContent;
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues.temp.items.shift();
-          firstPerson.remove();
-          const color = getRandomColor();
-          queues.q.items.push({ value: removedValue, color: color });
-          renderPerson('q', removedValue, color);
-        }, 300);
-      }
-    }
-
-    // Functions for the Find exercise section
-    function handleInsertFind(id) {
-      const input = document.querySelector(`[data-queue-input="${id}"]`);
-      const value = input.value.trim();
-      if (!value) {
-        showError(id, 'Please enter a value');
-        return;
-      }
-      const color = getRandomColor();
-      queues[id].items.push({ value, color });
-      renderPerson(id, value, color);
-      input.value = '';
-    }
-
-    function handleRemoveFind(id) {
-      if (queues[id].items.length === 0) {
-        showError(id, 'Queue is empty!');
-        return;
-      }
-      const container = document.querySelector(`#queue-${id}`);
-      const firstPerson = container.querySelector('.person:first-child');
-      if (firstPerson) {
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues[id].items.shift();
-          firstPerson.remove();
-        }, 300);
-      }
-    }
-
-    function handleTransferQToTempFind() {
-      if (queues["q-find"].items.length === 0) {
-        showError('q-find', 'Queue is empty!');
-        return;
-      }
-      const container = document.querySelector(`#queue-q-find`);
-      const firstPerson = container.querySelector('.person:first-child');
-      if (firstPerson) {
-        const removedValue = firstPerson.textContent;
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues["q-find"].items.shift();
-          firstPerson.remove();
-          const color = getRandomColor();
-          queues["temp-find"].items.push({ value: removedValue, color: color });
-          const tempContainer = document.querySelector(`#queue-temp-find`);
-          const person = document.createElement('div');
-          person.className = 'person';
-          person.textContent = removedValue;
-          person.style.backgroundColor = color;
-          tempContainer.appendChild(person);
-        }, 300);
-      }
-    }
-
-    function handleTransferTempToQFind() {
-      if (queues["temp-find"].items.length === 0) {
-        showError('temp-find', 'Queue is empty!');
-        return;
-      }
-      const container = document.querySelector(`#queue-temp-find`);
-      const firstPerson = container.querySelector('.person:first-child');
-      if (firstPerson) {
-        const removedValue = firstPerson.textContent;
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues["temp-find"].items.shift();
-          firstPerson.remove();
-          const color = getRandomColor();
-          queues["q-find"].items.push({ value: removedValue, color: color });
-          const qContainer = document.querySelector(`#queue-q-find`);
-          const person = document.createElement('div');
-          person.className = 'person';
-          person.textContent = removedValue;
-          person.style.backgroundColor = color;
-          qContainer.appendChild(person);
-        }, 300);
-      }
-    }
-
-    // Error handling (common for all sections)
     function showError(id, message) {
       const errorContainer = document.querySelector(`[data-queue-error="${id}"]`);
       errorContainer.textContent = message;
       setTimeout(() => (errorContainer.textContent = ''), 2000);
     }
 
-    // Initialize main queue q with 3 numbers: 3, -1, 17
-    window.onload = function(){
+    // Initialize queues with default values
+    window.onload = function() {
       const initValues = ["3", "-1", "17"];
       initValues.forEach(val => {
         const color = getRandomColor();
-        queues.q.items.push({ value: val, color: color });
-        renderPerson('q', val, color);
+        ['q', 'q-find', 'q-remove'].forEach(queue => {
+          queues[queue].items.push({ value: val, color });
+          renderPerson(queue, val, color);
+        });
       });
     }
   </script>
