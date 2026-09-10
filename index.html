@@ -10,11 +10,16 @@
 @media(max-height:550px) and (min-width:701px){.wrap{padding:6px 12px}.goal{font-size:13px;margin-bottom:6px}.hint{font-size:11px;line-height:1.3;padding:6px}.sidebar{gap:6px}.level{padding:5px}.sidebar .label{display:none}.game{padding:6px}.under{min-height:16px}}
 .levels{grid-template-columns:1fr}.level{padding:9px 7px}.level strong{font-size:12px}.hint{background:transparent;padding:0}.hint p{padding:8px;background:#e8eadd;border-radius:4px;margin:6px 0 0}.hint p[hidden]{display:none}@media(max-width:700px){.levels{grid-template-columns:repeat(6,minmax(0,1fr))}.sidebar>div:first-child{grid-template-columns:1fr}.hint .small-btn{padding:4px 8px}.hint p{font-size:11px}.progress{display:none}.hint{display:flex;align-items:center;gap:6px}.hint p{margin:0;flex:1}.level{padding:6px}}
 .levels{grid-template-columns:repeat(2,minmax(0,1fr))}.level{padding:8px 5px}.level strong{font-size:11px}@media(max-width:700px){.levels{grid-template-columns:repeat(10,minmax(0,1fr))}.level{padding:6px 2px}.sidebar>div:first-child{grid-template-columns:1fr auto}.progress{display:block}.sidebar .chapter-label{display:none}}
+
+/* A mouse or trackpad must not hide controls on a touch-capable computer. */
+.dpad{flex-shrink:0}.dpad button{width:52px;height:48px;font-size:24px;touch-action:manipulation;user-select:none;-webkit-user-select:none}.dpad button:active{background:#cbd3b9;border-color:#6c8059}
+.touch-input .dpad{display:flex}.touch-input .small-btn,.touch-input .level,.touch-input #chapter,.touch-input .primary{min-height:44px;touch-action:manipulation}.touch-input .keys{display:none}
+@media(any-pointer:coarse){.dpad{display:flex}.small-btn,.level,#chapter,.primary{min-height:44px;touch-action:manipulation}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<p class="goal"><strong>המטרה: לאסוף את כל היצורים בנגיעה מהצד.</strong> <span>חצים לתנועה ולטיפוס; דחפו אבנים וחפרו אדמה כדי לפתוח דרך.</span></p>
+<p class="goal"><strong>המטרה: לאסוף את כל היצורים בנגיעה מהצד.</strong> <span>חצים במקלדת או כפתורי התנועה לתנועה ולטיפוס; דחפו אבנים וחפרו אדמה כדי לפתוח דרך.</span></p>
 <main>
 <div class="layout"><section aria-label="המשחק"><div class="game"><div class="game-top"><span class="live"><i class="dot"></i>שלב <span id="room">01</span></span><div class="stats"><span>צעדים <b id="moves">000</b></span><span>יצורים <b id="remaining">0 / 0</b></span></div></div><div class="screen"><canvas id="board" width="448" height="320" tabindex="0" aria-label="לוח קאטראפ. השתמשו בחצים לתנועה, במקש Z לביטול צעד ובמקש R להתחלה מחדש."></canvas><div class="overlay" id="overlay" hidden><div class="win"><div class="eyebrow">כל הכבוד!</div><h2 id="win-title">השלב הושלם!</h2><p id="win-text"></p><button class="primary" id="next">לשלב הבא ←</button></div></div></div><div class="game-bottom"><div class="actions"><button class="small-btn" id="undo">↶ צעד לאחור <kbd>Z</kbd></button><button class="small-btn" id="restart">↻ התחלה מחדש <kbd>R</kbd></button></div><span class="no-rush">בלי שעון. בקצב שלכם.</span></div></div><div class="under"><p class="status" id="status" role="status" aria-live="polite">הרפתקה קטנה מתחילה בצעד אחד.</p><span class="keys"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> לתנועה</span></div><div class="dpad" aria-label="כפתורי תנועה"><button data-dir="up" aria-label="תנועה למעלה">↑</button><button data-dir="left" aria-label="תנועה שמאלה">←</button><button data-dir="down" aria-label="תנועה למטה">↓</button><button data-dir="right" aria-label="תנועה ימינה">→</button></div></section>
 <aside class="sidebar"><div><p class="label">50 חידות · תכנון לפני תנועה</p><label class="chapter-label" for="chapter">בחירת קבוצת שלבים</label><select id="chapter"><option value="0">⁦1–10⁩ · יסודות ותכנון</option><option value="1">⁦11–20⁩ · מלאי מוגבל</option><option value="2">⁦21–30⁩ · מעברים תלויים</option><option value="3">⁦31–40⁩ · עומק וסדר</option><option value="4">⁦41–50⁩ · למומחים</option></select><p id="progress" class="progress" aria-live="polite"></p><div class="levels" id="levels"></div></div><div class="hint"><button id="hint-toggle" class="small-btn" aria-controls="hint" aria-expanded="false">הצגת רמז</button><p id="hint" hidden></p></div></aside></div>
@@ -1398,6 +1403,15 @@ const p=s.player;if(tile(s,p.x,p.y)!=='H'&&tile(s,p.x,p.y+1)===' '&&at(s.rocks,p
 function step(state,dir){if(!state.monsters.length)return null;const s=JSON.parse(JSON.stringify(state)),p=s.player;const [dx,dy]=({left:[-1,0],right:[1,0],up:[0,-1],down:[0,1]})[dir]||[0,0];if(!dx&&!dy)return null;const x=p.x+dx,y=p.y+dy,t=tile(s,x,y);if(t==='#')return null;if(dy===-1&&tile(s,p.x,p.y)!=='H')return null;if(dy===1&&tile(s,p.x,p.y)!=='H'&&t!=='H'&&t!=='D')return null;const r=at(s.rocks,x,y),m=at(s.monsters,x,y);if(m>=0){if(!dx)return null;s.monsters.splice(m,1);p.x=x;}else if(r>=0){if(!dx||tile(s,x+dx,y)!==' '||at(s.rocks,x+dx,y)>=0||at(s.monsters,x+dx,y)>=0)return null;s.rocks[r].x+=dx;}else if(t==='D'){s.terrain[y][x]=' ';}else{p.x=x;p.y=y;}s.moves++;return settle(s);}
 </script>
 <script>
+
+// maxTouchPoints also covers iPads with a trackpad and hybrid Windows laptops.
+const touchPointer=window.matchMedia('(any-pointer: coarse)');
+function updateTouchControls(){document.documentElement.classList.toggle('touch-input',navigator.maxTouchPoints>0||touchPointer.matches);}
+updateTouchControls();
+if(touchPointer.addEventListener)touchPointer.addEventListener('change',updateTouchControls);
+else if(touchPointer.addListener)touchPointer.addListener(updateTouchControls);
+window.addEventListener('pointerdown',event=>{if(event.pointerType==='touch')document.documentElement.classList.add('touch-input');},{passive:true});
+
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
 let current=0,chapter=0,state,history=[],completed=new Set();
 try{const saved=JSON.parse(localStorage.getItem('catrap-handcrafted-v1-completed')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(i=>Number.isInteger(i)&&i>=0&&i<LEVELS.length));const last=Number(localStorage.getItem('catrap-handcrafted-v1-current'));if(Number.isInteger(last)&&last>=0&&last<LEVELS.length)current=last;}catch{}
