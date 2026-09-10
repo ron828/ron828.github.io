@@ -1,450 +1,1027 @@
-<!DOCTYPE html>
-<html lang="he">
+<!doctype html>
+<html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מבנה נתונים: תור</title>
-  <style>
-    :root {
-      --primary: #4A90E2;
-      --background: #f8f9fa;
-      --text: #2d3436;
-      --error: #e74c3c;
-      --modal-bg: rgba(0, 0, 0, 0.5);
-      --success: #27ae60;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>קאטראפ — חתול קטן. אתגר גדול.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--paper:#f3f1e8;--ink:#292e27;--muted:#74786b;--orange:#e76b38;--line:#d9dace;--mono:'DM Mono',monospace}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Space Grotesk',sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible,a:focus-visible{outline:3px solid var(--orange);outline-offset:4px}button:disabled{opacity:.35;cursor:default}.wrap{max-width:1160px;margin:auto;padding:0 36px}header{height:98px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-weight:700;letter-spacing:-2px;font-size:29px;display:flex;gap:12px;align-items:center}.brand svg{width:32px;height:32px}.edition,.eyebrow,.label{font:11px var(--mono);letter-spacing:2px;text-transform:uppercase}.edition{color:var(--muted)}.edition span{color:var(--orange);margin-right:9px}main{padding:42px 0 24px}.intro{display:flex;justify-content:space-between;align-items:end;margin-bottom:30px}.eyebrow{color:var(--orange);margin:0 0 12px}h1{font-size:clamp(30px,4vw,46px);letter-spacing:-2px;line-height:1.1;margin:0}h1 span{color:var(--muted)}.intro>p{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 3px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px}.game{background:#e5e6d9;border:1px solid #c9ccba;border-radius:12px;padding:18px;box-shadow:0 5px 0 #dedfd2}.game-top{display:flex;justify-content:space-between;align-items:center;padding:0 2px 15px}.live{font:11px var(--mono);display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;background:#6c8059;border-radius:50%}.stats{font:11px var(--mono);color:#69715c;display:flex;gap:20px}.stats b{color:var(--ink)}.screen{position:relative;border:6px solid #363e2d;border-radius:5px;background:#bac795;overflow:hidden}canvas{display:block;width:100%;height:auto;image-rendering:pixelated;touch-action:none}.screen:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,#23332008 3px 4px)}.overlay{position:absolute;inset:0;background:#263123bd;display:flex;justify-content:center;align-items:center;text-align:center;z-index:2;padding:20px}.overlay[hidden]{display:none}.win{background:var(--paper);padding:28px;border-radius:8px;max-width:330px;box-shadow:6px 6px 0 #172417}.win h2{font-size:28px;letter-spacing:-1px;margin:10px 0}.win p{font-size:13px;line-height:1.6}.primary{background:var(--orange);border:0;border-radius:5px;padding:12px 22px;font-weight:600}.game-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:8px}.actions{display:flex;gap:8px}.small-btn{background:#f1f1e7;border:1px solid #c6cbb7;border-radius:5px;padding:9px 12px;font-size:12px}.small-btn:hover{background:white}.small-btn kbd{margin-left:10px;font-size:10px;color:var(--muted)}.no-rush{font:10px var(--mono);color:#6c735f}.sidebar .label{color:var(--muted);margin:4px 0 14px}.levels{display:grid;gap:9px}.level{display:flex;align-items:center;gap:13px;background:transparent;border:1px solid var(--line);border-radius:7px;text-align:left;padding:14px 12px;position:relative}.level.active{background:#faeee4;border-color:var(--orange)}.num{font:13px var(--mono);color:var(--muted);background:#e8e8df;border-radius:4px;padding:9px 7px}.active .num{color:white;background:var(--orange)}.level strong{font-size:13px;display:block;margin-bottom:4px}.level small{font-size:11px;color:var(--muted)}.check{margin-left:auto;color:var(--orange)}.how{margin-top:28px;border-top:1px solid var(--line);padding-top:21px}.rule{display:flex;align-items:center;gap:12px;margin:12px 0;font-size:12px;color:#646b5b}.icon{width:27px;height:27px;background:#e4e7d8;display:grid;place-items:center;border-radius:4px;font-size:18px;color:#52623b;font-family:monospace}.hint{margin-top:22px;background:#e8eadd;border-radius:7px;padding:15px;font-size:12px;line-height:1.7;color:#626b55}.hint b{font:10px var(--mono);display:block;color:#445138;letter-spacing:1px;margin-bottom:6px}.under{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:15px}.status{font-size:12px;color:var(--muted);min-height:18px;margin:0}.keys{font:11px var(--mono);white-space:nowrap;color:var(--muted)}kbd{font-family:var(--mono)}.keys kbd{display:inline-block;padding:5px 7px;border:1px solid var(--line);border-bottom-width:3px;border-radius:4px;color:var(--ink);margin-right:2px}footer{border-top:1px solid var(--line);margin-top:36px;padding:21px 0;display:flex;justify-content:space-between;font:10px var(--mono);color:#848879}.dpad{display:none;grid-template-columns:repeat(3,42px);gap:4px;justify-content:center;margin-top:20px}.dpad button{border:1px solid #bbc1ab;border-radius:6px;padding:10px;background:#e7e9dc}.dpad button:first-child{grid-column:2}.dpad button:nth-child(2){grid-column:1}@media(max-width:800px){.wrap{padding:0 20px}.layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:20px}.how{margin:0;padding:0;border:0}.hint{grid-column:1/-1;margin-top:0}.intro>p{display:none}.game{padding:12px}.dpad{display:grid}header{height:75px}.under{flex-wrap:wrap}.no-rush{display:none}footer{gap:20px;line-height:1.7}}@media(max-width:480px){.edition{letter-spacing:0;font-size:9px}.wrap{padding:0 12px}.sidebar{grid-template-columns:1fr}.how{display:none}.stats{gap:10px;font-size:10px}.game{padding:9px}.screen{border-width:4px}.intro{margin-bottom:23px}main{padding-top:30px}}
 
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--background);
-      color: var(--text);
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin: 0;
-    }
-	
-	h2 {
-	  font-size: 2rem;
-	  color: var(--primary);
-	  margin-bottom: 1rem;
-	}
-
-    .queue-container {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 2rem;
-      width: 80%;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .queue-title {
-      direction: rtl;
-      margin: 0 0 1.5rem 0;
-      color: var(--primary);
-      font-size: 1.5rem;
-      font-weight: 600;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--primary);
-    }
-
-    /* Arrow markers above and below the queue box */
-    .arrow {
-      width: 100%;
-      text-align: left;
-      font-size: 1.5em;
-      color: var(--primary);
-      user-select: none;
-    }
-    .arrow.top {
-      font-size: 2rem;
-    }
-
-    /* Adjusted so the queue area is just a bit larger than the name boxes */
-    .queue-items {
-      min-height: 45px;
-      display: flex;
-      gap: 0.6rem;
-      padding: 0.5rem;
-      overflow-x: auto;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      background: rgba(0, 0, 0, 0.02);
-    }
-
-    .person {
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
-      min-width: 120px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: slideIn 0.3s ease-out;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .person.removing {
-      animation: slideOut 0.3s ease-in forwards;
-    }
-
-    /* Highlight animation for the Head button */
-    @keyframes flash {
-      0%   { box-shadow: 0 0 0px 0px black; }
-      25%  { box-shadow: 0 0 20px 10px black; }
-      50%  { box-shadow: 0 0 0px 0px black; }
-      75%  { box-shadow: 0 0 20px 10px black; }
-      100% { box-shadow: 0 0 0px 0px black; }
-    }
-    .highlight {
-      animation: flash 1s ease-in-out;
-    }
-
-    .controls {
-      direction: rtl;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      align-items: center;
-    }
-
-    input {
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      font-size: 0.95rem;
-      transition: all 0.2s;
-    }
-
-    button {
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      border: none;
-      background: linear-gradient(to bottom, var(--primary), #357ABD);
-      color: white;
-      cursor: pointer;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-      opacity: 0.95;
-    }
-
-    .error {
-      color: var(--error);
-      font-size: 0.9rem;
-      margin-top: 0.8rem;
-      animation: shake 0.3s;
-      font-weight: 500;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideOut {
-      to {
-        transform: translateX(-30px);
-        opacity: 0;
-      }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      75% { transform: translateX(6px); }
-    }
-
-    /* Modal popup styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--modal-bg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .modal-overlay.active {
-      visibility: visible;
-      opacity: 1;
-    }
-    .modal {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .modal h1 {
-      margin: 0;
-      font-size: 2em;
-    }
-    .modal .icon {
-      font-size: 3em;
-      margin-bottom: 0.5em;
-    }
-	
-	img {
-		margin-top: 20px;
-		max-width: 70%;
-	}
-	
-	.fifo {
-		font-size: 1.5em;
-		color: var(--text);
-		padding: 2rem;
-		border-radius: 12px;
-		text-align: center;
-		box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-	}
-	
-    /* New styles for the comparison section */
-    .comparison-section {
-      width: 80%;
-      margin-top: 6rem;
-	  margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    .frames-container {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1rem;
-    }
-
-    .frame {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 1rem;
-      flex: 1;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .frame:hover {
-      transform: translateY(-3px);
-    }
-
-    .frame h3 {
-	  font-size: 1.3rem;
-      margin-top: 0;
-      color: var(--primary);
-    }
-
-    .frame p {
-      margin: 0.5rem 0 0;
-      font-size: 1.2rem;
-      color: var(--text);
-    }
-
-    .hidden-text, #hidden-img {
-      display: none;
-    }
-  </style>
+/* Hebrew UI follows reading order; the physical board and arrows stay LTR. */
+body{font-family:'Heebo',Arial,sans-serif}.brand{letter-spacing:-1px}.edition,.eyebrow,.label,.hint b{font-family:'Heebo',Arial,sans-serif;letter-spacing:.6px}h1,.win h2{letter-spacing:-1px}.live,.stats,.no-rush,.keys,footer{font-family:'Heebo',Arial,sans-serif}.level{text-align:right}.check{margin-left:0;margin-right:auto}.small-btn kbd{margin-left:0;margin-right:8px}.screen,.dpad{direction:ltr}.win{direction:rtl}.num,.stats b,#room{direction:ltr;unicode-bidi:isolate;display:inline-block}.keys kbd{direction:ltr}.chapter-label{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}#chapter{width:100%;font:13px 'Heebo',Arial,sans-serif;border:1px solid var(--line);border-radius:6px;padding:10px;background:var(--paper);color:var(--ink);cursor:pointer}.progress{font-size:11px;color:var(--muted);margin:10px 0}.levels{max-height:310px;overflow-y:auto;padding:3px;scrollbar-width:thin;scrollbar-color:#b7bea5 transparent}.level{padding:10px;min-height:64px}.how{margin-top:20px;padding-top:16px}.rule{line-height:1.5}.icon{flex-shrink:0}.small-btn{white-space:nowrap}.hint{margin-top:16px}.edition span{margin-right:0;margin-left:8px}select:focus-visible{outline:3px solid var(--orange);outline-offset:3px}@media(max-width:480px){.game-bottom{flex-wrap:wrap}.small-btn{padding:8px;font-size:11px}.edition{font-size:10px}.levels{max-height:265px}}
+</style>
 </head>
 <body>
-  <h1>מבנה נתונים: תור</h1>
-  
-  <img src="image_people_q.png" alt="תמונת אנשים בתור"/>
-  <div class="queue-container" data-queue-id="1">
-    <!-- חץ לכיוון התור -->
-    <div class="arrow top">ראש התור</div>
-    <div class="queue-items" id="queue-1"></div>
-    <div class="controls">
-      <input type="text" placeholder="שם" data-queue-input="1" />
-      <button onclick="handleInsert(1)">הכנסה</button>
-      <button onclick="handleRemove(1)">הסרה</button>
-      <button onclick="handleHead(1)">מי בראש התור</button>
-      <button onclick="handleIsEmpty(1)">ריק?</button>
-    </div>
-    <div data-queue-error="1" class="error"></div>
-  </div>
-  
-  <!-- חלון מוקפץ לשגיאות ותוצאות בדיקת ריק -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal">
-      <div class="icon" id="modal-icon">❌</div>
-      <h1 id="modal-message">שגיאה</h1>
-    </div>
-  </div>
-  
-  <!-- New section: מחסנית לעומת תור -->
-  <div class="comparison-section">
-    <h2>מחסנית לעומת תור</h2>
-    <div class="frames-container">
-      <div class="frame" id="stack-frame">
-        <h3>מחסנית</h3>
-        <p>LIFO: last in, first out</p>
-      </div>
-      <div class="frame" id="queue-frame" onclick="toggleQueueText()">
-        <h3>תור</h3>
-        <p class="hidden-text">FIFO: first in, first out</p>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<header><div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e76b38" d="M2 2h5v3h10V2h5v17h-3v3H5v-3H2z"/><path fill="#f3f1e8" d="M6 10h3v4H6zm9 0h3v4h-3zm-5 6h4v3h-4z"/></svg>קאטראפ</div><div class="edition"><span>●</span> מסע קטן של חידות</div></header>
+<main>
+<div class="intro"><div><p class="eyebrow">בהשראת פיטמן / מאז 1985</p><h1>חתול קטן.<br><span>אתגר גדול.</span></h1></div><p>50 שלבים. מסע שהולך ומאתגר.<br>תמיד אפשר לחשוב שוב — ולחזור צעד לאחור.</p></div>
+<div class="layout"><section aria-label="המשחק"><div class="game"><div class="game-top"><span class="live"><i class="dot"></i>שלב <span id="room">01</span></span><div class="stats"><span>צעדים <b id="moves">000</b></span><span>יצורים <b id="remaining">0 / 0</b></span></div></div><div class="screen"><canvas id="board" width="448" height="320" tabindex="0" aria-label="לוח קאטראפ. השתמשו בחצים לתנועה, במקש Z לביטול צעד ובמקש R להתחלה מחדש."></canvas><div class="overlay" id="overlay" hidden><div class="win"><div class="eyebrow">כל הכבוד!</div><h2 id="win-title">השלב הושלם!</h2><p id="win-text"></p><button class="primary" id="next">לשלב הבא ←</button></div></div></div><div class="game-bottom"><div class="actions"><button class="small-btn" id="undo">↶ צעד לאחור <kbd>Z</kbd></button><button class="small-btn" id="restart">↻ התחלה מחדש <kbd>R</kbd></button></div><span class="no-rush">בלי שעון. בקצב שלכם.</span></div></div><div class="under"><p class="status" id="status" role="status" aria-live="polite">הרפתקה קטנה מתחילה בצעד אחד.</p><span class="keys"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> לתנועה</span></div><div class="dpad" aria-label="כפתורי תנועה"><button data-dir="up" aria-label="תנועה למעלה">↑</button><button data-dir="left" aria-label="תנועה שמאלה">←</button><button data-dir="down" aria-label="תנועה למטה">↓</button><button data-dir="right" aria-label="תנועה ימינה">→</button></div></section>
+<aside class="sidebar"><div><p class="label">המסע / 50 שלבים</p><label class="chapter-label" for="chapter">בחירת קבוצת שלבים</label><select id="chapter"><option value="0">⁦1–10⁩ · מתחילים</option><option value="1">⁦11–20⁩ · מתקדמים</option><option value="2">⁦21–30⁩ · מאתגרים</option><option value="3">⁦31–40⁩ · קשים</option><option value="4">⁦41–50⁩ · למומחים</option></select><p id="progress" class="progress" aria-live="polite"></p><div class="levels" id="levels"></div></div><div class="how"><p class="label">איך משחקים?</p><div class="rule"><span class="icon">♧</span>נוגעים ביצורים מהצד כדי לאסוף אותם.</div><div class="rule"><span class="icon">▤</span>מטפסים בסולמות. אי אפשר לקפוץ.</div><div class="rule"><span class="icon">▣</span>דוחפים אבנים כדי ליצור מעבר.</div><div class="rule"><span class="icon">░</span>חופרים אדמה בלחיצה לכיוונה.</div><div class="rule"><span class="icon">↶</span>נתקעתם? אפשר לבטל כל צעד.</div></div><div class="hint"><b>רמז לדרך</b><span id="hint"></span></div></aside></div>
+</main><footer><span>מחווה למשחקי החשיבה של פעם.</span><span>50 שלבים · אינסוף הזדמנויות לנסות שוב</span></footer>
+</div>
+<script id="engine">
+const LEVELS=[
+  {
+    "name": "צעדים ראשונים",
+    "sub": "צעדים ראשונים",
+    "hint": "אספו את היצור בקומה התחתונה, ואז עלו בסולם. נוגעים ביצורים רק מהצד.",
+    "map": [
+      "##############",
+      "#            #",
+      "#            #",
+      "#            #",
+      "#     G  G   #",
+      "####H#########",
+      "#   H        #",
+      "#   H        #",
+      "# P H    G   #",
+      "##############"
+    ]
+  },
+  {
+    "name": "מעל התהום",
+    "sub": "צעדים ראשונים",
+    "hint": "דחפו את האבן לתוך הפער כדי ליצור גשר. הדחיפה מזיזה את האבן; הצעד הבא מזיז את החתול.",
+    "map": [
+      "##############",
+      "#            #",
+      "#            #",
+      "#            #",
+      "#            #",
+      "#            #",
+      "# P B    G G #",
+      "###### #######",
+      "#     #      #",
+      "##############"
+    ]
+  },
+  {
+    "name": "עמוק באדמה",
+    "sub": "צעדים ראשונים",
+    "hint": "העבירו את האבן ואספו את היצור למעלה לפני החפירה. לחצו למטה כדי לחפור את פתח הירידה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#            #",
+      "# P B     G  #",
+      "###### ##D####",
+      "# G  H#      #",
+      "#####H###D####",
+      "#    H       #",
+      "# G  H     G #",
+      "##############"
+    ]
+  },
+  {
+    "name": "סיבוב קטן",
+    "sub": "צעדים ראשונים",
+    "hint": "תכננו את סדר הביקור במפלסים. פתח באדמה עשוי לקצר את הדרך, אבל גם לסגור את הדרך חזרה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#    G      P#",
+      "########HH####",
+      "########HH####",
+      "#GD     HH   #",
+      "######H###H###",
+      "######H###H###",
+      "#G    H   H  #",
+      "##############"
+    ],
+    "difficulty": 54
+  },
+  {
+    "name": "שני כיוונים",
+    "sub": "צעדים ראשונים",
+    "hint": "תכננו את סדר הביקור במפלסים. פתח באדמה עשוי לקצר את הדרך, אבל גם לסגור את הדרך חזרה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#   P       G#",
+      "#########H#H##",
+      "#########H#H##",
+      "# G      H H #",
+      "#######H##H###",
+      "#######H##H###",
+      "#G D   H  H  #",
+      "##############"
+    ],
+    "difficulty": 56
+  },
+  {
+    "name": "בין הסולמות",
+    "sub": "צעדים ראשונים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#PB  G D     #",
+      "##H# #########",
+      "##H###########",
+      "# H       GD #",
+      "##H###########",
+      "##H###########",
+      "# HG   G D   #",
+      "##############"
+    ],
+    "difficulty": 64
+  },
+  {
+    "name": "מעבר נסתר",
+    "sub": "צעדים ראשונים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G B   GG GD  D#",
+      "##H## #######D##",
+      "##H########## ##",
+      "# H   PD   G G #",
+      "##H#########D###",
+      "##H######### ###",
+      "# H   D D      #",
+      "################"
+    ],
+    "difficulty": 69
+  },
+  {
+    "name": "ביקור חוזר",
+    "sub": "צעדים ראשונים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "# B  G   D GG#",
+      "#### ###H#####",
+      "########H#####",
+      "#D      H   G#",
+      "####H#########",
+      "####H#########",
+      "#   H     DP #",
+      "##############"
+    ],
+    "difficulty": 70
+  },
+  {
+    "name": "בחירת מסלול",
+    "sub": "צעדים ראשונים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#    G      B D#",
+      "########D# ##H##",
+      "######## ####H##",
+      "#   G G    G H #",
+      "#####H##########",
+      "#####H##########",
+      "#DDD H G DP G  #",
+      "################"
+    ],
+    "difficulty": 70
+  },
+  {
+    "name": "סוף ההתחלה",
+    "sub": "צעדים ראשונים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#D B  G G    #",
+      "###D# ####H###",
+      "### ######H###",
+      "#     P   HD #",
+      "####H#########",
+      "####H#########",
+      "#   H G D GDG#",
+      "##############"
+    ],
+    "difficulty": 71
+  },
+  {
+    "name": "אבן בדרך",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#  D D G  B G#",
+      "######## ##H##",
+      "###########H##",
+      "#P  G   D  H #",
+      "#######D###H##",
+      "####### ###H##",
+      "# G G D    H #",
+      "##############"
+    ],
+    "difficulty": 73
+  },
+  {
+    "name": "גשר ראשון",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#  DP   B   G#",
+      "##H####D## ###",
+      "##H#### ######",
+      "# H GG G D   #",
+      "######D###H###",
+      "###### ###H###",
+      "#      D DHG #",
+      "##############"
+    ],
+    "difficulty": 73
+  },
+  {
+    "name": "מעבר צר",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#G G  B G  DD#",
+      "#### ###D##H##",
+      "######## ##H##",
+      "#     P DG HD#",
+      "###D#####H####",
+      "### #####H####",
+      "#    G   H   #",
+      "##############"
+    ],
+    "difficulty": 74
+  },
+  {
+    "name": "צעד מחושב",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#  G  G     G#",
+      "########H#H###",
+      "########H#H###",
+      "# P    DHBH  #",
+      "######H H#####",
+      "######H#H#####",
+      "#     HDHD  G#",
+      "##############"
+    ],
+    "difficulty": 74
+  },
+  {
+    "name": "לעלות כדי לרדת",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#P  G B   D G#",
+      "####H### #####",
+      "####H#########",
+      "#   HG       #",
+      "##H###########",
+      "##H###########",
+      "# HD     G D #",
+      "##############"
+    ],
+    "difficulty": 74
+  },
+  {
+    "name": "חדר צדדי",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G BD DG  G P  #",
+      "##H## ###D######",
+      "##H###### ######",
+      "# H   DG   GD  #",
+      "##H#########D###",
+      "##H######### ###",
+      "# H     G  D   #",
+      "################"
+    ],
+    "difficulty": 76
+  },
+  {
+    "name": "סיבוב נוסף",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#G        G  #",
+      "########H#H###",
+      "########H#H###",
+      "#    B  HPH G#",
+      "##H ###H######",
+      "##H####H######",
+      "#GH D  H D D #",
+      "##############"
+    ],
+    "difficulty": 77
+  },
+  {
+    "name": "לא להשאיר מאחור",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#    D B  G   G  #",
+      "##### ###H##H#D###",
+      "#########H##H# ###",
+      "#      G H DH    #",
+      "######H####H#D####",
+      "######H####H# ####",
+      "#D G GH G  H    D#",
+      "##DH########H#####",
+      "## H########H#####",
+      "#  H PD  G DH    #",
+      "##################"
+    ],
+    "difficulty": 78
+  },
+  {
+    "name": "שביל מתפתל",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#  GDB  D   G#",
+      "##H#### #D####",
+      "##H###### ####",
+      "# H D G  GG  #",
+      "##H#D#########",
+      "##H# #########",
+      "#PH      D   #",
+      "##############"
+    ],
+    "difficulty": 78
+  },
+  {
+    "name": "קצה המסלול",
+    "sub": "אבנים ומעברים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G D      B    #",
+      "##H##D###### ###",
+      "##H## ##########",
+      "# H G G D P  G #",
+      "######H#####D###",
+      "######H##### ###",
+      "#     HD  G GDD#",
+      "################"
+    ],
+    "difficulty": 79
+  },
+  {
+    "name": "חפירה זהירה",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#  D B     G #",
+      "##H#### ###D##",
+      "##H######## ##",
+      "#DH  G G DP G#",
+      "########H#####",
+      "########H#####",
+      "#    GD H    #",
+      "##############"
+    ],
+    "difficulty": 79
+  },
+  {
+    "name": "מפלס נוסף",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "# D     B  G #",
+      "######H### ###",
+      "######H#######",
+      "#G   DH      #",
+      "##########H###",
+      "##########H###",
+      "# G   P D HG #",
+      "##############"
+    ],
+    "difficulty": 80
+  },
+  {
+    "name": "סודות באדמה",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#    D D P       #",
+      "#########DH#######",
+      "######### H#######",
+      "#    G    H      #",
+      "##############H###",
+      "##############H###",
+      "# DB   DG  GD H  #",
+      "###D# H###########",
+      "### ##H###########",
+      "# D   H   G  GG G#",
+      "##################"
+    ],
+    "difficulty": 80
+  },
+  {
+    "name": "לפני הנפילה",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#  GDG  B    DG#",
+      "##H######D #####",
+      "##H###### ######",
+      "# HG       P  G#",
+      "####D#####H#####",
+      "#### #####H#####",
+      "#D       GHD  D#",
+      "################"
+    ],
+    "difficulty": 81
+  },
+  {
+    "name": "אבן וסולם",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "# B    D     P  D#",
+      "#### #########H###",
+      "##############H###",
+      "# B   GGD     H  #",
+      "###D ###H#########",
+      "### ####H#########",
+      "#G     GH G   D D#",
+      "##D#######H#######",
+      "## #######H#######",
+      "#     D   H  GG  #",
+      "##################"
+    ],
+    "difficulty": 83
+  },
+  {
+    "name": "פגישה בקומה",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#D G  B     D#",
+      "#### ####HD###",
+      "#########H ###",
+      "#    G PDH   #",
+      "#########D#H##",
+      "######### #H##",
+      "# G G GD   H #",
+      "##############"
+    ],
+    "difficulty": 83
+  },
+  {
+    "name": "הדרך הארוכה",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#D     G  B G#",
+      "######D# ##H##",
+      "###### ####H##",
+      "# D G      HD#",
+      "#######H#D####",
+      "#######H# ####",
+      "#GD    H  P G#",
+      "##############"
+    ],
+    "difficulty": 84
+  },
+  {
+    "name": "חזרה למעלה",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#D   B DG   G#",
+      "##D #####H####",
+      "## ######H####",
+      "#   G D GH   #",
+      "#########D#H##",
+      "######### #H##",
+      "# G     D  HP#",
+      "##############"
+    ],
+    "difficulty": 84
+  },
+  {
+    "name": "לפתוח מעבר",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#    B      G#",
+      "##H#### ######",
+      "##H###########",
+      "# HP G D     #",
+      "##H#D#########",
+      "##H# #########",
+      "# H   DDDGGG #",
+      "##############"
+    ],
+    "difficulty": 85
+  },
+  {
+    "name": "חצי הדרך ומעבר",
+    "sub": "חפירות ומפלסים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G D P B  D GG #",
+      "######### ##H###",
+      "############H###",
+      "#D  G       H  #",
+      "##H#D###########",
+      "##H# ###########",
+      "#GH   DG    D  #",
+      "################"
+    ],
+    "difficulty": 86
+  },
+  {
+    "name": "שתי החלטות",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#    G   G  B  #",
+      "########D# ##H##",
+      "######## ####H##",
+      "# DG   G     H #",
+      "#####H#######D##",
+      "#####H####### ##",
+      "#G   HGDDD  P D#",
+      "################"
+    ],
+    "difficulty": 87
+  },
+  {
+    "name": "מבוך קטן",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#  D   D  B  G #",
+      "####H####D## ###",
+      "####H#### ######",
+      "#  GH  GG    G #",
+      "####H###D#######",
+      "####H### #######",
+      "#D  H D GDP    #",
+      "################"
+    ],
+    "difficulty": 88
+  },
+  {
+    "name": "סדר פעולות",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "# P  G B    D D#",
+      "###H# ##D#######",
+      "###H#### #######",
+      "#  H  D    D   #",
+      "#####D#######H##",
+      "##### #######H##",
+      "#    G DGGGG H #",
+      "################"
+    ],
+    "difficulty": 88
+  },
+  {
+    "name": "קרקע לא בטוחה",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#      G    G B D#",
+      "########H### #H###",
+      "########H#####H###",
+      "# DD    H     H  #",
+      "###D##H#######H###",
+      "### ##H#######H###",
+      "#D  P H   G G H  #",
+      "###H####D#####H###",
+      "###H#### #####H###",
+      "# GH   DGGD   H  #",
+      "##################"
+    ],
+    "difficulty": 88
+  },
+  {
+    "name": "מסלול כפול",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G G G      B D#",
+      "########## #DH##",
+      "############ H##",
+      "#      PD  D HD#",
+      "#####D#####H####",
+      "##### #####H####",
+      "#G    D   GHG  #",
+      "################"
+    ],
+    "difficulty": 89
+  },
+  {
+    "name": "המעבר האחרון",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#    B         #",
+      "### ####D##H####",
+      "######## ##H####",
+      "# G   G P  H   #",
+      "#########D###H##",
+      "######### ###H##",
+      "#GD  DGGD  DDHG#",
+      "################"
+    ],
+    "difficulty": 90
+  },
+  {
+    "name": "אבנים וסודות",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#  G   DB   G  #",
+      "##H####### ##D##",
+      "##H########## ##",
+      "#DH   D        #",
+      "####D###H#######",
+      "#### ###H#######",
+      "#G  DG GHG D  P#",
+      "################"
+    ],
+    "difficulty": 91
+  },
+  {
+    "name": "קודם למעלה",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "# DB  P     D G#",
+      "##### H##D######",
+      "######H## ######",
+      "#    GH  D D   #",
+      "############H###",
+      "############H###",
+      "#GG       DGHG #",
+      "################"
+    ],
+    "difficulty": 92
+  },
+  {
+    "name": "לחשוב פעמיים",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#    B  G D D G#",
+      "### D########H##",
+      "#### ########H##",
+      "#  P  G      H #",
+      "#########D###H##",
+      "######### ###H##",
+      "# G  G DGDD  H #",
+      "################"
+    ],
+    "difficulty": 93
+  },
+  {
+    "name": "בין המפלסים",
+    "sub": "תכנון מסלול",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##############",
+      "#            #",
+      "#     D   G  #",
+      "##H#######H###",
+      "##H#######H###",
+      "#PH G B   H  #",
+      "#### #HH######",
+      "######HH######",
+      "#  G DHH   GD#",
+      "##############"
+    ],
+    "difficulty": 95
+  },
+  {
+    "name": "תוכנית מראש",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G  B   D DGD  #",
+      "##H##D #########",
+      "##H## ##########",
+      "# H  D P   G   #",
+      "####H###D#######",
+      "####H### #######",
+      "#   H G    DG G#",
+      "################"
+    ],
+    "difficulty": 96
+  },
+  {
+    "name": "כל צעד קובע",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#  B    DP  G  #",
+      "####H ##########",
+      "####H###########",
+      "#   H D  D   GG#",
+      "##H#####D#######",
+      "##H##### #######",
+      "#GH GD  GD     #",
+      "################"
+    ],
+    "difficulty": 96
+  },
+  {
+    "name": "דרך ללא חזרה",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#G   P   BD D    #",
+      "#####H# ######D###",
+      "#####H######## ###",
+      "#  G H        B  #",
+      "#####D###### ##H##",
+      "##### #########H##",
+      "#DG      D B   HG#",
+      "##D###### ###H####",
+      "## ##########H####",
+      "#   G G  D  GH D #",
+      "##################"
+    ],
+    "difficulty": 97
+  },
+  {
+    "name": "חידת הסולמות",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#P GG G  D D     #",
+      "#####H#########H##",
+      "#####H#########H##",
+      "#G  DHDG      BH #",
+      "########DHH# #####",
+      "######## HH#######",
+      "# G  B   HH   G  #",
+      "### #H########HD##",
+      "#####H########H ##",
+      "#  D H       DH  #",
+      "##################"
+    ],
+    "difficulty": 98
+  },
+  {
+    "name": "חשבון אבנים",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#  D       D G G #",
+      "##H############D##",
+      "##H############ ##",
+      "#GH P      G     #",
+      "########D#H#######",
+      "######## #H#######",
+      "#  DGDB   H D    #",
+      "##H##### ##D######",
+      "##H######## ######",
+      "# H      G  G  D #",
+      "##################"
+    ],
+    "difficulty": 100
+  },
+  {
+    "name": "סיור יסודי",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#G       P   D   #",
+      "###D######H#######",
+      "### ######H#######",
+      "#G        HDD    #",
+      "######H#######D###",
+      "######H####### ###",
+      "# B   H    D    G#",
+      "##H# ######D######",
+      "##H######## ######",
+      "#DH   G  G  GG  D#",
+      "##################"
+    ],
+    "difficulty": 101
+  },
+  {
+    "name": "לפני הסיום",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#  D D      B    #",
+      "#####DH### H######",
+      "##### H####H######",
+      "#  DG HB   H  D  #",
+      "##H## ########H###",
+      "##H###########H###",
+      "# H      GP  DH G#",
+      "####H##D##H#######",
+      "####H## ##H#######",
+      "#G GH D G H  G   #",
+      "##################"
+    ],
+    "difficulty": 104
+  },
+  {
+    "name": "האתגר הגדול",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "################",
+      "#              #",
+      "#G P   G B    G#",
+      "######H#### #D##",
+      "######H###### ##",
+      "#     HG      D#",
+      "####D#####H#####",
+      "#### #####H#####",
+      "#G  D    DHDD G#",
+      "################"
+    ],
+    "difficulty": 105
+  },
+  {
+    "name": "כמעט בבית",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#   GDG      B   #",
+      "#######D### ###H##",
+      "####### #######H##",
+      "#  GGG D  D    H #",
+      "######D########H##",
+      "###### ########H##",
+      "#      G     B HG#",
+      "###D####### ###H##",
+      "### ###########H##",
+      "#DD P     D    H #",
+      "##################"
+    ],
+    "difficulty": 113
+  },
+  {
+    "name": "אלוף המבוך",
+    "sub": "אתגר למומחים",
+    "hint": "בדקו היכן האבנים צריכות ליפול לפני הדחיפה. אספו יצורים בכל מפלס לפני שאתם פותחים ירידה חדשה.",
+    "map": [
+      "##################",
+      "#                #",
+      "#D G   B    G D  #",
+      "####D #########H##",
+      "#### ##########H##",
+      "#      P   B G H #",
+      "###D##### #####H##",
+      "### ###########H##",
+      "#      D   G B H #",
+      "##########D ###H##",
+      "########## ####H##",
+      "#D  GG      DDGH #",
+      "##################"
+    ],
+    "difficulty": 135
+  }
+];
+function initialState(i){const terrain=LEVELS[i].map.map(r=>r.split(''));let player;const rocks=[],monsters=[];terrain.forEach((row,y)=>row.forEach((c,x)=>{if(c==='P'){player={x,y};terrain[y][x]=' ';}if(c==='B'){rocks.push({x,y});terrain[y][x]=' ';}if(c==='G'){monsters.push({x,y});terrain[y][x]=' ';}}));return {terrain,player,rocks,monsters,moves:0};}
+const at=(items,x,y)=>items.findIndex(o=>o.x===x&&o.y===y);
+const tile=(s,x,y)=>s.terrain[y]?.[x]??'#';
+function settle(s){for(let n=0;n<140;n++){let changed=false;for(const r of [...s.rocks].sort((a,b)=>b.y-a.y)){if(tile(s,r.x,r.y+1)===' '&&at(s.rocks,r.x,r.y+1)<0&&at(s.monsters,r.x,r.y+1)<0&&!(s.player.x===r.x&&s.player.y===r.y+1)){r.y++;changed=true;}}
+const p=s.player;if(tile(s,p.x,p.y)!=='H'&&tile(s,p.x,p.y+1)===' '&&at(s.rocks,p.x,p.y+1)<0&&at(s.monsters,p.x,p.y+1)<0){p.y++;changed=true;}if(!changed)break;}return s;}
+function step(state,dir){if(!state.monsters.length)return null;const s=JSON.parse(JSON.stringify(state)),p=s.player;const [dx,dy]=({left:[-1,0],right:[1,0],up:[0,-1],down:[0,1]})[dir]||[0,0];if(!dx&&!dy)return null;const x=p.x+dx,y=p.y+dy,t=tile(s,x,y);if(t==='#')return null;if(dy===-1&&tile(s,p.x,p.y)!=='H')return null;if(dy===1&&tile(s,p.x,p.y)!=='H'&&t!=='H'&&t!=='D')return null;const r=at(s.rocks,x,y),m=at(s.monsters,x,y);if(m>=0){if(!dx)return null;s.monsters.splice(m,1);p.x=x;}else if(r>=0){if(!dx||tile(s,x+dx,y)!==' '||at(s.rocks,x+dx,y)>=0||at(s.monsters,x+dx,y)>=0)return null;s.rocks[r].x+=dx;}else if(t==='D'){s.terrain[y][x]=' ';}else{p.x=x;p.y=y;}s.moves++;return settle(s);}
+</script>
+<script>
+const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+let current=0,chapter=0,state,history=[],completed=new Set();
+try{const saved=JSON.parse(localStorage.getItem('catrap-completed')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(i=>Number.isInteger(i)&&i>=0&&i<LEVELS.length));const last=Number(localStorage.getItem('catrap-current'));if(Number.isInteger(last)&&last>=0&&last<LEVELS.length)current=last;}catch{}
+const sprites={cat:['1100000011','1110000111','1111111111','1111111111','1101101011','1101101011','1111001111','0111111110','0011111100','0110110110'],ghost:['0001111000','0011111100','0111111110','1111111111','1100110011','1100110011','1111111111','1111111111','1111111111','1101101101']};
+function sprite(pattern,x,y,color,scale=2){ctx.fillStyle=color;pattern.forEach((row,j)=>[...row].forEach((c,i)=>{if(c==='1')ctx.fillRect(x+i*scale,y+j*scale,scale,scale);}));}
+function draw(){ctx.fillStyle='#b9c797';ctx.fillRect(0,0,canvas.width,canvas.height);for(let y=0;y<state.terrain.length;y++)for(let x=0;x<state.terrain[y].length;x++){const px=x*32,py=y*32,t=tile(state,x,y);ctx.fillStyle='#b1c08e';ctx.fillRect(px+15,py+15,1,1);if(t==='#'){ctx.fillStyle='#566b42';ctx.fillRect(px,py,32,32);ctx.fillStyle='#6e8051';ctx.fillRect(px+1,py+1,30,2);ctx.fillStyle='#3d5434';ctx.fillRect(px,py+29,32,3);ctx.fillRect(px+15,py+2,2,13);ctx.fillRect(px,py+14,32,2);ctx.fillRect(px+5,py+16,2,13);}if(t==='H'){ctx.fillStyle='#50633a';ctx.fillRect(px+7,py,3,32);ctx.fillRect(px+22,py,3,32);for(let j=4;j<32;j+=8)ctx.fillRect(px+10,py+j,12,3);}if(t==='D'){ctx.fillStyle='#7f8b50';ctx.fillRect(px+1,py+1,30,30);ctx.fillStyle='#53643a';for(let j=4;j<30;j+=7)for(let i=4;i<30;i+=7)ctx.fillRect(px+i+(j%2)*2,py+j,3,2);}}
+for(const r of state.rocks){const x=r.x*32,y=r.y*32;ctx.fillStyle='#344d32';ctx.fillRect(x+3,y+3,26,26);ctx.fillStyle='#899866';ctx.fillRect(x+5,y+5,22,20);ctx.fillStyle='#b7c18a';ctx.fillRect(x+6,y+5,18,3);ctx.fillRect(x+5,y+5,3,17);ctx.fillStyle='#64784c';ctx.fillRect(x+10,y+12,12,3);ctx.fillRect(x+18,y+15,4,7);}
+for(const m of state.monsters){sprite(sprites.ghost,m.x*32+6,m.y*32+10,'#435b35');ctx.fillStyle='#dce4b3';ctx.fillRect(m.x*32+10,m.y*32+18,2,4);ctx.fillRect(m.x*32+18,m.y*32+18,2,4);}
+sprite(sprites.cat,state.player.x*32+6,state.player.y*32+10,'#243f2c');ctx.fillStyle='#d9e5ac';ctx.fillRect(state.player.x*32+12,state.player.y*32+18,2,4);ctx.fillRect(state.player.x*32+20,state.player.y*32+18,2,4);
 
-	<a href="/API.html" style="margin-top: 100px">API</a>
-  <script>
-    const queues = {
-      1: { items: [] }
-    };
-
-    function getRandomColor() {
-      return `hsl(${Math.random() * 360}, 70%, 50%)`;
-    }
-    
-    function getRandomPersonEmoji() {
-      const personEmojis = ['👨', '👩', '🧑', '👴', '👵', '👦', '👧'];
-      return personEmojis[Math.floor(Math.random() * personEmojis.length)];
-    }
-
-    function handleInsert(queueId) {
-      const input = document.querySelector(`[data-queue-input="${queueId}"]`);
-      const name = input.value.trim();
-
-      // במידה ולא הוזן שם, מציגים שגיאה
-      if (!name) {
-        showError(queueId, 'אנא הזן שם');
-        return;
-      }
-
-      const color = getRandomColor();
-      queues[queueId].items.push({ name, color });
-      renderPerson(queueId, name, color);
-      input.value = '';
-      clearError(queueId);
-    }
-
-    function renderPerson(queueId, name, color) {
-      const container = document.querySelector(`#queue-${queueId}`);
-      const person = document.createElement('div');
-      person.className = 'person';
-      // מוסיף אמוג'י אקראי לצד השם
-      person.textContent = name + " " + getRandomPersonEmoji();
-      person.style.backgroundColor = color;
-      container.appendChild(person);
-    }
-
-    function handleRemove(queueId) {
-      if (queues[queueId].items.length === 0) {
-        showError(queueId, 'התור ריק!');
-        showModalError("שגיאה", "❌");
-        return;
-      }
-
-      const container = document.querySelector(`#queue-${queueId}`);
-      const firstPerson = container.querySelector('.person:first-child');
-
-      if (firstPerson) {
-        firstPerson.classList.add('removing');
-        setTimeout(() => {
-          queues[queueId].items.shift();
-          firstPerson.remove();
-        }, 250);
-      }
-    }
-
-    function handleHead(queueId) {
-      const container = document.querySelector(`#queue-${queueId}`);
-      const firstPerson = container.querySelector('.person:first-child');
-
-      if (!firstPerson) {
-        showError(queueId, 'התור ריק!');
-        showModalError("שגיאה", "❌");
-        return;
-      }
-
-      firstPerson.classList.add('highlight');
-      setTimeout(() => {
-        firstPerson.classList.remove('highlight');
-      }, 1000);
-    }
-
-    function handleIsEmpty(queueId) {
-      const isEmpty = queues[queueId].items.length === 0;
-      if(isEmpty) {
-        showModalMessage("ריק", "✅");
-      } else {
-        showModalMessage("לא ריק", "ℹ️");
-      }
-    }
-
-    function showError(queueId, message) {
-      const errorContainer = document.querySelector(`[data-queue-error="${queueId}"]`);
-      errorContainer.textContent = message;
-      setTimeout(() => (errorContainer.textContent = ''), 2000);
-    }
-
-    function clearError(queueId) {
-      document.querySelector(`[data-queue-error="${queueId}"]`).textContent = '';
-    }
-
-    // מציג חלון מוקפץ לשגיאות או לתוצאות
-    function showModalError(message, icon) {
-      showModalMessage(message, icon);
-    }
-
-    // מציג חלון מוקפץ עם הודעה ואיקון מותאם אישית.
-    function showModalMessage(message, icon) {
-      const modal = document.getElementById('modal');
-      const modalMessage = document.getElementById('modal-message');
-      const modalIcon = document.getElementById('modal-icon');
-      modalMessage.textContent = message;
-      modalIcon.textContent = icon;
-      modal.classList.add('active');
-      setTimeout(() => {
-        modal.classList.remove('active');
-      }, 2000);
-    }
-	
-	// Toggle the hidden text inside the "תור" frame
-	function toggleQueueText() {
-	  const queueFrame = document.getElementById('queue-frame');
-	  const hiddenText = queueFrame.querySelector('.hidden-text');
-	  if (hiddenText.style.display === 'none' || hiddenText.style.display === '') {
-	    hiddenText.style.display = 'block';
-	  } else {
-	    hiddenText.style.display = 'none';
-	  }
-	}
-  </script>
+const total=initialState(current).monsters.length;
+$('moves').textContent=String(state.moves).padStart(3,'0');
+$('remaining').textContent=`${total-state.monsters.length} / ${total}`;
+$('room').textContent=`${String(current+1).padStart(2,'0')} / ${LEVELS.length}`;
+$('undo').disabled=!history.length;
+const won=!state.monsters.length;$('overlay').hidden=!won;
+if(won){const allDone=completed.size===LEVELS.length,last=current===LEVELS.length-1;
+ $('win-title').textContent=allDone?'כל 50 השלבים הושלמו!':'השלב הושלם!';
+ $('win-text').textContent=allDone?`איזה מסע! השלב הזה הושלם ב־${state.moves} צעדים. אפשר לחזור לכל שלב ולנסות מסלול קצר יותר.`:`אספתם את כל היצורים ב־${state.moves} צעדים. ${last?'אפשר לחזור לשלבים שטרם הושלמו.':'האתגר הבא כבר מחכה.'}`;
+ $('next').textContent=last?(allDone?'בחזרה להתחלה ↻':'לשלב שטרם הושלם ←'):'לשלב הבא ←';
+}}
+function levelButtons(){
+ $('levels').innerHTML='';$('chapter').value=String(chapter);$('progress').textContent=`הושלמו ${completed.size} מתוך ${LEVELS.length} שלבים`;
+ LEVELS.slice(chapter*10,chapter*10+10).forEach((l,j)=>{const i=chapter*10+j,b=document.createElement('button');
+  b.className='level'+(i===current?' active':'');b.setAttribute('aria-pressed',String(i===current));
+  b.setAttribute('aria-label',`שלב ${i+1}: ${l.name}${completed.has(i)?', הושלם':''}`);
+  b.innerHTML=`<span class="num">${String(i+1).padStart(2,'0')}</span><span><strong>${l.name}</strong><small>${l.sub}</small></span><span class="check" aria-hidden="true">${completed.has(i)?'✓':i===current?'←':''}</span>`;
+  b.onclick=()=>loadLevel(i);$('levels').append(b);
+ });
+}
+function loadLevel(i){
+ if(!Number.isInteger(i)||i<0||i>=LEVELS.length)return;
+ current=i;chapter=Math.floor(i/10);state=settle(initialState(i));history=[];
+ canvas.width=state.terrain[0].length*32;canvas.height=state.terrain.length*32;ctx.imageSmoothingEnabled=false;
+ $('hint').textContent=LEVELS[i].hint;
+ $('status').textContent=`שלב ${i+1}: ${LEVELS[i].name}. אספו את כל היצורים.`;
+ canvas.setAttribute('aria-label',`לוח שלב ${i+1}: ${LEVELS[i].name}. חצים לתנועה, Z לביטול צעד, R להתחלה מחדש.`);
+ try{localStorage.setItem('catrap-current',String(i));}catch{}
+ levelButtons();draw();
+ const active=$('levels').querySelector('.active');if(active)$('levels').scrollTop=active.offsetTop-$('levels').offsetTop;
+}
+function move(dir){
+ const next=step(state,dir);
+ if(!next){if(state.monsters.length)$('status').textContent='אין מעבר בכיוון הזה. נסו כיוון אחר.';return;}
+ history.push(state);const found=next.monsters.length<state.monsters.length;state=next;
+ $('status').textContent=found?'עוד יצור נאסף. מתקרבים לפתרון!':'קחו את הזמן. תמיד אפשר לחזור צעד לאחור.';
+ if(!state.monsters.length){completed.add(current);try{localStorage.setItem('catrap-completed',JSON.stringify([...completed]));}catch{}levelButtons();$('status').textContent='השלב הושלם!';}draw();
+}
+$('chapter').onchange=()=>{chapter=Number($('chapter').value);levelButtons();$('levels').scrollTop=0;};
+$('undo').onclick=()=>{if(history.length){state=history.pop();$('status').textContent='חזרתם צעד לאחור. הזדמנות לנסות דרך אחרת.';draw();}};
+$('restart').onclick=()=>loadLevel(current);
+$('next').onclick=()=>loadLevel(current<LEVELS.length-1?current+1:(LEVELS.findIndex((_,i)=>!completed.has(i))<0?0:LEVELS.findIndex((_,i)=>!completed.has(i))));
+document.addEventListener('keydown',e=>{
+ if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest('select,input,textarea'))return;
+ const dir={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'}[e.key];
+ if(dir){e.preventDefault();move(dir);}
+ else if(e.code==='KeyZ'||e.key.toLowerCase()==='z'){e.preventDefault();$('undo').click();}
+ else if((e.code==='KeyR'||e.key.toLowerCase()==='r')&&!e.repeat){e.preventDefault();loadLevel(current);}
+});
+document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>move(b.dataset.dir));loadLevel(current);
+</script>
 </body>
 </html>
