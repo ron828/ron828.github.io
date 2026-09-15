@@ -3,1476 +3,211 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>קאטראפ — חתול קטן. אתגר גדול.</title>
+<meta name="theme-color" content="#10191b">
+<meta name="description" content="45 פאזלי צבעים. השלימו כל פאזל כדי לפתוח את הבא.">
+<title>משחק צבעים</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%2310191b%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23759cce%22/%3E%3Crect%20x%3D%2234%22%20y%3D%2210%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23cc7167%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2234%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23e4d987%22/%3E%3Crect%20x%3D%2234%22%20y%3D%2234%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%2373b9a0%22/%3E%3C/svg%3E">
 <style>
-:root{--paper:#f3f1e8;--ink:#292e27;--muted:#74786b;--orange:#e76b38;--line:#d9dace;--mono:monospace}*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif}button,select{font:inherit;color:inherit;cursor:pointer}button:focus-visible,select:focus-visible,canvas:focus-visible{outline:2px solid var(--orange);outline-offset:2px}button:disabled{opacity:.35;cursor:default}.wrap{height:100vh;height:100dvh;max-width:1440px;margin:auto;padding:12px 18px;display:flex;flex-direction:column}.goal{margin:0 0 10px;font-size:15px;line-height:1.5}.goal span{color:var(--muted);font-size:13px}main,.layout,.layout>section{flex:1;min-height:0;min-width:0}main{display:flex}.layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px}.layout>section{display:flex;flex-direction:column;gap:8px}.game{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;background:#e5e6d9;border:1px solid #c9ccba;border-radius:8px;padding:10px}.game-top,.game-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}.live,.stats{font-size:12px;display:flex;align-items:center;gap:10px}.dot{width:7px;height:7px;border-radius:50%;background:#6c8059}.stats{gap:16px}.num,.stats b,#room{direction:ltr;unicode-bidi:isolate;display:inline-block}.screen{position:relative;flex:1;min-height:0;direction:ltr;border:3px solid #363e2d;border-radius:4px;background:#bac795}canvas{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;touch-action:none}.actions{display:flex;gap:8px}.small-btn{background:var(--paper);border:1px solid #c6cbb7;border-radius:4px;padding:7px 10px;font-size:12px;white-space:nowrap}.small-btn:hover{background:white}kbd{font-family:monospace;margin-inline-start:4px}.no-rush{font-size:11px;color:var(--muted)}.under{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:20px}.status{font-size:12px;color:var(--muted);margin:0;line-height:1.4}.keys{font-size:11px;white-space:nowrap;color:var(--muted)}.sidebar{min-height:0;display:flex;flex-direction:column;gap:12px}.label{font-size:13px;font-weight:bold;margin:0 0 8px}.chapter-label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}#chapter{width:100%;background:var(--paper);border:1px solid var(--line);padding:8px;border-radius:4px;font-size:12px}.progress{font-size:11px;color:var(--muted);margin:8px 0}.levels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.level{min-width:0;display:flex;align-items:center;gap:6px;text-align:right;padding:7px 5px;border:1px solid var(--line);border-radius:4px;background:transparent;position:relative}.level.active{border-color:var(--orange);background:#faeee4}.num{font:12px monospace;color:var(--muted)}.active .num{color:var(--orange);font-weight:bold}.level>span:nth-child(2){min-width:0}.level strong{font-size:11px;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.level small{display:none}.check{font-size:10px;color:var(--orange);margin-inline-start:auto}.hint{padding:10px;background:#e8eadd;border-radius:5px;font-size:12px;line-height:1.6}.hint b{display:block;margin-bottom:3px}.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#263123bd;z-index:2;padding:12px}.overlay[hidden]{display:none}.win{direction:rtl;background:var(--paper);padding:20px;border-radius:6px;text-align:center;max-width:330px}.eyebrow{font-size:12px;color:var(--orange)}.win h2{font-size:24px;margin:8px 0}.win p{font-size:13px;line-height:1.5}.primary{background:var(--orange);border:0;border-radius:4px;padding:10px 18px}.dpad{display:none;direction:ltr;justify-content:center;gap:6px}.dpad button{width:40px;height:36px;background:#e7e9dc;border:1px solid #bbc1ab;border-radius:4px}.how{display:none}
-@media(max-width:700px){.wrap{padding:8px;gap:0}.goal{font-size:13px;margin-bottom:8px}.goal span{display:block;font-size:11px}.layout{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:8px}.sidebar{gap:6px}.sidebar .label,.chapter-label,.level>span:nth-child(2),.check{display:none}.sidebar>div:first-child{display:grid;grid-template-columns:1fr auto;gap:5px;align-items:center}.progress{margin:0;font-size:10px}.levels{grid-column:1/-1;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}.level{justify-content:center;padding:6px 2px}.hint{padding:5px 8px;font-size:11px;line-height:1.35}.hint b{display:inline;margin-inline-end:5px}.dpad{display:flex;flex-shrink:0}.game{padding:6px;gap:6px}.no-rush,.keys{display:none}.game-top{gap:5px}.live,.stats{font-size:11px;gap:6px}.small-btn{font-size:11px;padding:6px 8px}.status{font-size:11px}.win{padding:12px}.win h2{font-size:20px}.win p{margin:6px 0;font-size:12px}}
-@media(max-height:550px) and (min-width:701px){.wrap{padding:6px 12px}.goal{font-size:13px;margin-bottom:6px}.hint{font-size:11px;line-height:1.3;padding:6px}.sidebar{gap:6px}.level{padding:5px}.sidebar .label{display:none}.game{padding:6px}.under{min-height:16px}}
-.levels{grid-template-columns:1fr}.level{padding:9px 7px}.level strong{font-size:12px}.hint{background:transparent;padding:0}.hint p{padding:8px;background:#e8eadd;border-radius:4px;margin:6px 0 0}.hint p[hidden]{display:none}@media(max-width:700px){.levels{grid-template-columns:repeat(6,minmax(0,1fr))}.sidebar>div:first-child{grid-template-columns:1fr}.hint .small-btn{padding:4px 8px}.hint p{font-size:11px}.progress{display:none}.hint{display:flex;align-items:center;gap:6px}.hint p{margin:0;flex:1}.level{padding:6px}}
-.levels{grid-template-columns:repeat(2,minmax(0,1fr))}.level{padding:8px 5px}.level strong{font-size:11px}@media(max-width:700px){.levels{grid-template-columns:repeat(10,minmax(0,1fr))}.level{padding:6px 2px}.sidebar>div:first-child{grid-template-columns:1fr auto}.progress{display:block}.sidebar .chapter-label{display:none}}
 
-/* A mouse or trackpad must not hide controls on a touch-capable computer. */
-.dpad{flex-shrink:0}.dpad button{width:52px;height:48px;font-size:24px;touch-action:manipulation;user-select:none;-webkit-user-select:none}.dpad button:active{background:#cbd3b9;border-color:#6c8059}
-.touch-input .dpad{display:flex}.touch-input .small-btn,.touch-input .level,.touch-input #chapter,.touch-input .primary{min-height:44px;touch-action:manipulation}.touch-input .keys{display:none}
-@media(any-pointer:coarse){.dpad{display:flex}.small-btn,.level,#chapter,.primary{min-height:44px;touch-action:manipulation}}
+:root{color-scheme:dark;--bg:#10191b;--ink:#f0eadb;--muted:#abb7b4;--gold:#d8c792;--blue:#759cce;--red:#cc7167;--yellow:#e4d987;--green:#73b9a0}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 12% 30%,#304b463b,transparent 53%),radial-gradient(ellipse at 81% 78%,#5e34352e,transparent 57%),var(--bg);color:var(--ink);font:16px Arial,Helvetica,sans-serif}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #fff1bf;outline-offset:5px}button:disabled{cursor:default}
+.shell{width:min(1120px,100%);margin:auto;padding:36px 38px 22px}.top{display:flex;justify-content:space-between;align-items:center;gap:22px;border-bottom:1px solid #b8c2ae29;padding-bottom:23px}.eyebrow{color:var(--gold);font-size:.75rem;letter-spacing:.19em;text-transform:uppercase;margin:0 0 9px}h1{font:normal clamp(1.65rem,3.4vw,2.35rem)/1.15 Georgia,serif;margin:0;letter-spacing:.025em}.stage{text-align:right;color:var(--muted);font-size:.875rem;line-height:1.65}.stage strong{color:var(--ink);font-weight:normal;display:block}
+.game{display:grid;grid-template-columns:minmax(0,1fr) 215px;gap:44px;align-items:center;padding-top:26px}.board-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 17px;font-size:.875rem;color:var(--muted)}.target{display:flex;align-items:center;gap:9px;color:var(--ink)}.target-dot{width:12px;height:12px;display:inline-block;background:var(--red);border:1px solid #edada2;transform:rotate(45deg)}.board-frame{position:relative;border:1px solid #bb99796b;border-radius:12px;padding:11px;background:#131617;box-shadow:0 0 0 5px #7d635d10,0 22px 50px #0003}.board-frame:before,.board-frame:after{content:'';position:absolute;pointer-events:none;width:32px;height:32px;border-color:#bdae86;border-style:solid}.board-frame:before{top:-5px;left:-5px;border-width:2px 0 0 2px;border-radius:14px 0 0}.board-frame:after{bottom:-5px;right:-5px;border-width:0 2px 2px 0;border-radius:0 0 14px}.board{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}
+.tile{min-width:0;padding:0;aspect-ratio:1;position:relative;border-radius:6px;border:1px solid #ffffff23;background-color:var(--tile);background-image:linear-gradient(145deg,#ffffff18,transparent 46%,#00000015);box-shadow:inset 0 1px 1px #ffffff15,inset 0 -2px 2px #0002;transition:background-color .23s,filter .15s,box-shadow .15s}.tile[data-color=B]{--tile:var(--blue)}.tile[data-color=R]{--tile:var(--red)}.tile[data-color=Y]{--tile:var(--yellow)}.tile[data-color=G]{--tile:var(--green)}.tile.region{filter:brightness(1.12);box-shadow:inset 0 0 0 2px #fff7}.tile:focus-visible{outline-offset:1px;z-index:1}.tile.changed{animation:paint .38s ease-out}@keyframes paint{45%{filter:brightness(1.25);transform:scale(.94)}}.board.is-won .tile{box-shadow:inset 0 0 0 1px #ffe6ab30}.board.is-over .tile{cursor:default}.board-caption{display:flex;gap:10px;align-items:center;min-height:42px;margin:15px 0 0;font-size:.875rem;color:var(--muted);line-height:1.5}.caption-mark{color:var(--gold);font-size:1rem}
+.controls{align-self:stretch;display:flex;flex-direction:column;padding-top:2px}.moves-label{font-size:.875rem;color:var(--muted);margin:0}.moves{display:flex;align-items:baseline;gap:9px;margin:5px 0 11px}.moves strong{font:normal 3rem/1 Georgia,serif;color:var(--gold);font-variant-numeric:tabular-nums}.moves span{color:var(--muted);font-size:.875rem}.move-dots{display:flex;gap:7px;margin-bottom:26px}.move-dots i{width:25px;height:3px;background:var(--gold);transition:background .2s}.move-dots i.used{background:#54605b}.palette{display:grid;gap:11px;margin:0;padding:0;border:0}.palette legend{padding:0;color:var(--muted);font-size:.875rem;margin-bottom:12px}.color{display:flex;align-items:center;width:100%;gap:14px;padding:5px 10px 5px 6px;border:1px solid transparent;background:transparent;border-radius:6px;text-align:left;min-height:54px}.color:hover{background:#fff1}.color[aria-pressed=true]{background:#f0eadb0b;border-color:#b8ac7955}.swatch{width:40px;height:40px;flex-shrink:0;border-radius:50%;border:1px solid #fff4;background:linear-gradient(145deg,#fff2,#0001),var(--swatch);position:relative}.color[aria-pressed=true] .swatch:after{content:'';position:absolute;inset:-5px;border:1px solid var(--gold);border-radius:50%}.color-name{flex:1}kbd{font:normal .75rem/1.2 Arial,sans-serif;min-width:20px;padding:2px 5px;border:1px solid #7c88854d;border-radius:3px;color:var(--muted);text-align:center}.reset{margin-top:25px;padding:12px 14px;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #b8c2ae45;border-radius:4px;background:#d4dcce09}.reset:hover{border-color:var(--gold);background:#d4dcce15}.reset-icon{font-size:1.3rem;margin-right:7px;line-height:1}.result{margin-top:18px;padding-top:17px;border-top:1px solid #b8c2ae29;line-height:1.55;font-size:.875rem;color:var(--muted)}.result strong{display:block;font:normal 1.2rem/1.3 Georgia,serif;margin-bottom:6px;color:var(--gold)}.result:empty{display:none}
+footer{margin-top:15px;border-top:1px solid #b8c2ae29;padding-top:17px;display:flex;align-items:flex-start;justify-content:space-between;gap:25px;color:var(--muted);font-size:.8125rem}footer a{color:var(--muted);text-underline-offset:3px;white-space:nowrap}details{max-width:670px}summary{cursor:pointer;color:var(--ink);width:fit-content;font-size:.875rem}details p{line-height:1.7;margin:10px 0 0;font-size:.875rem}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1400px){.shell{padding-top:55px}.game{padding-top:34px}}
+@media(max-width:800px){.shell{padding:24px 22px 20px}.game{grid-template-columns:minmax(0,1fr) 162px;gap:24px}.board-frame{padding:8px}.board{gap:3px}.tile{border-radius:4px}.swatch{width:32px;height:32px}.color{gap:10px;min-height:46px}.palette{gap:7px}.move-dots{margin-bottom:20px}}
+@media(max-width:600px){.shell{padding:22px 16px}.top{align-items:flex-start;padding-bottom:18px;gap:12px}.eyebrow{font-size:.75rem;letter-spacing:.12em}.stage{font-size:.8125rem;padding-top:1px}.game{display:flex;flex-direction:column;gap:20px;padding-top:22px}.play-area,.controls{width:100%}.board-heading{font-size:.8125rem}.board-frame{padding:7px}.board{gap:3px}.tile{border-radius:4px}.board-caption{margin-top:12px;min-height:0}.controls{display:grid;grid-template-columns:1fr auto;gap:0 16px}.move-section{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:0 0 14px}.moves{margin:0}.moves strong{font-size:1.7rem}.moves span{display:none}.move-dots{margin:0 0 0 3px}.move-dots i{width:15px}.palette{grid-row:2;grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.palette legend{margin-bottom:12px}.color{flex-direction:column;padding:10px 3px 8px;gap:9px;min-height:86px;font-size:.875rem}.swatch{width:34px;height:34px}.color kbd{display:none}.reset{grid-column:2;grid-row:1;margin:0 0 14px;min-height:38px;padding:7px 10px;font-size:.875rem}.reset kbd{display:none}.result{grid-column:1/-1}footer{margin-top:22px;flex-wrap:wrap;gap:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+.game{direction:ltr;padding-top:0}.play-area,.controls{direction:rtl}.board{direction:ltr}.color{text-align:start}.reset{justify-content:center}.reset-icon{margin-right:0;margin-inline-end:7px}.result strong{font-family:Arial,Helvetica,sans-serif}
+
+[hidden]{display:none!important}
+.shell{padding-top:28px}.game{gap:36px;align-items:start}.controls{gap:0}.stage-picker{margin-bottom:22px}select{width:100%;min-height:46px;border:1px solid #b8c2ae45;border-radius:5px;background:#182325;color:var(--ink);padding:10px;font:inherit;direction:rtl}select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}select option:disabled{color:#7d8785}.board-heading{min-height:46px;margin-bottom:15px;font-size:1rem}.target-dot{background:var(--target,var(--red));border-color:#fff7}.board-frame{padding:9px}.tile{touch-action:manipulation}.tile.blocked{background:#273033;border:1px solid #52605b38;box-shadow:inset 0 0 12px #0005;display:grid;place-items:center;color:#69726e;font-size:1.35rem;aspect-ratio:1;cursor:default}.tile.blocked:before{content:'×';opacity:.55}.board.is-over .tile{cursor:default}.palette{grid-template-columns:1fr}.color:disabled{opacity:.6}.reset{margin-top:20px}.next{width:100%;min-height:46px;margin-top:10px;border:1px solid #d8c792;background:var(--gold);color:#182322;border-radius:4px;font:inherit;font-weight:bold;padding:11px 13px}.next:hover:not(:disabled){background:#e8d9a9}.next:disabled{background:#d4dcce09;color:#82918c;border-color:#b8c2ae29;opacity:.8}.result{min-height:0}.result strong{font-family:Arial,Helvetica,sans-serif;font-weight:bold}.move-dots{flex-wrap:wrap}.move-dots i{width:20px}.progress-line{font-size:.875rem;color:var(--muted);line-height:1.6;margin:15px 0 0}.saving-warning{color:#e4d987;font-size:.875rem;line-height:1.6;margin:15px 0 0}dialog{width:min(490px,calc(100vw - 40px));border:1px solid var(--gold);border-radius:12px;padding:32px 28px;background:#172324;color:var(--ink);text-align:center;box-shadow:0 25px 100px #0008}dialog::backdrop{background:#07100dd9;backdrop-filter:blur(5px)}dialog h2{font-size:2rem;margin:10px 0 15px;color:var(--gold)}dialog p{line-height:1.8;margin:0 0 24px;font-size:1.2rem}.celebration{font-size:3rem;display:block}.finish-close{min-height:46px;padding:11px 26px;border:1px solid var(--gold);border-radius:5px;background:var(--gold);color:#152220}
+@media(max-width:800px){.game{gap:22px}.board-heading{font-size:.875rem}.stage-picker{margin-bottom:16px}.move-dots{margin-bottom:18px}.color{gap:9px}}
+@media(max-width:600px){.shell{padding:16px}.game{gap:18px}.controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px}.stage-picker{grid-column:1/-1;grid-row:1;margin-bottom:16px}.move-section{grid-column:1/-1;grid-row:2;margin-bottom:16px}.palette{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:repeat(var(--palette-count,4),minmax(0,1fr));gap:6px}.reset{grid-column:1;grid-row:4;margin:16px 0 0;min-height:46px}.next{grid-column:2;grid-row:4;margin:16px 0 0;min-height:46px;font-size:.875rem}.result,.progress-line,.saving-warning{grid-column:1/-1}.result{grid-row:5}.board-heading{min-height:30px;margin-bottom:10px;font-size:1rem}.board-frame{padding:6px}.board{gap:3px}.tile.blocked{font-size:1rem}.move-dots{margin:0 4px}.move-dots i{width:18px}.color{min-height:80px}.palette legend{margin-bottom:10px}dialog{padding:26px 20px}}
+@media(prefers-reduced-motion:no-preference){dialog[open]{animation:finish-in .35s ease-out}@keyframes finish-in{from{opacity:0;transform:translateY(15px) scale(.97)}to{opacity:1;transform:none}}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<p class="goal"><strong>המטרה: לאסוף את כל היצורים בנגיעה מהצד.</strong> <span>חצים במקלדת או כפתורי התנועה לתנועה ולטיפוס; דחפו אבנים וחפרו אדמה כדי לפתוח דרך.</span></p>
-<main>
-<div class="layout"><section aria-label="המשחק"><div class="game"><div class="game-top"><span class="live"><i class="dot"></i>שלב <span id="room">01</span></span><div class="stats"><span>צעדים <b id="moves">000</b></span><span>יצורים <b id="remaining">0 / 0</b></span></div></div><div class="screen"><canvas id="board" width="448" height="320" tabindex="0" aria-label="לוח קאטראפ. השתמשו בחצים לתנועה, במקש Z לביטול צעד ובמקש R להתחלה מחדש."></canvas><div class="overlay" id="overlay" hidden><div class="win"><div class="eyebrow">כל הכבוד!</div><h2 id="win-title">השלב הושלם!</h2><p id="win-text"></p><button class="primary" id="next">לשלב הבא ←</button></div></div></div><div class="game-bottom"><div class="actions"><button class="small-btn" id="undo">↶ צעד לאחור <kbd>Z</kbd></button><button class="small-btn" id="restart">↻ התחלה מחדש <kbd>R</kbd></button></div><span class="no-rush">בלי שעון. בקצב שלכם.</span></div></div><div class="under"><p class="status" id="status" role="status" aria-live="polite">הרפתקה קטנה מתחילה בצעד אחד.</p><span class="keys"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> לתנועה</span></div><div class="dpad" aria-label="כפתורי תנועה"><button data-dir="up" aria-label="תנועה למעלה">↑</button><button data-dir="left" aria-label="תנועה שמאלה">←</button><button data-dir="down" aria-label="תנועה למטה">↓</button><button data-dir="right" aria-label="תנועה ימינה">→</button></div></section>
-<aside class="sidebar"><div><p class="label">50 חידות · תכנון לפני תנועה</p><label class="chapter-label" for="chapter">בחירת קבוצת שלבים</label><select id="chapter"><option value="0">⁦1–10⁩ · יסודות ותכנון</option><option value="1">⁦11–20⁩ · מלאי מוגבל</option><option value="2">⁦21–30⁩ · מעברים תלויים</option><option value="3">⁦31–40⁩ · עומק וסדר</option><option value="4">⁦41–50⁩ · למומחים</option></select><p id="progress" class="progress" aria-live="polite"></p><div class="levels" id="levels"></div></div><div class="hint"><button id="hint-toggle" class="small-btn" aria-controls="hint" aria-expanded="false">הצגת רמז</button><p id="hint" hidden></p></div></aside></div>
-</main>
+<main class="shell">
+<section class="game" aria-label="משחק צבעים">
+<div class="play-area">
+<div class="board-heading"><span class="target" id="goal"><i class="target-dot" aria-hidden="true"></i><span id="goal-text"></span></span></div>
+<div class="board-frame"><div class="board" id="board" role="group" aria-label="לוח המשחק" aria-describedby="goal"></div></div>
 </div>
-<script id="engine">
-const LEVELS=[
-  {
-    "name": "הסולם התלוי",
-    "sub": "לשמור על הדרך",
-    "hint": "לפעמים יצור הוא גם קרקע שאפשר לעמוד עליה. בדקו מה יקרה לדרך כשהוא ייעלם.",
-    "map": [
-      "############",
-      "#          #",
-      "#        G #",
-      "#     H#####",
-      "#     H    #",
-      "#   H H    #",
-      "#   HG     #",
-      "#   H      #",
-      "# P H      #",
-      "############"
-    ],
-    "difficulty": 0
-  },
-  {
-    "name": "בין שתי גדות",
-    "sub": "אבן במקום הנכון",
-    "hint": "לא כל אדמה צריך לחפור. חשבו גם איפה החתול יעמוד אחרי שהאבן תיפול.",
-    "map": [
-      "############",
-      "#          #",
-      "#        G #",
-      "#      H####",
-      "#      H   #",
-      "#   HB H   #",
-      "#   HD     #",
-      "#   H #    #",
-      "# P H    G #",
-      "############"
-    ],
-    "difficulty": 1
-  },
-  {
-    "name": "המחסן",
-    "sub": "סדר שחרור",
-    "hint": "שתי אבנים צמודות לא זזות יחד. פנו מקום לאבן התחתונה לפני שאתם נוגעים בתמיכה שמעליה.",
-    "map": [
-      "############",
-      "#          #",
-      "#          #",
-      "#  #B#     #",
-      "#  HD      #",
-      "# PHB     G#",
-      "####### ####",
-      "####### ####",
-      "############",
-      "############"
-    ],
-    "difficulty": 2
-  },
-  {
-    "name": "המפלס התחתון",
-    "sub": "למחזר את הגשר",
-    "hint": "יש כאן אבן אחת ושני מעברים. רק אחרי שתסיימו עם המעבר העליון יהיה בטוח לשנות את הגובה שלה.",
-    "map": [
-      "############",
-      "#          #",
-      "#        G #",
-      "#      H####",
-      "#      H   #",
-      "#   HB H   #",
-      "#   HD #####",
-      "#  PH D  G #",
-      "###### #####",
-      "############"
-    ],
-    "difficulty": 3
-  },
-  {
-    "name": "מעבר לגשר",
-    "sub": "אבנים, תמיכות ותזמון",
-    "hint": "פתרון הגשר הוא רק ההתחלה. גם בצד השני צריך להשאיר תמיכה עד שתסיימו להשתמש בה.",
-    "map": [
-      "##############",
-      "#           G#",
-      "#         H###",
-      "#  #B#    H  #",
-      "#  HD   H H  #",
-      "# PHB   HG   #",
-      "####### ######",
-      "####### ######",
-      "##############",
-      "##############"
-    ],
-    "difficulty": 4
-  },
-  {
-    "name": "המגדל",
-    "sub": "לפרק רק אחרי שחוצים",
-    "hint": "הגשר העליון מכיל את כל מה שנחוץ לגשר התחתון. לפני שמשחררים אותו, ודאו שלא נשאר למעלה שום דבר.",
-    "map": [
-      "##############",
-      "#            #",
-      "#            #",
-      "#  #B#       #",
-      "#  HD        #",
-      "# PHB     G  #",
-      "###H### ######",
-      "###H### ######",
-      "#  H  HD######",
-      "#  H  H   G  #",
-      "####### ######",
-      "#            #",
-      "##############"
-    ],
-    "difficulty": 5
-  },
-  {
-    "name": "החדר שמתחת",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#             #B#  #",
-      "#              DHH #",
-      "#   G          BHHP#",
-      "####### ### #####H##",
-      "# G   #DH##DH####H##",
-      "###H    H   H    H #",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### ########",
-      "####################"
-    ],
-    "difficulty": 26
-  },
-  {
-    "name": "הבאר השנייה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                G #",
-      "#               H###",
-      "#  #B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 26
-  },
-  {
-    "name": "הבאר העמוקה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### #####H##",
-      "#######DH## #####H##",
-      "####### H##DH####H##",
-      "#       H   H    H #",
-      "#       H   H    H #",
-      "#   G   H   H    H #",
-      "####### ### ########",
-      "########### ########",
-      "####################"
-    ],
-    "difficulty": 29
-  },
-  {
-    "name": "בין הבארות",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#             #",
-      "# HHD              #",
-      "#PHHB          G   #",
-      "##H##### ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "############ #######",
-      "####################"
-    ],
-    "difficulty": 29
-  },
-  {
-    "name": "מלאי מדויק",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### #####H##",
-      "####### ###DH####H##",
-      "#######DH## H####H##",
-      "#       H   H    H #",
-      "#       H   H    H #",
-      "#   G   H   H    H #",
-      "####### ### ########",
-      "####### ############",
-      "####################"
-    ],
-    "difficulty": 29
-  },
-  {
-    "name": "שני שומרים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                G #",
-      "#               H###",
-      "#  #B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 30
-  },
-  {
-    "name": "הדרך חזרה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##D## ### #######",
-      "##H##### ##HD#######",
-      "##H####HD##H #######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "######## ### #######",
-      "######## ###########",
-      "####################"
-    ],
-    "difficulty": 31
-  },
-  {
-    "name": "אחרי הסיבוב",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#             #",
-      "# HHD              #",
-      "#PHHB          G   #",
-      "##H##D## ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "############ #######",
-      "####################"
-    ],
-    "difficulty": 31
-  },
-  {
-    "name": "סף הכניסה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### ##D##H##",
-      "####### ###DH####H##",
-      "#######DH## H####H##",
-      "#       H   H    H #",
-      "#       H   H    H #",
-      "#   G   H   H    H #",
-      "####### ### ########",
-      "####### ############",
-      "####################"
-    ],
-    "difficulty": 31
-  },
-  {
-    "name": "שלוש בארות",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H####HD##HD##HD#######",
-      "# H    H   H   H       #",
-      "# H    H   H   H       #",
-      "# H    H   H   H       #",
-      "# H    H   H   H   G   #",
-      "######## ### ### #######",
-      "########################"
-    ],
-    "difficulty": 31
-  },
-  {
-    "name": "תחת הרצפה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#             #",
-      "# H D              #",
-      "# H#B#             #",
-      "# HHD              #",
-      "#PHHB          G   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 32
-  },
-  {
-    "name": "ארבע אבנים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H##### ### #######",
-      "##H####HD##HD#######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "######## ### #######",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 32
-  },
-  {
-    "name": "אדמה דקה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                G #",
-      "#               H###",
-      "#  #B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##D## ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 32
-  },
-  {
-    "name": "משקל שונה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H##### ##HD#   G #",
-      "##H####HD##H #  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ###########",
-      "####################"
-    ],
-    "difficulty": 33
-  },
-  {
-    "name": "קומה שמורה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "############ #######",
-      "####################"
-    ],
-    "difficulty": 33
-  },
-  {
-    "name": "האבן החסרה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H##### ##HD##HD#######",
-      "##H####HD##H ##H #######",
-      "# H    H   H   H       #",
-      "# H    H   H   H       #",
-      "# H    H   H   H   G   #",
-      "######## ### ### #######",
-      "######## ###############",
-      "########################"
-    ],
-    "difficulty": 34
-  },
-  {
-    "name": "הבור האמצעי",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#                 #B#  #",
-      "#                  D H #",
-      "# G               #B#H #",
-      "###H               D H #",
-      "#  H              #B#H #",
-      "#  H H             DHH #",
-      "#   GH             BHHP#",
-      "####### ### ### #####H##",
-      "#######DH## ###DH####H##",
-      "####### H##DH## H####H##",
-      "#       H   H   H    H #",
-      "#       H   H   H    H #",
-      "#   G   H   H   H    H #",
-      "####### ### ### ########",
-      "########### ############",
-      "########################"
-    ],
-    "difficulty": 34
-  },
-  {
-    "name": "הבאר הרחוקה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H####HD##HD### #######",
-      "##H####H ##H ##HD#######",
-      "# H    H   H   H       #",
-      "# H    H   H   H       #",
-      "# H    H   H   H   G   #",
-      "######## ### ### #######",
-      "################ #######",
-      "########################"
-    ],
-    "difficulty": 34
-  },
-  {
-    "name": "סדר הביקורים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### ##D##H##",
-      "# G   #DH## #####H##",
-      "###H  # H##DH####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### ########",
-      "########### ########",
-      "####################"
-    ],
-    "difficulty": 35
-  },
-  {
-    "name": "המפתח למטה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##D## ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "############ #######",
-      "####################"
-    ],
-    "difficulty": 35
-  },
-  {
-    "name": "שלושה מעברים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "# G               #B#  #",
-      "###H               D H #",
-      "#  H              #B#H #",
-      "#  H H             DHH #",
-      "#   GH             BHHP#",
-      "####### ### ### #####H##",
-      "# G   #DH##DH##DH####H##",
-      "###H    H   H   H    H #",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### ########",
-      "########################"
-    ],
-    "difficulty": 35
-  },
-  {
-    "name": "גשרים תלויים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#             #B#  #",
-      "#              D H #",
-      "# G           #B#H #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### #####H##",
-      "# G   # ### #####H##",
-      "###H  #DH##DH####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### ########",
-      "####### ### ########",
-      "####################"
-    ],
-    "difficulty": 36
-  },
-  {
-    "name": "הסף האחרון",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##D## ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 38
-  },
-  {
-    "name": "לכל אבן מקום",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H##### ##HD##HD#   G #",
-      "##H####HD##H ##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "######## ### ### #######",
-      "######## ###############",
-      "########################"
-    ],
-    "difficulty": 38
-  },
-  {
-    "name": "דרך האמצע",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H####HD### ##HD#   G #",
-      "##H####H ##HD##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "######## ### ### #######",
-      "############ ###########",
-      "########################"
-    ],
-    "difficulty": 38
-  },
-  {
-    "name": "החצר הפנימית",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#                 #B#  #",
-      "#                  D H #",
-      "# G               #B#H #",
-      "###H               D H #",
-      "#  H              #B#H #",
-      "#  H H             DHH #",
-      "#   GH             BHHP#",
-      "####### ### ### #####H##",
-      "# G   # ###DH##DH####H##",
-      "###H  #DH## H## H####H##",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### ########",
-      "####### ################",
-      "########################"
-    ],
-    "difficulty": 38
-  },
-  {
-    "name": "הקומה השלישית",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                G #",
-      "#               H###",
-      "#  #B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 42
-  },
-  {
-    "name": "במעמקי המגדל",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H##### ##HD#######",
-      "##H####HD##H #######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "##H##### ### #######",
-      "##H##### ##HD#   G #",
-      "##H####HD##H #  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ###########",
-      "####################"
-    ],
-    "difficulty": 45
-  },
-  {
-    "name": "המחסן הישן",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### #####H##",
-      "####### ###DH####H##",
-      "#######DH## H####H##",
-      "#       H   H    H #",
-      "#       H   H    H #",
-      "#   G   H   H    H #",
-      "####### ### #####H##",
-      "# G   # ###DH####H##",
-      "###H  #DH## H####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### ########",
-      "####### ############",
-      "####################"
-    ],
-    "difficulty": 45
-  },
-  {
-    "name": "שלושת השומרים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                G #",
-      "#               H###",
-      "#  #B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 46
-  },
-  {
-    "name": "הגלריה הגבוהה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H##### ### #######",
-      "##H####HD##HD#######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 48
-  },
-  {
-    "name": "בלי קיצורי דרך",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### ##D##H##",
-      "# G   #DH## #####H##",
-      "###H  # H##DH####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### #####H##",
-      "# G   #DH## #####H##",
-      "###H  # H##DH####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### ########",
-      "########### ########",
-      "####################"
-    ],
-    "difficulty": 51
-  },
-  {
-    "name": "תוכנית בשלבים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##D## ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "############ #######",
-      "####################"
-    ],
-    "difficulty": 51
-  },
-  {
-    "name": "שלוש קומות של מחשבה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "# G               #B#  #",
-      "###H               D H #",
-      "#  H              #B#H #",
-      "#  H H             DHH #",
-      "#   GH             BHHP#",
-      "####### ### ### #####H##",
-      "# G   #DH##DH##DH####H##",
-      "###H    H   H   H    H #",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### #####H##",
-      "# G   #DH##DH##DH####H##",
-      "###H    H   H   H    H #",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### ########",
-      "########################"
-    ],
-    "difficulty": 51
-  },
-  {
-    "name": "שרשרת המעברים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 52
-  },
-  {
-    "name": "סדר מדויק",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H##### ##HD##HD#   G #",
-      "##H####HD##H ##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "##H##### ### ### #######",
-      "##H##### ##HD##HD#   G #",
-      "##H####HD##H ##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "######## ### ### #######",
-      "######## ###############",
-      "########################"
-    ],
-    "difficulty": 54
-  },
-  {
-    "name": "תלות הדדית",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H####HD### ##HD#   G #",
-      "##H####H ##HD##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "##H##### ### ### #######",
-      "##H####HD### ##HD#   G #",
-      "##H####H ##HD##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "######## ### ### #######",
-      "############ ###########",
-      "########################"
-    ],
-    "difficulty": 54
-  },
-  {
-    "name": "המבוך האנכי",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#                 #B#  #",
-      "#                  D H #",
-      "# G               #B#H #",
-      "###H               D H #",
-      "#  H              #B#H #",
-      "#  H H             DHH #",
-      "#   GH             BHHP#",
-      "####### ### ### #####H##",
-      "# G   # ###DH##DH####H##",
-      "###H  #DH## H## H####H##",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### #####H##",
-      "# G   # ###DH##DH####H##",
-      "###H  #DH## H## H####H##",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### ########",
-      "####### ################",
-      "########################"
-    ],
-    "difficulty": 54
-  },
-  {
-    "name": "אחרי המפולת",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "# G           #B#  #",
-      "###H           D H #",
-      "#  H          #B#H #",
-      "#  H H         DHH #",
-      "#   GH         BHHP#",
-      "####### ### #####H##",
-      "#######DH## #####H##",
-      "####### H##DH####H##",
-      "#       H   H    H #",
-      "#       H   H    H #",
-      "#   G   H   H    H #",
-      "####### ### #####H##",
-      "# G   #DH## #####H##",
-      "###H  # H##DH####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### #####H##",
-      "# G   #DH## #####H##",
-      "###H  # H##DH####H##",
-      "#  H    H   H    H #",
-      "#  H H  H   H    H #",
-      "#   GH  H   H    H #",
-      "####### ### ########",
-      "########### ########",
-      "####################"
-    ],
-    "difficulty": 61
-  },
-  {
-    "name": "המסע למטה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD### #######",
-      "##H####H ##HD#######",
-      "# H    H   H       #",
-      "# H    H   H       #",
-      "# H    H   H   G   #",
-      "##H##### ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H####HD### #   G #",
-      "##H####H ##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "############ #######",
-      "####################"
-    ],
-    "difficulty": 61
-  },
-  {
-    "name": "ארבע קומות",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                G #",
-      "#               H###",
-      "#  #B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H####HD##HD#   G #",
-      "# H    H   H    H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 62
-  },
-  {
-    "name": "מלאכת מחשבת",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "####################",
-      "#                  #",
-      "#                  #",
-      "#  #B#             #",
-      "# H D              #",
-      "# H#B#           G #",
-      "# H D           H###",
-      "# H#B#          H  #",
-      "# HHD         H H  #",
-      "#PHHB         HG   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "##H##### ### #######",
-      "##H##### ### #   G #",
-      "##H####HD##HD#  H###",
-      "# H    H   H    H  #",
-      "# H    H   H  H H  #",
-      "# H    H   H  HG   #",
-      "######## ### #######",
-      "######## ### #######",
-      "####################"
-    ],
-    "difficulty": 68
-  },
-  {
-    "name": "המצודה",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#                 #B#  #",
-      "#                  D H #",
-      "# G               #B#H #",
-      "###H               D H #",
-      "#  H              #B#H #",
-      "#  H H             DHH #",
-      "#   GH             BHHP#",
-      "####### ### ### #####H##",
-      "# G   #DH##DH## #####H##",
-      "###H  # H## H##DH####H##",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### #####H##",
-      "# G   #DH##DH## #####H##",
-      "###H  # H## H##DH####H##",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### #####H##",
-      "# G   #DH##DH## #####H##",
-      "###H  # H## H##DH####H##",
-      "#  H    H   H   H    H #",
-      "#  H H  H   H   H    H #",
-      "#   GH  H   H   H    H #",
-      "####### ### ### ########",
-      "############### ########",
-      "########################"
-    ],
-    "difficulty": 70
-  },
-  {
-    "name": "מגדל השומרים",
-    "sub": "תכנון, תמיכות וסדר פעולות",
-    "hint": "לפני שמשנים תמיכה, בדקו מי עדיין צריך לעבור מעליה. מלאי האבנים מדויק: אין אבן מיותרת.",
-    "map": [
-      "########################",
-      "#                      #",
-      "#                      #",
-      "#  #B#                 #",
-      "# H D                  #",
-      "# H#B#               G #",
-      "# H D               H###",
-      "# H#B#              H  #",
-      "# HHD             H H  #",
-      "#PHHB             HG   #",
-      "##H##### ### ### #######",
-      "##H####HD### ##HD#   G #",
-      "##H####H ##HD##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "##H##### ### ### #######",
-      "##H####HD### ##HD#   G #",
-      "##H####H ##HD##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "##H##### ### ### #######",
-      "##H####HD### ##HD#   G #",
-      "##H####H ##HD##H #  H###",
-      "# H    H   H   H    H  #",
-      "# H    H   H   H  H H  #",
-      "# H    H   H   H  HG   #",
-      "######## ### ### #######",
-      "############ ###########",
-      "########################"
-    ],
-    "difficulty": 70
-  }
-];
-function initialState(i){const terrain=LEVELS[i].map.map(r=>r.split(''));let player;const rocks=[],monsters=[];terrain.forEach((row,y)=>row.forEach((c,x)=>{if(c==='P'){player={x,y};terrain[y][x]=' ';}if(c==='B'){rocks.push({x,y});terrain[y][x]=' ';}if(c==='G'){monsters.push({x,y});terrain[y][x]=' ';}}));return {terrain,player,rocks,monsters,moves:0};}
-const at=(items,x,y)=>items.findIndex(o=>o.x===x&&o.y===y);
-const tile=(s,x,y)=>s.terrain[y]?.[x]??'#';
-function settle(s){for(let n=0;n<140;n++){let changed=false;for(const r of [...s.rocks].sort((a,b)=>b.y-a.y)){if(tile(s,r.x,r.y+1)===' '&&at(s.rocks,r.x,r.y+1)<0&&at(s.monsters,r.x,r.y+1)<0&&!(s.player.x===r.x&&s.player.y===r.y+1)){r.y++;changed=true;}}
-const p=s.player;if(tile(s,p.x,p.y)!=='H'&&tile(s,p.x,p.y+1)===' '&&at(s.rocks,p.x,p.y+1)<0&&at(s.monsters,p.x,p.y+1)<0){p.y++;changed=true;}if(!changed)break;}return s;}
-function step(state,dir){if(!state.monsters.length)return null;const s=JSON.parse(JSON.stringify(state)),p=s.player;const [dx,dy]=({left:[-1,0],right:[1,0],up:[0,-1],down:[0,1]})[dir]||[0,0];if(!dx&&!dy)return null;const x=p.x+dx,y=p.y+dy,t=tile(s,x,y);if(t==='#')return null;if(dy===-1&&tile(s,p.x,p.y)!=='H')return null;if(dy===1&&tile(s,p.x,p.y)!=='H'&&t!=='H'&&t!=='D')return null;const r=at(s.rocks,x,y),m=at(s.monsters,x,y);if(m>=0){if(!dx)return null;s.monsters.splice(m,1);p.x=x;}else if(r>=0){if(!dx||tile(s,x+dx,y)!==' '||at(s.rocks,x+dx,y)>=0||at(s.monsters,x+dx,y)>=0)return null;s.rocks[r].x+=dx;}else if(t==='D'){s.terrain[y][x]=' ';}else{p.x=x;p.y=y;}s.moves++;return settle(s);}
-</script>
+<aside class="controls" aria-label="פקדי המשחק">
+<div class="stage-picker"><select id="stage" aria-label="בחירת פאזל"></select></div>
+<div class="move-section"><p class="moves-label">מהלכים שנותרו</p><div class="moves"><strong id="remaining">0</strong></div><div class="move-dots" id="move-dots" aria-hidden="true"></div></div>
+<fieldset class="palette" id="palette"><legend>בחרו צבע</legend></fieldset>
+<button type="button" class="reset" id="reset"><span><span class="reset-icon" aria-hidden="true">↻</span>התחילו מחדש</span></button>
+<button type="button" class="next" id="next" disabled>לפאזל הבא</button>
+<div class="result" id="result" role="status" aria-live="polite" aria-atomic="true"></div>
+<p class="progress-line" id="progress"></p>
+<p class="saving-warning" id="saving-warning" hidden>שמירת ההתקדמות אינה זמינה בדפדפן זה. אפשר להמשיך לשחק כל עוד הדף פתוח.</p>
+</aside>
+</section>
+<noscript><p>כדי לשחק, יש להפעיל JavaScript בדפדפן.</p></noscript>
+<div class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></div>
+</main>
+<dialog id="finish" aria-labelledby="finish-title" aria-describedby="finish-description">
+<span class="celebration" aria-hidden="true">🎉</span>
+<h2 id="finish-title">כל הכבוד!</h2>
+<p id="finish-description">השלמתם את כל 45 הפאזלים!</p>
+<button type="button" class="finish-close" id="finish-close">חזרה ללוח</button>
+</dialog>
 <script>
-
-// maxTouchPoints also covers iPads with a trackpad and hybrid Windows laptops.
-const touchPointer=window.matchMedia('(any-pointer: coarse)');
-function updateTouchControls(){document.documentElement.classList.toggle('touch-input',navigator.maxTouchPoints>0||touchPointer.matches);}
-updateTouchControls();
-if(touchPointer.addEventListener)touchPointer.addEventListener('change',updateTouchControls);
-else if(touchPointer.addListener)touchPointer.addListener(updateTouchControls);
-window.addEventListener('pointerdown',event=>{if(event.pointerType==='touch')document.documentElement.classList.add('touch-input');},{passive:true});
-
-const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
-let current=0,chapter=0,state,history=[],completed=new Set();
-try{const saved=JSON.parse(localStorage.getItem('catrap-handcrafted-v1-completed')||'[]');if(Array.isArray(saved))completed=new Set(saved.filter(i=>Number.isInteger(i)&&i>=0&&i<LEVELS.length));const last=Number(localStorage.getItem('catrap-handcrafted-v1-current'));if(Number.isInteger(last)&&last>=0&&last<LEVELS.length)current=last;}catch{}
-const sprites={cat:['1100000011','1110000111','1111111111','1111111111','1101101011','1101101011','1111001111','0111111110','0011111100','0110110110'],ghost:['0001111000','0011111100','0111111110','1111111111','1100110011','1100110011','1111111111','1111111111','1111111111','1101101101']};
-function sprite(pattern,x,y,color,scale=2){ctx.fillStyle=color;pattern.forEach((row,j)=>[...row].forEach((c,i)=>{if(c==='1')ctx.fillRect(x+i*scale,y+j*scale,scale,scale);}));}
-function draw(){ctx.fillStyle='#b9c797';ctx.fillRect(0,0,canvas.width,canvas.height);for(let y=0;y<state.terrain.length;y++)for(let x=0;x<state.terrain[y].length;x++){const px=x*32,py=y*32,t=tile(state,x,y);ctx.fillStyle='#b1c08e';ctx.fillRect(px+15,py+15,1,1);if(t==='#'){ctx.fillStyle='#566b42';ctx.fillRect(px,py,32,32);ctx.fillStyle='#6e8051';ctx.fillRect(px+1,py+1,30,2);ctx.fillStyle='#3d5434';ctx.fillRect(px,py+29,32,3);ctx.fillRect(px+15,py+2,2,13);ctx.fillRect(px,py+14,32,2);ctx.fillRect(px+5,py+16,2,13);}if(t==='H'){ctx.fillStyle='#50633a';ctx.fillRect(px+7,py,3,32);ctx.fillRect(px+22,py,3,32);for(let j=4;j<32;j+=8)ctx.fillRect(px+10,py+j,12,3);}if(t==='D'){ctx.fillStyle='#7f8b50';ctx.fillRect(px+1,py+1,30,30);ctx.fillStyle='#53643a';for(let j=4;j<30;j+=7)for(let i=4;i<30;i+=7)ctx.fillRect(px+i+(j%2)*2,py+j,3,2);}}
-for(const r of state.rocks){const x=r.x*32,y=r.y*32;ctx.fillStyle='#344d32';ctx.fillRect(x+3,y+3,26,26);ctx.fillStyle='#899866';ctx.fillRect(x+5,y+5,22,20);ctx.fillStyle='#b7c18a';ctx.fillRect(x+6,y+5,18,3);ctx.fillRect(x+5,y+5,3,17);ctx.fillStyle='#64784c';ctx.fillRect(x+10,y+12,12,3);ctx.fillRect(x+18,y+15,4,7);}
-for(const m of state.monsters){sprite(sprites.ghost,m.x*32+6,m.y*32+10,'#435b35');ctx.fillStyle='#dce4b3';ctx.fillRect(m.x*32+10,m.y*32+18,2,4);ctx.fillRect(m.x*32+18,m.y*32+18,2,4);}
-sprite(sprites.cat,state.player.x*32+6,state.player.y*32+10,'#243f2c');ctx.fillStyle='#d9e5ac';ctx.fillRect(state.player.x*32+12,state.player.y*32+18,2,4);ctx.fillRect(state.player.x*32+20,state.player.y*32+18,2,4);
-
-const total=initialState(current).monsters.length;
-$('moves').textContent=String(state.moves).padStart(3,'0');
-$('remaining').textContent=`${total-state.monsters.length} / ${total}`;
-$('room').textContent=`${String(current+1).padStart(2,'0')} / ${LEVELS.length}`;
-$('undo').disabled=!history.length;
-const won=!state.monsters.length;$('overlay').hidden=!won;
-if(won){const allDone=completed.size===LEVELS.length,last=current===LEVELS.length-1;
- $('win-title').textContent=allDone?'כל החידות הושלמו!':'השלב הושלם!';
- $('win-text').textContent=allDone?`איזה מסע! השלב הזה הושלם ב־${state.moves} צעדים. אפשר לחזור לכל שלב ולנסות מסלול קצר יותר.`:`אספתם את כל היצורים ב־${state.moves} צעדים. ${last?'אפשר לחזור לשלבים שטרם הושלמו.':'האתגר הבא כבר מחכה.'}`;
- $('next').textContent=last?(allDone?'בחזרה להתחלה ↻':'לשלב שטרם הושלם ←'):'לשלב הבא ←';
-}}
-function levelButtons(){
- $('levels').innerHTML='';$('chapter').value=String(chapter);$('progress').textContent=`הושלמו ${completed.size} מתוך ${LEVELS.length} שלבים`;
- LEVELS.slice(chapter*10,chapter*10+10).forEach((l,j)=>{const i=chapter*10+j,b=document.createElement('button');
-  b.title=l.name;b.className='level'+(i===current?' active':'');b.setAttribute('aria-pressed',String(i===current));
-  b.setAttribute('aria-label',`שלב ${i+1}: ${l.name}${completed.has(i)?', הושלם':''}`);
-  b.innerHTML=`<span class="num">${String(i+1).padStart(2,'0')}</span><span><strong>${l.name}</strong><small>${l.sub}</small></span><span class="check" aria-hidden="true">${completed.has(i)?'✓':i===current?'←':''}</span>`;
-  b.onclick=()=>loadLevel(i);$('levels').append(b);
- });
+'use strict';
+// Board order and layouts: https://game8.co/games/Wuthering-Waves/archives/492632
+// The opening frames and in-game target/move counters take precedence over guide text.
+const PUZZLES = [{"rows":["RRYRRYRRBR","BBYBBYBBBB","RRYRRYRRBR","BBBBBYBBBB","RRYRRYRRBR","BBBBBBBBBB","RRYRRYRRBR","RRYRRYRRBR"],"target":"R","moves":4,"colors":"BRYG"},{"rows":["RBBBG#RBGR","RB#R#RR#B#","##RYYBYGRR","RB#YRBBGGR","YGGGG#BYYG","YRR#RRYGG#","GR##YY#BBR","YYY##G##RR"],"target":"R","moves":7,"colors":"BRYG"},{"rows":["RRBRRRGGGY","R####RBBBB","GGGGGGGG##","GGBB##RRR#","GGGGGGGGG#","GGGRRRBBRR","GBB#BR###R","YRRGRRBRBR"],"target":"Y","moves":5,"colors":"BRYG"},{"rows":["BYYYBBYYYB","YYYBBBBYYY","RRRBBBBRRR","BRRRBBRRRB","BBBRRRRBBB","YYYBRRBYYY","BBGRRRRGBB","GGGGRRGGGG"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["YYYYGGGGR#","RRRBBBBGR#","RYRYGYYGR#","R#R#G#YGR#","R#RYG#GGR#","R#RYY#YYY#","R#####BBYY","RRRBBBBBYY"],"target":"Y","moves":4,"colors":"BRYG"},{"rows":["Y##GGGGBBY","YBBRRRRYBY","YBYGGGGBBY","YBBRRRRYYY","YYYGGGGBBY","YBBRRRRYBY","YBYGGGGBBY","YBBRRRR##Y"],"target":"Y","moves":5,"colors":"BRYG"},{"rows":["GGBBBRBBBB","GYYYYYYYYB","BRBBBRBBYB","BRBBRRRRYR","YRYYYYBBYB","BRBBYBBBYB","BRRRRRRRRG","BBBBYBBBGG"],"target":"B","moves":4,"colors":"BRYG"},{"rows":["BBRRBBRYYG","BYYGGGBGRG","RRBGRYGGRR","RBBYRYRBBR","RYGBBYRBYG","YGGRRGGBGR","BRYYGBRYYG","BGGYBBRYGG"],"target":"B","moves":8,"colors":"BRYG"},{"rows":["GRGGBBGGRG","RRBBBBBBRR","RBBBBBBBBR","GBBBYBBYBG","GBBBYBBYBG","GBBBYBBYBG","GGBBBBBBGG","GRRRGGRRRG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["RRRR#RBRRR","RBBB#BBBBB","RBRRYYYYBR","RBRY##YY##","##YY##YRBB","BBYYYYRRBR","BBBBB#BBRR","BBBBB#BRRR"],"target":"Y","moves":5,"colors":"BRYG"},{"rows":["RRRRRRRGGG","RGYYYYYYGG","RGYBBBBYBB","RGYBGGRYGB","RGYBGGRYGB","RRYBRRRYGB","GGYYYYYYGB","GGGBBBBBBB"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["RRYGGGGGGR","R#Y######R","R#YBBBBY#R","R#YBYYBY#R","R#YBYYBY#R","R#YBBBBY#R","R######Y#R","RGGGGGGYRR"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["RGGGGGGGGG","RGYBRRYYBG","RGYBRRYYBR","RGYBBBBBBR","RGYYYYBBBR","RGGGGGBBBR","RRRRRRRRRR","GGGGGGGGGR"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["GRRRRRRRRG","GRRBRRBRRG","GRRRRRRRRG","GRRBRRBRRG","GYRRRRRRGG","GYGRRRRYGG","BYGGYGGYGB","BBGGYGGYBB"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["BBBBBBYYYY","BBBBBBBYYY","BBBBBBBBYY","BBGGBBBBBY","GGGBGGBBBB","GRGGGGGYGG","GGYGGGBGGG","GGGGGGGGRG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["GGGRRBBBBB","GGRRYRRBBB","GRRYYYRRBB","RRYYGYYRRB","RRYYBYYRRG","BRRYRYRRGG","BBRRRRRGGG","BBBRRGGGGG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YGGGGGGGGR","YYYYBBBBGR","GBRYBBBBGR","GBRYYRBBGR","GBRRGYYBGR","GBRRRRYBGR","GBRRRRYYYY","GBBBBBBBBY"],"target":"R","moves":4,"colors":"BRYG"},{"rows":["YRYYYBGYBY","BBBBBBGYBY","YRBRRRGRBY","YRBRYYGRBY","YRBRYGGRBY","YYBYYGYRBY","YYBBBGBBBY","GGGGGGYRRR"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YRRBYYYYBY","YRRBYYYYBY","GGGGGGGGGG","YRRBGGGGBY","YRRBYGGGBY","YRRBYYGGBY","YRRBYYYGBY","YRRBYYYYBY"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["YRBBYYYYYY","YRRYYYYYYY","YBYYBGGBBY","YBYYGYYYGY","YRYYBYYYGY","YGBBGYRRBY","YYYYYYRYYY","YYGGGRBYYY"],"target":"R","moves":4,"colors":"BRYG"},{"rows":["RRRRRBBBBB","RBBBRBGGGG","RBBBRBGBBG","RBYYYYYYYG","RRRRRBGGGG","BBYBBBBBYB","BBYBBBBBYB","BBYYYYYYYB"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YBBBBBBBBY","YBGGGGGGBY","YBGBBBBGBY","YBGBGGGGBY","YBGBBBBBBY","YBGYYYYYYY","YBBGGGGGGG"],"target":"Y","moves":2,"colors":"BYG"},{"rows":["YYRRYYRRYY","YBRBRRRRRY","BBBBBRGRGR","BBBBBGGGGG","RBBBRGGGGG","YRBRRRGGGY","YYRRRRRGYY","YYYYRRYYYY"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YRRRRRRRRY","YRGGGGGGRY","YRGBBBBGRY","YRGBBBBGRY","YRGGGGGGRY","YRRRRRRRRY","YYYYYYYYYY"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YYRRGGGRRY","YRRGGBGGRR","RRGGBBBGGR","RGGBBGBBGG","RGBBGYGBBG","RGGBBGBBGG","RRGGBBBGGY","YRRGGBGGYY"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["RRRRRBBBBB","GGGGGYYRRR","GBBBBGGGYY","GYGGGGYYYY","YYYYGGGGGG","YYGGGBBBBG","RRRYYGGGGG","BBBBBYYYYY"],"target":"B","moves":4,"colors":"BRYG"},{"rows":["YYRYRYYRYY","YBBBRBBBBY","YYRYRYYRYY","YYRYRYYRYY","YYRYRYYRYY","YBBBBBBRBY","YYRYRYYRYY","YYRYRYYRYY"],"target":"Y","moves":4,"colors":"BRY"},{"rows":["YRRRRRRRRY","YYYRRRRRYY","BBYYYRRYYY","BBYYYRYYYB","BYYGYYYBBB","YYGGGYYYBB","YGGGGGYYYB","GGGGGGGYYB"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["YYBBRRBBYY","BYYYRRYYYB","BYBRBBRBYB","RRRRYYRRYY","YYRRYYRRRR","BYBRBBRBYB","BYYYRRYYYB","YYBBRRBBYY"],"target":"B","moves":4,"colors":"BRY"},{"rows":["RRGGGGGGGR","RRYGGGGBGR","RGYBGGBBGR","RGYBBBBBGR","RGYYYYYBGR","RGYYGGYBGR","RGYGGGGBRR","RGGGGGGGRR"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YBBBYYBBBY","YBRBYYBRBY","YBRBYYBRBY","YBRBYYBRBY","YBRBYYBRBY","BBRBBBBRBB","RRRRRRRRRR"],"target":"R","moves":2,"colors":"BRYG"},{"rows":["RBBYGGYBBB","RRBYGGYBBR","RRRYGGYBRR","BRRRRRRRRR","BBRYGGYRRB","BBBYGGYRBB","BBYYGGYBBB","BYYYGGYBBB"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["RRRBBBBRRR","GGRRBBRRGG","GGGGBBGGGG","YYYYBBYYYY","YYYYBBYYYY","RYBBBBBBYR","RRRBBBBBRR","RRRRBBRRRR"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YYRRRRRRYY","BBGGGGGGBB","YYGRRRRGYY","YYGRRRRGYY","BBGGGGGGBB","YYRRRRRRYY","YYYYYYYYYY"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["BGGGRBBGRR","BGRGRBBGRR","BGRGRBBGRR","BGGGRBBGRR","BGGGRBBGRR","BGRGRBBGRR","BGRGRBBGRR","BGGGRBBGRR"],"target":"R","moves":4,"colors":"BRG"},{"rows":["RRBBRRGGGR","BBBBRGGYGR","BBYBBBBBBB","RRGBRRGGRR","GGGBGGGGGR","RGGBGRGGYG","RRGBRRGGGG","RRBBBRRGGR"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["BBBBBGGBRR","BYRRBYYBRR","BYRRBYYBGG","BBBBBBBBBB","GGRRBGGYRR","GGYYBRRYRR","RRYYBRRGGG","RRBBBBBGGG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YRRRRRYBBY","YRBBBRYBBY","YRBYBRYYYY","YRBYBRYYYY","YRBBBRYBBY","YRRRRRYBBY","YYYYYYYYYY"],"target":"Y","moves":3,"colors":"BRY"},{"rows":["BYYYYYYYYY","YBYYRYRYRY","YYBYYYYRYY","YYYGYYRYRY","YYYYBYYYYY","YYYYYBYYRY","YYYYYYBYYY","YYYYYYYBYY"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["BYYRYYYRYY","YYGYYYGYYY","YRYYYRYYBY","RYYYRYYBYY","YYYRYYBYYR","YYRYYBYYGY","YRYYBYYRYY","YYYYYYGYYB"],"target":"B","moves":4,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YBBBBBBBBY","YBRRRRRRBY","YBRYRYYRBY","YBRYYRYRBY","YBRRRRRRBY","YBBBBBBBBY","YYYYYYYYYY"],"target":"R","moves":3,"colors":"BRY"},{"rows":["BBRBBYBBRB","BBBGBBBGBB","BBBBRBRBBB","BBYBBBBBYB","BBBBRBRBBB","BBBGBBBGBB","BBRBBYBBRB","BRBBBBBBBR"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["BGGBBBYYRR","RBGGBBYYRR","RRBGGBYYGG","RRRGGGYYBB","BBYYYYYYRR","BBYGGBBBRR","BYYGBBBGGB","BYGGGGGGBB"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["RRGYGYBBGR","RRRYRYBBGR","YYYYBYBYGR","RYBBBBBBGR","YYYBYBYBGR","YYBBYBYBGR","RGGBGBYBRR","RRRBYBYBRR"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["YYYYYRRRRR","YYYYYRRRRR","YYBBBBBBRR","YYRRRYYYRR","BBRRRYYYBB","BBYYYRRRBB","BBYYYRRRBB","BBYYYRRRBB"],"target":"B","moves":4,"colors":"BRY"}];
+const NAMES={B:'כחול',R:'אדום',Y:'צהוב',G:'ירוק'};
+const COLOR_CSS={B:'--blue',R:'--red',Y:'--yellow',G:'--green'};
+const KEYS={B:'1',R:'2',Y:'3',G:'4'};
+const TARGET_WORDS={B:'בכחול',R:'באדום',Y:'בצהוב',G:'בירוק'};
+const WIDTH=10,STORAGE_KEY='color-puzzles-45-v1';
+let current=0,board=[],history=[],paint='B',focusIndex=0,completed=[],tiles=[],paletteButtons=[],savingWorks=true;
+const el=id=>document.getElementById(id);
+const boardEl=el('board'),selectEl=el('stage'),resultEl=el('result'),finishDialog=el('finish');
+const announce=text=>{el('announcement').textContent=text;};
+const initial=puzzle=>puzzle.rows.join('').split('');
+const allowed=puzzle=>puzzle.colors.split('');
+const won=(cells,target)=>cells.every(color=>color==='#'||color===target);
+const isWon=()=>won(board,PUZZLES[current].target);
+const isOver=()=>isWon()||history.length>=PUZZLES[current].moves;
+function connected(cells,start){
+  if(!Number.isInteger(start)||start<0||start>=cells.length||cells[start]==='#')return [];
+  const color=cells[start],seen=new Set([start]),queue=[start];
+  for(let p=0;p<queue.length;p++){
+    const i=queue[p],col=i%WIDTH,neighbors=[i-WIDTH,i+WIDTH];
+    if(col>0)neighbors.push(i-1);if(col<WIDTH-1)neighbors.push(i+1);
+    for(const n of neighbors)if(n>=0&&n<cells.length&&cells[n]===color&&!seen.has(n)){seen.add(n);queue.push(n);}
+  }
+  return queue;
 }
-function loadLevel(i){
- if(!Number.isInteger(i)||i<0||i>=LEVELS.length)return;
- current=i;chapter=Math.floor(i/10);state=settle(initialState(i));history=[];
- canvas.width=state.terrain[0].length*32;canvas.height=state.terrain.length*32;ctx.imageSmoothingEnabled=false;
- $('hint').textContent=LEVELS[i].hint;$('hint').hidden=true;$('hint-toggle').textContent='הצגת רמז';$('hint-toggle').setAttribute('aria-expanded','false');
- $('status').textContent=`שלב ${i+1}: ${LEVELS[i].name}. אספו את כל היצורים.`;
- canvas.setAttribute('aria-label',`לוח שלב ${i+1}: ${LEVELS[i].name}. חצים לתנועה, Z לביטול צעד, R להתחלה מחדש.`);
- try{localStorage.setItem('catrap-handcrafted-v1-current',String(i));}catch{}
- levelButtons();draw();
- const active=$('levels').querySelector('.active');if(active)$('levels').scrollTop=active.offsetTop-$('levels').offsetTop;
+function replay(puzzle,actions){
+  if(!Array.isArray(actions)||actions.length>puzzle.moves)return null;
+  const cells=initial(puzzle),colors=allowed(puzzle);
+  for(const action of actions){
+    if(!Array.isArray(action)||action.length!==2||won(cells,puzzle.target))return null;
+    const [i,color]=action;
+    if(!Number.isInteger(i)||i<0||i>=cells.length||cells[i]==='#'||cells[i]===color||!colors.includes(color))return null;
+    connected(cells,i).forEach(n=>{cells[n]=color;});
+  }
+  return cells;
 }
-function move(dir){
- const next=step(state,dir);
- if(!next){if(state.monsters.length)$('status').textContent='אין מעבר בכיוון הזה. נסו כיוון אחר.';return;}
- history.push(state);const found=next.monsters.length<state.monsters.length;state=next;
- $('status').textContent=found?'עוד יצור נאסף. מתקרבים לפתרון!':'קחו את הזמן. תמיד אפשר לחזור צעד לאחור.';
- if(!state.monsters.length){completed.add(current);try{localStorage.setItem('catrap-handcrafted-v1-completed',JSON.stringify([...completed]));}catch{}levelButtons();$('status').textContent='השלב הושלם!';}draw();
+function readProgress(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return;
+    const data=JSON.parse(raw);if(!data||data.version!==1||!Array.isArray(data.completed))return;
+    for(let i=0;i<Math.min(data.completed.length,PUZZLES.length);i++){
+      const verified=replay(PUZZLES[i],data.completed[i]);
+      if(!verified||!won(verified,PUZZLES[i].target))break;
+      completed.push(data.completed[i].map(action=>action.slice()));
+    }
+    if(Number.isInteger(data.current)&&data.current>=0&&data.current<PUZZLES.length&&data.current<=completed.length)current=data.current;
+    else current=Math.min(completed.length,PUZZLES.length-1);
+    if(replay(PUZZLES[current],data.history))history=data.history.map(action=>action.slice());
+  }catch(error){if(error instanceof SyntaxError)return;savingWorks=false;}
 }
-$('chapter').onchange=()=>{chapter=Number($('chapter').value);levelButtons();};
-$('hint-toggle').onclick=()=>{const show=$('hint').hidden;$('hint').hidden=!show;$('hint-toggle').textContent=show?'הסתרת רמז':'הצגת רמז';$('hint-toggle').setAttribute('aria-expanded',String(show));};
-$('undo').onclick=()=>{if(history.length){state=history.pop();$('status').textContent='חזרתם צעד לאחור. הזדמנות לנסות דרך אחרת.';draw();}};
-$('restart').onclick=()=>loadLevel(current);
-$('next').onclick=()=>loadLevel(current<LEVELS.length-1?current+1:(LEVELS.findIndex((_,i)=>!completed.has(i))<0?0:LEVELS.findIndex((_,i)=>!completed.has(i))));
-document.addEventListener('keydown',e=>{
- if(e.altKey||e.ctrlKey||e.metaKey||e.target.closest('select,input,textarea'))return;
- const dir={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'}[e.key];
- if(dir){e.preventDefault();move(dir);}
- else if(e.code==='KeyZ'||e.key.toLowerCase()==='z'){e.preventDefault();$('undo').click();}
- else if((e.code==='KeyR'||e.key.toLowerCase()==='r')&&!e.repeat){e.preventDefault();loadLevel(current);}
+function saveProgress(){
+  if(!savingWorks)return;
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,current,completed,history}));}
+  catch{savingWorks=false;el('saving-warning').hidden=false;}
+}
+function clearHighlight(){tiles.forEach(tile=>tile.classList.remove('region'));}
+function highlight(i){clearHighlight();if(!isOver())connected(board,i).forEach(n=>tiles[n].classList.add('region'));}
+function setBoardFocus(i,focus){
+  if(board[i]==='#')return;
+  if(tiles[focusIndex])tiles[focusIndex].tabIndex=-1;
+  focusIndex=i;tiles[i].tabIndex=0;if(focus)tiles[i].focus();
+}
+function moveFocus(i,key){
+  let candidate=i;
+  if(key==='Home'||key==='End'){
+    const start=i-i%WIDTH;candidate=key==='Home'?start:start+WIDTH-1;
+    const step=key==='Home'?1:-1;while(board[candidate]==='#'&&candidate>=start&&candidate<start+WIDTH)candidate+=step;
+    if(candidate<start||candidate>=start+WIDTH)return;
+  }else{
+    const step={ArrowRight:1,ArrowLeft:-1,ArrowDown:WIDTH,ArrowUp:-WIDTH}[key];if(!step)return;
+    do{candidate+=step;if(candidate<0||candidate>=board.length)return;if(Math.abs(step)===1&&Math.floor(candidate/WIDTH)!==Math.floor(i/WIDTH))return;}while(board[candidate]==='#');
+  }
+  setBoardFocus(candidate,true);
+}
+function selectColor(color,notify=true){
+  if(!allowed(PUZZLES[current]).includes(color))return;
+  paint=color;paletteButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.paint===color)));
+  if(notify)announce(`נבחר צבע ${NAMES[color]}.`);
+}
+function buildBoard(){
+  boardEl.replaceChildren();tiles=[];focusIndex=board.findIndex(color=>color!=='#');
+  board.forEach((color,i)=>{
+    const tile=document.createElement(color==='#'?'span':'button');tile.className=color==='#'?'tile blocked':'tile';
+    if(color==='#'){tile.setAttribute('role','img');tile.setAttribute('aria-label',`משבצת חסומה, שורה ${Math.floor(i/WIDTH)+1}, עמודה ${i%WIDTH+1}`);}
+    else{
+      tile.type='button';tile.tabIndex=i===focusIndex?0:-1;
+      tile.addEventListener('click',()=>{setBoardFocus(i,false);fill(i);});
+      tile.addEventListener('pointerenter',()=>highlight(i));tile.addEventListener('pointerleave',clearHighlight);
+      tile.addEventListener('focus',()=>highlight(i));tile.addEventListener('blur',clearHighlight);
+      tile.addEventListener('animationend',()=>tile.classList.remove('changed'));
+      tile.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key)){event.preventDefault();moveFocus(i,event.key);}});
+    }
+    boardEl.appendChild(tile);tiles.push(tile);
+  });
+  const palette=el('palette');palette.replaceChildren();const legend=document.createElement('legend');legend.textContent='בחרו צבע';palette.appendChild(legend);
+  paletteButtons=allowed(PUZZLES[current]).map(color=>{
+    const button=document.createElement('button');button.type='button';button.className='color';button.dataset.paint=color;
+    button.setAttribute('aria-label',`${NAMES[color]}, מקש ${KEYS[color]}`);
+    button.innerHTML=`<span class="swatch" style="--swatch:var(${COLOR_CSS[color]})"></span><span class="color-name">${NAMES[color]}</span><kbd>${KEYS[color]}</kbd>`;
+    button.addEventListener('click',()=>{if(!isOver())selectColor(color);});palette.appendChild(button);return button;
+  });
+  palette.style.setProperty('--palette-count',paletteButtons.length);
+  selectColor(allowed(PUZZLES[current])[0],false);
+}
+function render(){
+  const puzzle=PUZZLES[current],remaining=puzzle.moves-history.length,over=isOver();
+  tiles.forEach((tile,i)=>{if(board[i]==='#')return;tile.dataset.color=board[i];tile.setAttribute('aria-label',`שורה ${Math.floor(i/WIDTH)+1}, עמודה ${i%WIDTH+1}, ${NAMES[board[i]]}`);tile.setAttribute('aria-disabled',String(over));});
+  el('goal-text').textContent=`צבעו את כל המשבצות ${TARGET_WORDS[puzzle.target]}`;el('goal').style.setProperty('--target',`var(${COLOR_CSS[puzzle.target]})`);
+  el('remaining').textContent=remaining;el('move-dots').replaceChildren();
+  for(let i=0;i<puzzle.moves;i++){const dot=document.createElement('i');if(i>=remaining)dot.className='used';el('move-dots').appendChild(dot);}
+  boardEl.classList.toggle('is-won',isWon());boardEl.classList.toggle('is-over',over);paletteButtons.forEach(button=>{button.disabled=over;});
+  selectEl.replaceChildren();PUZZLES.forEach((_,i)=>{const option=document.createElement('option');option.value=i;option.disabled=i>completed.length;option.textContent=`פאזל ${i+1} מתוך ${PUZZLES.length}${i<completed.length?' — הושלם':i>completed.length?' — נעול':''}`;selectEl.appendChild(option);});selectEl.value=String(current);
+  el('next').hidden=current===PUZZLES.length-1;el('next').disabled=!isWon();
+  el('progress').textContent=`הושלמו ${completed.length} מתוך ${PUZZLES.length} פאזלים`;
+  el('saving-warning').hidden=savingWorks;
+  if(isWon())resultEl.innerHTML=current===PUZZLES.length-1&&completed.length===PUZZLES.length?'<strong>כל הכבוד!</strong>השלמתם את כל 45 הפאזלים! 🎉':`<strong>הצלחתם!</strong>הפאזל הושלם ב־${history.length} מהלכים.`;
+  else if(over)resultEl.innerHTML='<strong>נגמרו המהלכים</strong>התחילו מחדש ונסו שוב.';
+  else resultEl.textContent='';
+}
+function showFinish(){if(completed.length===PUZZLES.length&&!finishDialog.open)finishDialog.showModal();}
+function recordWin(){
+  if(isWon()&&current===completed.length)completed.push(history.map(action=>action.slice()));
+}
+function fill(i){
+  if(isOver()||!Number.isInteger(i)||i<0||i>=board.length||board[i]==='#')return;
+  if(board[i]===paint){announce(`המשבצת כבר בצבע ${NAMES[paint]}. לא נוצל מהלך.`);return;}
+  const region=connected(board,i);region.forEach(n=>{board[n]=paint;tiles[n].classList.remove('changed');});history.push([i,paint]);
+  clearHighlight();recordWin();render();saveProgress();region.forEach(n=>tiles[n].classList.add('changed'));
+  if(isWon()){if(current===PUZZLES.length-1)showFinish();else el('next').focus();}
+  else if(!isOver())announce(`נצבעו ${region.length} משבצות בצבע ${NAMES[paint]}. מהלכים שנותרו: ${PUZZLES[current].moves-history.length}.`);
+}
+function loadLevel(index,actions=[]){
+  if(!Number.isInteger(index)||index<0||index>=PUZZLES.length||index>completed.length){selectEl.value=String(current);return false;}
+  current=index;const restored=replay(PUZZLES[current],actions);history=restored?actions.map(action=>action.slice()):[];board=restored||initial(PUZZLES[current]);
+  buildBoard();recordWin();render();saveProgress();return true;
+}
+function reset(){loadLevel(current);announce(`פאזל ${current+1} התחיל מחדש. מהלכים שנותרו: ${PUZZLES[current].moves}.`);}
+function nextLevel(){if(!isWon()||current>=PUZZLES.length-1)return;loadLevel(current+1);setBoardFocus(focusIndex,true);announce(`פאזל ${current+1} נפתח.`);}
+selectEl.addEventListener('change',()=>{const index=Number(selectEl.value);if(loadLevel(index))announce(`פאזל ${current+1} נבחר.`);});
+el('reset').addEventListener('click',reset);el('next').addEventListener('click',nextLevel);
+el('finish-close').addEventListener('click',()=>finishDialog.close());
+document.addEventListener('keydown',event=>{
+  if(finishDialog.open||event.ctrlKey||event.metaKey||event.altKey||event.repeat)return;
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)||event.target.isContentEditable)return;
+  const color={'1':'B','2':'R','3':'Y','4':'G'}[event.key];if(color&&!isOver()){event.preventDefault();selectColor(color);}
+  if(event.code==='KeyR'||event.key.toLowerCase()==='r'){event.preventDefault();reset();}
 });
-document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>move(b.dataset.dir));loadLevel(current);
+readProgress();loadLevel(current,history);if(current===PUZZLES.length-1&&isWon())showFinish();
 </script>
 </body>
 </html>
