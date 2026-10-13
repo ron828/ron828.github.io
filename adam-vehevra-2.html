@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10191b">
+<meta name="description" content="אדם וחברה 3: הבריחה מים סוף. פתרו את הפאזלים ועזרו לבני ישראל לצאת מהים.">
+<title>אדם וחברה 2: הבריחה מים סוף</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%2310191b%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23759cce%22/%3E%3Crect%20x%3D%2234%22%20y%3D%2210%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23cc7167%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2234%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23e4d987%22/%3E%3Crect%20x%3D%2234%22%20y%3D%2234%22%20width%3D%2220%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%2373b9a0%22/%3E%3C/svg%3E">
+<style>
+
+:root{color-scheme:dark;--bg:#10191b;--ink:#f0eadb;--muted:#abb7b4;--gold:#d8c792;--blue:#759cce;--red:#cc7167;--yellow:#e4d987;--green:#73b9a0}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 12% 30%,#304b463b,transparent 53%),radial-gradient(ellipse at 81% 78%,#5e34352e,transparent 57%),var(--bg);color:var(--ink);font:16px Arial,Helvetica,sans-serif}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #fff1bf;outline-offset:5px}button:disabled{cursor:default}
+.shell{width:min(1120px,100%);margin:auto;padding:36px 38px 22px}.top{display:flex;justify-content:space-between;align-items:center;gap:22px;border-bottom:1px solid #b8c2ae29;padding-bottom:23px}.eyebrow{color:var(--gold);font-size:.75rem;letter-spacing:.19em;text-transform:uppercase;margin:0 0 9px}h1{font:normal clamp(1.65rem,3.4vw,2.35rem)/1.15 Georgia,serif;margin:0;letter-spacing:.025em}.stage{text-align:right;color:var(--muted);font-size:.875rem;line-height:1.65}.stage strong{color:var(--ink);font-weight:normal;display:block}
+.game{display:grid;grid-template-columns:minmax(0,1fr) 215px;gap:44px;align-items:center;padding-top:26px}.board-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 17px;font-size:.875rem;color:var(--muted)}.target{display:flex;align-items:center;gap:9px;color:var(--ink)}.target-dot{width:12px;height:12px;display:inline-block;background:var(--red);border:1px solid #edada2;transform:rotate(45deg)}.board-frame{position:relative;border:1px solid #bb99796b;border-radius:12px;padding:11px;background:#131617;box-shadow:0 0 0 5px #7d635d10,0 22px 50px #0003}.board-frame:before,.board-frame:after{content:'';position:absolute;pointer-events:none;width:32px;height:32px;border-color:#bdae86;border-style:solid}.board-frame:before{top:-5px;left:-5px;border-width:2px 0 0 2px;border-radius:14px 0 0}.board-frame:after{bottom:-5px;right:-5px;border-width:0 2px 2px 0;border-radius:0 0 14px}.board{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}
+.tile{min-width:0;padding:0;aspect-ratio:1;position:relative;border-radius:6px;border:1px solid #ffffff23;background-color:var(--tile);background-image:linear-gradient(145deg,#ffffff18,transparent 46%,#00000015);box-shadow:inset 0 1px 1px #ffffff15,inset 0 -2px 2px #0002;transition:background-color .23s,filter .15s,box-shadow .15s}.tile[data-color=B]{--tile:var(--blue)}.tile[data-color=R]{--tile:var(--red)}.tile[data-color=Y]{--tile:var(--yellow)}.tile[data-color=G]{--tile:var(--green)}.tile.region{filter:brightness(1.12);box-shadow:inset 0 0 0 2px #fff7}.tile:focus-visible{outline-offset:1px;z-index:1}.tile.changed{animation:paint .38s ease-out}@keyframes paint{45%{filter:brightness(1.25);transform:scale(.94)}}.board.is-won .tile{box-shadow:inset 0 0 0 1px #ffe6ab30}.board.is-over .tile{cursor:default}.board-caption{display:flex;gap:10px;align-items:center;min-height:42px;margin:15px 0 0;font-size:.875rem;color:var(--muted);line-height:1.5}.caption-mark{color:var(--gold);font-size:1rem}
+.controls{align-self:stretch;display:flex;flex-direction:column;padding-top:2px}.moves-label{font-size:.875rem;color:var(--muted);margin:0}.moves{display:flex;align-items:baseline;gap:9px;margin:5px 0 11px}.moves strong{font:normal 3rem/1 Georgia,serif;color:var(--gold);font-variant-numeric:tabular-nums}.moves span{color:var(--muted);font-size:.875rem}.move-dots{display:flex;gap:7px;margin-bottom:26px}.move-dots i{width:25px;height:3px;background:var(--gold);transition:background .2s}.move-dots i.used{background:#54605b}.palette{display:grid;gap:11px;margin:0;padding:0;border:0}.palette legend{padding:0;color:var(--muted);font-size:.875rem;margin-bottom:12px}.color{display:flex;align-items:center;width:100%;gap:14px;padding:5px 10px 5px 6px;border:1px solid transparent;background:transparent;border-radius:6px;text-align:left;min-height:54px}.color:hover{background:#fff1}.color[aria-pressed=true]{background:#f0eadb0b;border-color:#b8ac7955}.swatch{width:40px;height:40px;flex-shrink:0;border-radius:50%;border:1px solid #fff4;background:linear-gradient(145deg,#fff2,#0001),var(--swatch);position:relative}.color[aria-pressed=true] .swatch:after{content:'';position:absolute;inset:-5px;border:1px solid var(--gold);border-radius:50%}.color-name{flex:1}kbd{font:normal .75rem/1.2 Arial,sans-serif;min-width:20px;padding:2px 5px;border:1px solid #7c88854d;border-radius:3px;color:var(--muted);text-align:center}.reset{margin-top:25px;padding:12px 14px;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #b8c2ae45;border-radius:4px;background:#d4dcce09}.reset:hover{border-color:var(--gold);background:#d4dcce15}.reset-icon{font-size:1.3rem;margin-right:7px;line-height:1}.result{margin-top:18px;padding-top:17px;border-top:1px solid #b8c2ae29;line-height:1.55;font-size:.875rem;color:var(--muted)}.result strong{display:block;font:normal 1.2rem/1.3 Georgia,serif;margin-bottom:6px;color:var(--gold)}.result:empty{display:none}
+footer{margin-top:15px;border-top:1px solid #b8c2ae29;padding-top:17px;display:flex;align-items:flex-start;justify-content:space-between;gap:25px;color:var(--muted);font-size:.8125rem}footer a{color:var(--muted);text-underline-offset:3px;white-space:nowrap}details{max-width:670px}summary{cursor:pointer;color:var(--ink);width:fit-content;font-size:.875rem}details p{line-height:1.7;margin:10px 0 0;font-size:.875rem}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1400px){.shell{padding-top:55px}.game{padding-top:34px}}
+@media(max-width:800px){.shell{padding:24px 22px 20px}.game{grid-template-columns:minmax(0,1fr) 162px;gap:24px}.board-frame{padding:8px}.board{gap:3px}.tile{border-radius:4px}.swatch{width:32px;height:32px}.color{gap:10px;min-height:46px}.palette{gap:7px}.move-dots{margin-bottom:20px}}
+@media(max-width:600px){.shell{padding:22px 16px}.top{align-items:flex-start;padding-bottom:18px;gap:12px}.eyebrow{font-size:.75rem;letter-spacing:.12em}.stage{font-size:.8125rem;padding-top:1px}.game{display:flex;flex-direction:column;gap:20px;padding-top:22px}.play-area,.controls{width:100%}.board-heading{font-size:.8125rem}.board-frame{padding:7px}.board{gap:3px}.tile{border-radius:4px}.board-caption{margin-top:12px;min-height:0}.controls{display:grid;grid-template-columns:1fr auto;gap:0 16px}.move-section{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:0 0 14px}.moves{margin:0}.moves strong{font-size:1.7rem}.moves span{display:none}.move-dots{margin:0 0 0 3px}.move-dots i{width:15px}.palette{grid-row:2;grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.palette legend{margin-bottom:12px}.color{flex-direction:column;padding:10px 3px 8px;gap:9px;min-height:86px;font-size:.875rem}.swatch{width:34px;height:34px}.color kbd{display:none}.reset{grid-column:2;grid-row:1;margin:0 0 14px;min-height:38px;padding:7px 10px;font-size:.875rem}.reset kbd{display:none}.result{grid-column:1/-1}footer{margin-top:22px;flex-wrap:wrap;gap:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+.game{direction:ltr;padding-top:0}.play-area,.controls{direction:rtl}.board{direction:ltr}.color{text-align:start}.reset{justify-content:center}.reset-icon{margin-right:0;margin-inline-end:7px}.result strong{font-family:Arial,Helvetica,sans-serif}
+
+[hidden]{display:none!important}
+.shell{padding-top:28px}.game{gap:36px;align-items:start}.controls{gap:0}.stage-picker{margin-bottom:22px}select{width:100%;min-height:46px;border:1px solid #b8c2ae45;border-radius:5px;background:#182325;color:var(--ink);padding:10px;font:inherit;direction:rtl}select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}select option:disabled{color:#7d8785}.board-heading{min-height:46px;margin-bottom:15px;font-size:1rem}.target-dot{background:var(--target,var(--red));border-color:#fff7}.board-frame{padding:9px}.tile{touch-action:manipulation}.tile.blocked{background:#273033;border:1px solid #52605b38;box-shadow:inset 0 0 12px #0005;display:grid;place-items:center;color:#69726e;font-size:1.35rem;aspect-ratio:1;cursor:default}.tile.blocked:before{content:'×';opacity:.55}.board.is-over .tile{cursor:default}.palette{grid-template-columns:1fr}.color:disabled{opacity:.6}.reset{margin-top:20px}.next{width:100%;min-height:46px;margin-top:10px;border:1px solid #d8c792;background:var(--gold);color:#182322;border-radius:4px;font:inherit;font-weight:bold;padding:11px 13px}.next:hover:not(:disabled){background:#e8d9a9}.next:disabled{background:#d4dcce09;color:#82918c;border-color:#b8c2ae29;opacity:.8}.result{min-height:0}.result strong{font-family:Arial,Helvetica,sans-serif;font-weight:bold}.move-dots{flex-wrap:wrap}.move-dots i{width:20px}.progress-line{font-size:.875rem;color:var(--muted);line-height:1.6;margin:15px 0 0}.saving-warning{color:#e4d987;font-size:.875rem;line-height:1.6;margin:15px 0 0}dialog{width:min(490px,calc(100vw - 40px));border:1px solid var(--gold);border-radius:12px;padding:32px 28px;background:#172324;color:var(--ink);text-align:center;box-shadow:0 25px 100px #0008}dialog::backdrop{background:#07100dd9;backdrop-filter:blur(5px)}dialog h2{font-size:2rem;margin:10px 0 15px;color:var(--gold)}dialog p{line-height:1.8;margin:0 0 24px;font-size:1.2rem}.celebration{font-size:3rem;display:block}.finish-close{min-height:46px;padding:11px 26px;border:1px solid var(--gold);border-radius:5px;background:var(--gold);color:#152220}
+@media(max-width:800px){.game{gap:22px}.board-heading{font-size:.875rem}.stage-picker{margin-bottom:16px}.move-dots{margin-bottom:18px}.color{gap:9px}}
+@media(max-width:600px){.shell{padding:16px}.game{gap:18px}.controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px}.stage-picker{grid-column:1/-1;grid-row:1;margin-bottom:16px}.move-section{grid-column:1/-1;grid-row:2;margin-bottom:16px}.palette{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:repeat(var(--palette-count,4),minmax(0,1fr));gap:6px}.reset{grid-column:1;grid-row:4;margin:16px 0 0;min-height:46px}.next{grid-column:2;grid-row:4;margin:16px 0 0;min-height:46px;font-size:.875rem}.result,.progress-line,.saving-warning{grid-column:1/-1}.result{grid-row:5}.board-heading{min-height:30px;margin-bottom:10px;font-size:1rem}.board-frame{padding:6px}.board{gap:3px}.tile.blocked{font-size:1rem}.move-dots{margin:0 4px}.move-dots i{width:18px}.color{min-height:80px}.palette legend{margin-bottom:10px}dialog{padding:26px 20px}}
+@media(prefers-reduced-motion:no-preference){dialog[open]{animation:finish-in .35s ease-out}@keyframes finish-in{from{opacity:0;transform:translateY(15px) scale(.97)}to{opacity:1;transform:none}}}
+</style>
+<style>
+.entry{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;display:grid;place-items:center;padding:48px 20px;background:radial-gradient(ellipse at 50% 90%,#1b555550,transparent 60%),linear-gradient(160deg,#10282e,#08171e 65%,#10272c)}
+.entry:before,.entry:after{content:'';position:absolute;z-index:-1;pointer-events:none;width:65vw;height:140%;top:-20%;border:1px solid #5ab1bb30;border-radius:50%;box-shadow:0 0 0 35px #32899708,0 0 0 70px #32899708,0 0 0 105px #32899706}
+.entry:before{right:76%;transform:rotate(-15deg)}.entry:after{left:76%;transform:rotate(15deg)}
+.entry-content{width:min(760px,100%);text-align:center}
+.entry-mark{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 26px;color:var(--gold)}
+.entry-mark:before,.entry-mark:after{content:'';width:70px;height:1px;background:linear-gradient(90deg,transparent,#d8c79280)}.entry-mark:after{transform:rotate(180deg)}
+.entry-mark svg{width:36px;height:36px}
+.entry-title{margin:0;font-family:Georgia,'Times New Roman',serif;letter-spacing:-.025em;font-weight:normal;line-height:1.03;font-size:clamp(3.4rem,10vw,7rem);text-wrap:balance}
+
+/* Enlarged "אדם וחברה 2:" */
+.entry-course{display:block;margin-bottom:24px;font:normal clamp(2.6rem,6vw,4rem)/1.2 Arial,Helvetica,sans-serif;letter-spacing:.06em;color:var(--gold)}
+
+.entry-title-line{display:block}.entry-title-accent{color:#ead8a1;text-shadow:0 2px 32px #d8c79218}
+.entry-form{width:min(340px,100%);margin:36px auto 0;text-align:right}
+.entry-form label{display:block;margin-bottom:10px;color:#c4d1d1;font-size:.95rem}
+.entry-password{width:100%;min-height:52px;padding:12px 16px;border:1px solid #91b4b455;border-radius:5px;background:#ffffff06;color:var(--ink);font:1rem/1.5 Arial,Helvetica,sans-serif;text-align:center;box-shadow:inset 0 2px 12px #0002}
+.entry-password::placeholder{color:#93a9ac;opacity:1}.entry-password:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.entry-password[aria-invalid=true]{border-color:#eb9f91}
+.entry-form .intro-button{width:100%;margin-top:14px;min-height:52px;box-shadow:0 6px 24px #0002}
+.entry-error{min-height:1.5em;margin:12px 0 0;text-align:center;font-size:.9rem;line-height:1.5;color:#f2ada0}
+@media(max-width:600px){.entry{padding:32px 24px}.entry-mark{margin-bottom:20px}.entry-course{margin-bottom:20px}.entry-form{margin-top:30px}}
+.intro{min-height:100svh;display:grid;place-items:center;padding:24px 20px;background:#10191b}
+.intro-slide{width:min(1315px,100%);text-align:center}
+.intro-title{margin:0 0 20px;font:normal clamp(1.25rem,3vw,1.85rem)/1.45 Arial,Helvetica,sans-serif;letter-spacing:0}
+
+/* Reserve the image's final space before the image finishes loading */
+.intro-image{
+    display:block;
+    width:min(1315px,100%,calc((100svh - 180px) * 1.64375));
+    height:auto;
+    aspect-ratio:1315 / 800;
+    margin:0 auto;
+    object-fit:contain;
+    border-radius:8px
+}
+
+.intro-button{display:block;min-width:145px;max-width:100%;min-height:48px;margin:20px auto 0;padding:12px 24px;border:1px solid var(--gold);border-radius:5px;background:var(--gold);color:#182322;font-weight:bold;line-height:1.5;touch-action:manipulation}
+.intro-button:hover{background:#e8d9a9}
+
+@media(max-width:600px){
+    .intro{padding:20px 12px}
+    .intro-title{margin-bottom:16px}
+    .intro-image{width:min(1315px,100%,calc((100svh - 210px) * 1.64375))}
+    .intro-button{margin-top:18px}
+}
+</style>
+</head>
+<body>
+<main class="entry" id="entry-screen" aria-labelledby="entry-title">
+<div class="entry-content">
+<div class="entry-mark" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M18 3v30M5 9c5 0 5 6 10 6M31 9c-5 0-5 6-10 6M5 18c5 0 5 6 10 6M31 18c-5 0-5 6-10 6"/></svg></div>
+<h1 class="entry-title" id="entry-title"><span class="entry-course">אדם וחברה 2:</span> <span class="entry-title-line">הבריחה</span> <span class="entry-title-line entry-title-accent">מים סוף</span></h1>
+<form class="entry-form" id="entry-form" novalidate>
+<label for="entry-password">סיסמה</label>
+<input class="entry-password" id="entry-password" type="password" dir="ltr" placeholder="הזינו את הסיסמה" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="entry-error" required>
+<button class="intro-button" type="submit">צאו לדרך</button>
+<p class="entry-error" id="entry-error" role="alert" aria-atomic="true"></p>
+</form>
+</div>
+</main>
+<main class="intro" id="intro" aria-label="הסיפור מתחיל" hidden>
+<section class="intro-slide" aria-labelledby="intro-title-1">
+<h1 class="intro-title" id="intro-title-1" tabindex="-1">בני ישראל בורחים ממצרים</h1>
+<img class="intro-image" src="exodus-2.jpg" width="1315" height="800" loading="lazy" decoding="async" alt="בני ישראל בורחים ממצרים בין חומות המים">
+<button type="button" class="intro-button" data-intro-next>הבא</button>
+</section>
+<section class="intro-slide" aria-labelledby="intro-title-2" hidden>
+<h1 class="intro-title" id="intro-title-2" tabindex="-1">בני ישראל עושים את דרכם בים סוף לכיוון המדבר</h1>
+<img class="intro-image" src="exodus-1.jpg" width="1315" height="800" loading="lazy" decoding="async" alt="בני ישראל עושים את דרכם בים סוף לכיוון המדבר">
+<button type="button" class="intro-button" data-intro-next>הבא</button>
+</section>
+<section class="intro-slide" aria-labelledby="intro-title-3" hidden>
+<h1 class="intro-title" id="intro-title-3" tabindex="-1">בני ישראל חסומים על ידי פאזל ענק</h1>
+<img class="intro-image" src="exodus-3.jpg" width="1315" height="800" loading="lazy" decoding="async" alt="פאזל צבעים ענק חוסם את הדרך של בני ישראל בין חומות הים">
+<button type="button" class="intro-button" id="start-game">עזרו לבני ישראל לצאת מהים</button>
+</section>
+</main>
+<main class="shell" id="game-shell" hidden>
+<section class="game" aria-label="משחק צבעים">
+<div class="play-area">
+<div class="board-heading"><span class="target" id="goal"><i class="target-dot" aria-hidden="true"></i><span id="goal-text"></span></span></div>
+<div class="board-frame"><div class="board" id="board" role="group" aria-label="לוח המשחק" aria-describedby="goal"></div></div>
+</div>
+<aside class="controls" aria-label="פקדי המשחק">
+<div class="stage-picker"><select id="stage" aria-label="בחירת פאזל"></select></div>
+<div class="move-section"><p class="moves-label">מהלכים שנותרו</p><div class="moves"><strong id="remaining">0</strong></div><div class="move-dots" id="move-dots" aria-hidden="true"></div></div>
+<fieldset class="palette" id="palette"><legend>בחרו צבע</legend></fieldset>
+<button type="button" class="reset" id="reset"><span><span class="reset-icon" aria-hidden="true">↻</span>התחילו מחדש</span></button>
+<button type="button" class="next" id="next" disabled>לפאזל הבא</button>
+<div class="result" id="result" role="status" aria-live="polite" aria-atomic="true"></div>
+<p class="progress-line" id="progress"></p>
+<p class="saving-warning" id="saving-warning" hidden>שמירת ההתקדמות אינה זמינה בדפדפן זה. אפשר להמשיך לשחק כל עוד הדף פתוח.</p>
+</aside>
+</section>
+<div class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></div>
+</main>
+<noscript><p>כדי לעבור בין התמונות ולשחק, יש להפעיל JavaScript בדפדפן.</p></noscript>
+<dialog id="finish" aria-labelledby="finish-title" aria-describedby="finish-description">
+<span class="celebration" aria-hidden="true">🎉</span>
+<h2 id="finish-title">כל הכבוד!</h2>
+<p id="finish-description">השלמתם את כל 45 הפאזלים!</p>
+<button type="button" class="finish-close" id="finish-close">חזרה ללוח</button>
+</dialog>
+<script>
+'use strict';
+// Board layouts: https://game8.co/games/Wuthering-Waves/archives/492632
+// Ordered by move limit, with original source order used for ties.
+// The opening frames and in-game target/move counters take precedence over guide text.
+const PUZZLES = [{"rows":["YYYYYYYYYY","YBBBBBBBBY","YBGGGGGGBY","YBGBBBBGBY","YBGBGGGGBY","YBGBBBBBBY","YBGYYYYYYY","YBBGGGGGGG"],"target":"Y","moves":2,"colors":"BYG"},{"rows":["YYYYYYYYYY","YBBBYYBBBY","YBRBYYBRBY","YBRBYYBRBY","YBRBYYBRBY","YBRBYYBRBY","BBRBBBBRBB","RRRRRRRRRR"],"target":"R","moves":2,"colors":"BRYG"},{"rows":["BYYYBBYYYB","YYYBBBBYYY","RRRBBBBRRR","BRRRBBRRRB","BBBRRRRBBB","YYYBRRBYYY","BBGRRRRGBB","GGGGRRGGGG"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["GRGGBBGGRG","RRBBBBBBRR","RBBBBBBBBR","GBBBYBBYBG","GBBBYBBYBG","GBBBYBBYBG","GGBBBBBBGG","GRRRGGRRRG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["RRRRRRRGGG","RGYYYYYYGG","RGYBBBBYBB","RGYBGGRYGB","RGYBGGRYGB","RRYBRRRYGB","GGYYYYYYGB","GGGBBBBBBB"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["RRYGGGGGGR","R#Y######R","R#YBBBBY#R","R#YBYYBY#R","R#YBYYBY#R","R#YBBBBY#R","R######Y#R","RGGGGGGYRR"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["RGGGGGGGGG","RGYBRRYYBG","RGYBRRYYBR","RGYBBBBBBR","RGYYYYBBBR","RGGGGGBBBR","RRRRRRRRRR","GGGGGGGGGR"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["GRRRRRRRRG","GRRBRRBRRG","GRRRRRRRRG","GRRBRRBRRG","GYRRRRRRGG","GYGRRRRYGG","BYGGYGGYGB","BBGGYGGYBB"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["BBBBBBYYYY","BBBBBBBYYY","BBBBBBBBYY","BBGGBBBBBY","GGGBGGBBBB","GRGGGGGYGG","GGYGGGBGGG","GGGGGGGGRG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["GGGRRBBBBB","GGRRYRRBBB","GRRYYYRRBB","RRYYGYYRRB","RRYYBYYRRG","BRRYRYRRGG","BBRRRRRGGG","BBBRRGGGGG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YRYYYBGYBY","BBBBBBGYBY","YRBRRRGRBY","YRBRYYGRBY","YRBRYGGRBY","YYBYYGYRBY","YYBBBGBBBY","GGGGGGYRRR"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YRRBYYYYBY","YRRBYYYYBY","GGGGGGGGGG","YRRBGGGGBY","YRRBYGGGBY","YRRBYYGGBY","YRRBYYYGBY","YRRBYYYYBY"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["RRRRRBBBBB","RBBBRBGGGG","RBBBRBGBBG","RBYYYYYYYG","RRRRRBGGGG","BBYBBBBBYB","BBYBBBBBYB","BBYYYYYYYB"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["YYRRYYRRYY","YBRBRRRRRY","BBBBBRGRGR","BBBBBGGGGG","RBBBRGGGGG","YRBRRRGGGY","YYRRRRRGYY","YYYYRRYYYY"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YRRRRRRRRY","YRGGGGGGRY","YRGBBBBGRY","YRGBBBBGRY","YRGGGGGGRY","YRRRRRRRRY","YYYYYYYYYY"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YYRRGGGRRY","YRRGGBGGRR","RRGGBBBGGR","RGGBBGBBGG","RGBBGYGBBG","RGGBBGBBGG","RRGGBBBGGY","YRRGGBGGYY"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YRRRRRRRRY","YYYRRRRRYY","BBYYYRRYYY","BBYYYRYYYB","BYYGYYYBBB","YYGGGYYYBB","YGGGGGYYYB","GGGGGGGYYB"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["RRGGGGGGGR","RRYGGGGBGR","RGYBGGBBGR","RGYBBBBBGR","RGYYYYYBGR","RGYYGGYBGR","RGYGGGGBRR","RGGGGGGGRR"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["RBBYGGYBBB","RRBYGGYBBR","RRRYGGYBRR","BRRRRRRRRR","BBRYGGYRRB","BBBYGGYRBB","BBYYGGYBBB","BYYYGGYBBB"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["RRRBBBBRRR","GGRRBBRRGG","GGGGBBGGGG","YYYYBBYYYY","YYYYBBYYYY","RYBBBBBBYR","RRRBBBBBRR","RRRRBBRRRR"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YYRRRRRRYY","BBGGGGGGBB","YYGRRRRGYY","YYGRRRRGYY","BBGGGGGGBB","YYRRRRRRYY","YYYYYYYYYY"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["RRBBRRGGGR","BBBBRGGYGR","BBYBBBBBBB","RRGBRRGGRR","GGGBGGGGGR","RGGBGRGGYG","RRGBRRGGGG","RRBBBRRGGR"],"target":"R","moves":3,"colors":"BRYG"},{"rows":["BBBBBGGBRR","BYRRBYYBRR","BYRRBYYBGG","BBBBBBBBBB","GGRRBGGYRR","GGYYBRRYRR","RRYYBRRGGG","RRBBBBBGGG"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YRRRRRYBBY","YRBBBRYBBY","YRBYBRYYYY","YRBYBRYYYY","YRBBBRYBBY","YRRRRRYBBY","YYYYYYYYYY"],"target":"Y","moves":3,"colors":"BRY"},{"rows":["BYYYYYYYYY","YBYYRYRYRY","YYBYYYYRYY","YYYGYYRYRY","YYYYBYYYYY","YYYYYBYYRY","YYYYYYBYYY","YYYYYYYBYY"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["YYYYYYYYYY","YBBBBBBBBY","YBRRRRRRBY","YBRYRYYRBY","YBRYYRYRBY","YBRRRRRRBY","YBBBBBBBBY","YYYYYYYYYY"],"target":"R","moves":3,"colors":"BRY"},{"rows":["BBRBBYBBRB","BBBGBBBGBB","BBBBRBRBBB","BBYBBBBBYB","BBBBRBRBBB","BBBGBBBGBB","BBRBBYBBRB","BRBBBBBBBR"],"target":"Y","moves":3,"colors":"BRYG"},{"rows":["BGGBBBYYRR","RBGGBBYYRR","RRBGGBYYGG","RRRGGGYYBB","BBYYYYYYRR","BBYGGBBBRR","BYYGBBBGGB","BYGGGGGGBB"],"target":"B","moves":3,"colors":"BRYG"},{"rows":["RRGYGYBBGR","RRRYRYBBGR","YYYYBYBYGR","RYBBBBBBGR","YYYBYBYBGR","YYBBYBYBGR","RGGBGBYBRR","RRRBYBYBRR"],"target":"G","moves":3,"colors":"BRYG"},{"rows":["RRYRRYRRBR","BBYBBYBBBB","RRYRRYRRBR","BBBBBYBBBB","RRYRRYRRBR","BBBBBBBBBB","RRYRRYRRBR","RRYRRYRRBR"],"target":"R","moves":4,"colors":"BRYG"},{"rows":["YYYYGGGGR#","RRRBBBBGR#","RYRYGYYGR#","R#R#G#YGR#","R#RYG#GGR#","R#RYY#YYY#","R#####BBYY","RRRBBBBBYY"],"target":"Y","moves":4,"colors":"BRYG"},{"rows":["GGBBBRBBBB","GYYYYYYYYB","BRBBBRBBYB","BRBBRRRRYR","YRYYYYBBYB","BRBBYBBBYB","BRRRRRRRRG","BBBBYBBBGG"],"target":"B","moves":4,"colors":"BRYG"},{"rows":["YGGGGGGGGR","YYYYBBBBGR","GBRYBBBBGR","GBRYYRBBGR","GBRRGYYBGR","GBRRRRYBGR","GBRRRRYYYY","GBBBBBBBBY"],"target":"R","moves":4,"colors":"BRYG"},{"rows":["YRBBYYYYYY","YRRYYYYYYY","YBYYBGGBBY","YBYYGYYYGY","YRYYBYYYGY","YGBBGYRRBY","YYYYYYRYYY","YYGGGRBYYY"],"target":"R","moves":4,"colors":"BRYG"},{"rows":["RRRRRBBBBB","GGGGGYYRRR","GBBBBGGGYY","GYGGGGYYYY","YYYYGGGGGG","YYGGGBBBBG","RRRYYGGGGG","BBBBBYYYYY"],"target":"B","moves":4,"colors":"BRYG"},{"rows":["YYRYRYYRYY","YBBBRBBBBY","YYRYRYYRYY","YYRYRYYRYY","YYRYRYYRYY","YBBBBBBRBY","YYRYRYYRYY","YYRYRYYRYY"],"target":"Y","moves":4,"colors":"BRY"},{"rows":["YYBBRRBBYY","BYYYRRYYYB","BYBRBBRBYB","RRRRYYRRYY","YYRRYYRRRR","BYBRBBRBYB","BYYYRRYYYB","YYBBRRBBYY"],"target":"B","moves":4,"colors":"BRY"},{"rows":["BGGGRBBGRR","BGRGRBBGRR","BGRGRBBGRR","BGGGRBBGRR","BGGGRBBGRR","BGRGRBBGRR","BGRGRBBGRR","BGGGRBBGRR"],"target":"R","moves":4,"colors":"BRG"},{"rows":["BYYRYYYRYY","YYGYYYGYYY","YRYYYRYYBY","RYYYRYYBYY","YYYRYYBYYR","YYRYYBYYGY","YRYYBYYRYY","YYYYYYGYYB"],"target":"B","moves":4,"colors":"BRYG"},{"rows":["YYYYYRRRRR","YYYYYRRRRR","YYBBBBBBRR","YYRRRYYYRR","BBRRRYYYBB","BBYYYRRRBB","BBYYYRRRBB","BBYYYRRRBB"],"target":"B","moves":4,"colors":"BRY"},{"rows":["RRBRRRGGGY","R####RBBBB","GGGGGGGG##","GGBB##RRR#","GGGGGGGGG#","GGGRRRBBRR","GBB#BR###R","YRRGRRBRBR"],"target":"Y","moves":5,"colors":"BRYG"},{"rows":["Y##GGGGBBY","YBBRRRRYBY","YBYGGGGBBY","YBBRRRRYYY","YYYGGGGBBY","YBBRRRRYBY","YBYGGGGBBY","YBBRRRR##Y"],"target":"Y","moves":5,"colors":"BRYG"},{"rows":["RRRR#RBRRR","RBBB#BBBBB","RBRRYYYYBR","RBRY##YY##","##YY##YRBB","BBYYYYRRBR","BBBBB#BBRR","BBBBB#BRRR"],"target":"Y","moves":5,"colors":"BRYG"},{"rows":["RBBBG#RBGR","RB#R#RR#B#","##RYYBYGRR","RB#YRBBGGR","YGGGG#BYYG","YRR#RRYGG#","GR##YY#BBR","YYY##G##RR"],"target":"R","moves":7,"colors":"BRYG"},{"rows":["BBRRBBRYYG","BYYGGGBGRG","RRBGRYGGRR","RBBYRYRBBR","RYGBBYRBYG","YGGRRGGBGR","BRYYGBRYYG","BGGYBBRYGG"],"target":"B","moves":8,"colors":"BRYG"}];
+const NAMES={B:'כחול',R:'אדום',Y:'צהוב',G:'ירוק'};
+const COLOR_CSS={B:'--blue',R:'--red',Y:'--yellow',G:'--green'};
+const KEYS={B:'1',R:'2',Y:'3',G:'4'};
+const TARGET_WORDS={B:'בכחול',R:'באדום',Y:'בצהוב',G:'בירוק'};
+const WIDTH=10,STORAGE_KEY='color-puzzles-45-moves-v2';
+let current=0,board=[],history=[],paint='B',focusIndex=0,completed=[],tiles=[],paletteButtons=[],savingWorks=true;
+const el=id=>document.getElementById(id);
+const boardEl=el('board'),selectEl=el('stage'),resultEl=el('result'),finishDialog=el('finish');
+const announce=text=>{el('announcement').textContent=text;};
+const initial=puzzle=>puzzle.rows.join('').split('');
+const allowed=puzzle=>puzzle.colors.split('');
+const won=(cells,target)=>cells.every(color=>color==='#'||color===target);
+const isWon=()=>won(board,PUZZLES[current].target);
+const isOver=()=>isWon()||history.length>=PUZZLES[current].moves;
+function connected(cells,start){
+  if(!Number.isInteger(start)||start<0||start>=cells.length||cells[start]==='#')return [];
+  const color=cells[start],seen=new Set([start]),queue=[start];
+  for(let p=0;p<queue.length;p++){
+    const i=queue[p],col=i%WIDTH,neighbors=[i-WIDTH,i+WIDTH];
+    if(col>0)neighbors.push(i-1);if(col<WIDTH-1)neighbors.push(i+1);
+    for(const n of neighbors)if(n>=0&&n<cells.length&&cells[n]===color&&!seen.has(n)){seen.add(n);queue.push(n);}
+  }
+  return queue;
+}
+function replay(puzzle,actions){
+  if(!Array.isArray(actions)||actions.length>puzzle.moves)return null;
+  const cells=initial(puzzle),colors=allowed(puzzle);
+  for(const action of actions){
+    if(!Array.isArray(action)||action.length!==2||won(cells,puzzle.target))return null;
+    const [i,color]=action;
+    if(!Number.isInteger(i)||i<0||i>=cells.length||cells[i]==='#'||cells[i]===color||!colors.includes(color))return null;
+    connected(cells,i).forEach(n=>{cells[n]=color;});
+  }
+  return cells;
+}
+function readProgress(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return;
+    const data=JSON.parse(raw);if(!data||data.version!==1||!Array.isArray(data.completed))return;
+    for(let i=0;i<Math.min(data.completed.length,PUZZLES.length);i++){
+      const verified=replay(PUZZLES[i],data.completed[i]);
+      if(!verified||!won(verified,PUZZLES[i].target))break;
+      completed.push(data.completed[i].map(action=>action.slice()));
+    }
+    if(Number.isInteger(data.current)&&data.current>=0&&data.current<PUZZLES.length&&data.current<=completed.length)current=data.current;
+    else current=Math.min(completed.length,PUZZLES.length-1);
+    if(replay(PUZZLES[current],data.history))history=data.history.map(action=>action.slice());
+  }catch(error){if(error instanceof SyntaxError)return;savingWorks=false;}
+}
+function saveProgress(){
+  if(!savingWorks)return;
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,current,completed,history}));}
+  catch{savingWorks=false;el('saving-warning').hidden=false;}
+}
+function clearHighlight(){tiles.forEach(tile=>tile.classList.remove('region'));}
+function highlight(i){clearHighlight();if(!isOver())connected(board,i).forEach(n=>tiles[n].classList.add('region'));}
+function setBoardFocus(i,focus){
+  if(board[i]==='#')return;
+  if(tiles[focusIndex])tiles[focusIndex].tabIndex=-1;
+  focusIndex=i;tiles[i].tabIndex=0;if(focus)tiles[i].focus();
+}
+function moveFocus(i,key){
+  let candidate=i;
+  if(key==='Home'||key==='End'){
+    const start=i-i%WIDTH;candidate=key==='Home'?start:start+WIDTH-1;
+    const step=key==='Home'?1:-1;while(board[candidate]==='#'&&candidate>=start&&candidate<start+WIDTH)candidate+=step;
+    if(candidate<start||candidate>=start+WIDTH)return;
+  }else{
+    const step={ArrowRight:1,ArrowLeft:-1,ArrowDown:WIDTH,ArrowUp:-WIDTH}[key];if(!step)return;
+    do{candidate+=step;if(candidate<0||candidate>=board.length)return;if(Math.abs(step)===1&&Math.floor(candidate/WIDTH)!==Math.floor(i/WIDTH))return;}while(board[candidate]==='#');
+  }
+  setBoardFocus(candidate,true);
+}
+function selectColor(color,notify=true){
+  if(!allowed(PUZZLES[current]).includes(color))return;
+  paint=color;paletteButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.paint===color)));
+  if(notify)announce(`נבחר צבע ${NAMES[color]}.`);
+}
+function buildBoard(){
+  boardEl.replaceChildren();tiles=[];focusIndex=board.findIndex(color=>color!=='#');
+  board.forEach((color,i)=>{
+    const tile=document.createElement(color==='#'?'span':'button');tile.className=color==='#'?'tile blocked':'tile';
+    if(color==='#'){tile.setAttribute('role','img');tile.setAttribute('aria-label',`משבצת חסומה, שורה ${Math.floor(i/WIDTH)+1}, עמודה ${i%WIDTH+1}`);}
+    else{
+      tile.type='button';tile.tabIndex=i===focusIndex?0:-1;
+      tile.addEventListener('click',()=>{setBoardFocus(i,false);fill(i);});
+      tile.addEventListener('pointerenter',()=>highlight(i));tile.addEventListener('pointerleave',clearHighlight);
+      tile.addEventListener('focus',()=>highlight(i));tile.addEventListener('blur',clearHighlight);
+      tile.addEventListener('animationend',()=>tile.classList.remove('changed'));
+      tile.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key)){event.preventDefault();moveFocus(i,event.key);}});
+    }
+    boardEl.appendChild(tile);tiles.push(tile);
+  });
+  const palette=el('palette');palette.replaceChildren();const legend=document.createElement('legend');legend.textContent='בחרו צבע';palette.appendChild(legend);
+  paletteButtons=allowed(PUZZLES[current]).map(color=>{
+    const button=document.createElement('button');button.type='button';button.className='color';button.dataset.paint=color;
+    button.setAttribute('aria-label',`${NAMES[color]}, מקש ${KEYS[color]}`);
+    button.innerHTML=`<span class="swatch" style="--swatch:var(${COLOR_CSS[color]})"></span><span class="color-name">${NAMES[color]}</span><kbd>${KEYS[color]}</kbd>`;
+    button.addEventListener('click',()=>{if(!isOver())selectColor(color);});palette.appendChild(button);return button;
+  });
+  palette.style.setProperty('--palette-count',paletteButtons.length);
+  selectColor(allowed(PUZZLES[current])[0],false);
+}
+function render(){
+  const puzzle=PUZZLES[current],remaining=puzzle.moves-history.length,over=isOver();
+  tiles.forEach((tile,i)=>{if(board[i]==='#')return;tile.dataset.color=board[i];tile.setAttribute('aria-label',`שורה ${Math.floor(i/WIDTH)+1}, עמודה ${i%WIDTH+1}, ${NAMES[board[i]]}`);tile.setAttribute('aria-disabled',String(over));});
+  el('goal-text').textContent=`צבעו את כל המשבצות ${TARGET_WORDS[puzzle.target]}`;el('goal').style.setProperty('--target',`var(${COLOR_CSS[puzzle.target]})`);
+  el('remaining').textContent=remaining;el('move-dots').replaceChildren();
+  for(let i=0;i<puzzle.moves;i++){const dot=document.createElement('i');if(i>=remaining)dot.className='used';el('move-dots').appendChild(dot);}
+  boardEl.classList.toggle('is-won',isWon());boardEl.classList.toggle('is-over',over);paletteButtons.forEach(button=>{button.disabled=over;});
+  selectEl.replaceChildren();PUZZLES.forEach((_,i)=>{const option=document.createElement('option');option.value=i;option.disabled=i>completed.length;option.textContent=`פאזל ${i+1} מתוך ${PUZZLES.length}${i<completed.length?' — הושלם':i>completed.length?' — נעול':''}`;selectEl.appendChild(option);});selectEl.value=String(current);
+  el('next').hidden=current===PUZZLES.length-1;el('next').disabled=!isWon();
+  el('progress').textContent=`הושלמו ${completed.length} מתוך ${PUZZLES.length} פאזלים`;
+  el('saving-warning').hidden=savingWorks;
+  if(isWon())resultEl.innerHTML=current===PUZZLES.length-1&&completed.length===PUZZLES.length?'<strong>כל הכבוד!</strong>השלמתם את כל 45 הפאזלים! 🎉':`<strong>הצלחתם!</strong>הפאזל הושלם ב־${history.length} מהלכים.`;
+  else if(over)resultEl.innerHTML='<strong>נגמרו המהלכים</strong>התחילו מחדש ונסו שוב.';
+  else resultEl.textContent='';
+}
+function showFinish(){if(completed.length===PUZZLES.length&&!finishDialog.open)finishDialog.showModal();}
+function recordWin(){
+  if(isWon()&&current===completed.length)completed.push(history.map(action=>action.slice()));
+}
+function fill(i){
+  if(isOver()||!Number.isInteger(i)||i<0||i>=board.length||board[i]==='#')return;
+  if(board[i]===paint){announce(`המשבצת כבר בצבע ${NAMES[paint]}. לא נוצל מהלך.`);return;}
+  const region=connected(board,i);region.forEach(n=>{board[n]=paint;tiles[n].classList.remove('changed');});history.push([i,paint]);
+  clearHighlight();recordWin();render();saveProgress();region.forEach(n=>tiles[n].classList.add('changed'));
+  if(isWon()){if(current===PUZZLES.length-1)showFinish();else el('next').focus();}
+  else if(!isOver())announce(`נצבעו ${region.length} משבצות בצבע ${NAMES[paint]}. מהלכים שנותרו: ${PUZZLES[current].moves-history.length}.`);
+}
+function loadLevel(index,actions=[]){
+  if(!Number.isInteger(index)||index<0||index>=PUZZLES.length||index>completed.length){selectEl.value=String(current);return false;}
+  current=index;const restored=replay(PUZZLES[current],actions);history=restored?actions.map(action=>action.slice()):[];board=restored||initial(PUZZLES[current]);
+  buildBoard();recordWin();render();saveProgress();return true;
+}
+function reset(){loadLevel(current);announce(`פאזל ${current+1} התחיל מחדש. מהלכים שנותרו: ${PUZZLES[current].moves}.`);}
+function nextLevel(){if(!isWon()||current>=PUZZLES.length-1)return;loadLevel(current+1);setBoardFocus(focusIndex,true);announce(`פאזל ${current+1} נפתח.`);}
+selectEl.addEventListener('change',()=>{const index=Number(selectEl.value);if(loadLevel(index))announce(`פאזל ${current+1} נבחר.`);});
+el('reset').addEventListener('click',reset);el('next').addEventListener('click',nextLevel);
+el('finish-close').addEventListener('click',()=>finishDialog.close());
+document.addEventListener('keydown',event=>{
+  if(el('game-shell').hidden)return;
+  if(finishDialog.open||event.ctrlKey||event.metaKey||event.altKey||event.repeat)return;
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)||event.target.isContentEditable)return;
+  const color={'1':'B','2':'R','3':'Y','4':'G'}[event.key];if(color&&!isOver()){event.preventDefault();selectColor(color);}
+  if(event.code==='KeyR'||event.key.toLowerCase()==='r'){event.preventDefault();reset();}
+});
+const introSlides=Array.from(document.querySelectorAll('.intro-slide'));
+let introIndex=0;
+// Classroom entry phrase; intentionally stored in this static HTML file.
+const ENTRY_PASSWORD='67';
+el('entry-form').addEventListener('submit',event=>{
+  event.preventDefault();
+  const input=el('entry-password');
+  if(input.value.trim()!==ENTRY_PASSWORD){
+    input.setAttribute('aria-invalid','true');
+    el('entry-error').textContent='הסיסמה אינה נכונה. נסו שוב.';
+    input.focus();
+    return;
+  }
+  input.value='';
+  input.removeAttribute('aria-invalid');
+  el('entry-error').textContent='';
+  el('entry-screen').hidden=true;
+  el('intro').hidden=false;
+  introSlides[0].querySelector('h1').focus({preventScroll:true});
+  window.scrollTo(0,0);
+});
+el('entry-password').addEventListener('input',()=>{
+  el('entry-password').removeAttribute('aria-invalid');
+  el('entry-error').textContent='';
+});
+document.querySelectorAll('[data-intro-next]').forEach(button=>button.addEventListener('click',()=>{
+  if(!el('entry-screen').hidden||el('intro').hidden||introIndex>=introSlides.length-1)return;
+  introSlides[introIndex].hidden=true;
+  introSlides[++introIndex].hidden=false;
+  introSlides[introIndex].querySelector('h1').focus({preventScroll:true});
+  window.scrollTo(0,0);
+}));
+el('start-game').addEventListener('click',()=>{
+  if(!el('entry-screen').hidden||introIndex!==introSlides.length-1)return;
+  el('intro').hidden=true;
+  el('game-shell').hidden=false;
+  loadLevel(0);
+  setBoardFocus(focusIndex,true);
+  window.scrollTo(0,0);
+  announce('פאזל 1 נפתח. עזרו לבני ישראל לצאת מהים!');
+});
+readProgress();
+</script>
+</body>
+</html>
