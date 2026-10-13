@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#146653">
+<meta name="description" content="שלושה דפי תרגול אינטראקטיביים במדעי המחשב לכיתה י״א: מחלקות, מערכי עצמים ובניית קוד בשפת C#.">
+<title>מדעי המחשב י״א — דפי תרגול</title>
+<style>
+:root{--ink:#183633;--muted:#526964;--green:#146653;--bg:#f3f6f1;--line:#d5e0d9;--soft:#e8f3ed}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.7 Arial,"Segoe UI",sans-serif}main{max-width:920px;margin:auto;padding:28px 24px 50px}a{color:var(--green)}a:focus-visible{outline:3px solid #bb7510;outline-offset:5px}.home{display:inline-block;font-size:15px;text-underline-offset:4px;margin-bottom:34px}.eyebrow{font-size:14px;font-weight:bold;color:var(--green);margin:0 0 10px}header{margin-bottom:32px}h1{font-size:clamp(32px,5vw,48px);line-height:1.25;letter-spacing:-1px;margin:0 0 16px}.intro{max-width:640px;color:var(--muted);margin:0}.overview{display:flex;gap:20px;flex-wrap:wrap;font-size:14px;margin-top:22px}.overview span+span{border-inline-start:1px solid var(--line);padding-inline-start:20px}h2{font-size:17px;font-weight:normal;margin:0 0 14px;color:var(--muted)}ol{list-style:none;margin:0;padding:0;display:grid;gap:16px}.worksheet{display:grid;grid-template-columns:52px 1fr auto;align-items:start;gap:20px;padding:26px;border:1px solid var(--line);border-radius:18px;background:white;text-decoration:none;color:inherit;transition:border-color .15s,box-shadow .15s}.worksheet:hover{border-color:var(--green);box-shadow:0 4px 18px #1836330a}.number{display:grid;place-items:center;width:48px;height:48px;background:var(--soft);border-radius:12px;color:var(--green);font:22px/1.2 Consolas,monospace}.worksheet h3{font-size:23px;margin:0 0 7px;line-height:1.4}.worksheet p{margin:0;color:var(--muted);font-size:16px;max-width:580px}.tags{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--green);margin-top:14px}.tags span+span{border-inline-start:1px solid var(--line);padding-inline-start:12px}.enter{white-space:nowrap;font-size:15px;color:var(--green);padding-top:10px}.saved{display:block;font-size:14px;color:var(--green);margin-top:12px}footer{margin-top:28px;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px}footer p{margin:0 0 5px}code{font-family:Consolas,monospace;direction:ltr;unicode-bidi:isolate;display:inline-block}[hidden]{display:none!important}@media(max-width:600px){main{padding:22px 16px 36px}.home{margin-bottom:26px}.worksheet{grid-template-columns:40px 1fr;gap:14px;padding:20px 16px}.number{width:38px;height:38px;font-size:19px}.worksheet h3{font-size:21px}.enter{grid-column:2;padding-top:0}.overview{gap:12px}.overview span+span{padding-inline-start:12px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}@media print{.home,.saved,.enter{display:none}.worksheet{break-inside:avoid}body{background:white}}
+</style>
+</head>
+<body><main>
+<a class="home" href="../index.html">→ מרחב הלמידה</a>
+<header><p class="eyebrow">מתרגלים <code>C#</code></p><h1>מדעי המחשב י״א</h1><p class="intro">שלושה דפי תרגול, מהבנת פעולות במחלקה ועד בניית פתרון עם מערך של עצמים. מתחילים בשאלה אחת ומתקדמים בקצב שלכם.</p><div class="overview"><span>3 דפי תרגול</span><span>72 שאלות ותרגילים</span><span>רמזים והסברים בכל שלב</span></div></header>
+<nav aria-label="תוכן העניינים"><h2>מומלץ להתקדם לפי הסדר</h2><ol>
+<li><a class="worksheet" href="classes-practice.html"><span class="number" aria-hidden="true">01</span><div><h3>מי מפעיל את מי?</h3><p>פעולות פנימיות וחיצוניות, עצם מפעיל, פרמטרים והשוואה בין עצמים.</p><div class="tags"><span>20 שאלות</span><span>בחירת תשובה</span><span>מחלקות</span></div><span class="saved" id="saved-classes" hidden></span></div><span class="enter">לתרגול ←</span></a></li>
+<li><a class="worksheet" href="object-arrays-practice.html"><span class="number" aria-hidden="true">02</span><div><h3>עוברים על מערך של עצמים</h3><p>מעבר עם <code>for</code> ו־<code>foreach</code>, צבירה, ספירה, ממוצע, חיפוש ושימוש בפעולות קודמות.</p><div class="tags"><span>24 שאלות</span><span>בחירת תשובה</span><span>מערכי עצמים</span></div><span class="saved" id="saved-arrays" hidden></span></div><span class="enter">לתרגול ←</span></a></li>
+<li><a class="worksheet" href="code-building-prep.html"><span class="number" aria-hidden="true">03</span><div><h3>מהרעיון לקוד</h3><p>בונים פתרון בצעדים קטנים: יצירת עצמים, חיפוש עם תנאי סינון, מערך מונים ושילוב פעולות.</p><div class="tags"><span>28 תרגילים</span><span>בחירה והשלמת קוד</span><span>גרירה או לחיצה</span></div><span class="saved" id="saved-prep" hidden></span></div><span class="enter">לתרגול ←</span></a></li>
+</ol></nav>
+<footer><p>טעות היא חלק מהתרגול: קראו את הרמז ונסו שוב. אפשר להציג את הקוד הנתון בכל שאלה.</p><p>ההתקדמות נשמרת בדפדפן הזה בלבד ואינה נשלחת למורה. במחשב משותף התחילו מחדש לפני תלמיד חדש.</p></footer>
+</main><script>
+'use strict';
+function updateProgress(){
+ for(const [id,key,total] of [['saved-classes','classes-practice-he-v1',20],['saved-arrays','object-arrays-practice-he-v1',24],['saved-prep','workshop-code-prep-v1',28]]){
+  const el=document.getElementById(id);el.hidden=true;
+  try{const saved=JSON.parse(localStorage.getItem(key));if(!Array.isArray(saved?.answers)||saved.answers.length!==total)continue;
+   const done=saved.answers.filter(a=>a?.solved===true).length;
+   if(!done&&!saved.answers.some(a=>a?.attempts>0))continue;
+   el.textContent=done===total?'✓ הדף הושלם — אפשר לחזור לתרגול':done+' מתוך '+total+' נפתרו בדפדפן הזה';el.hidden=false;
+  }catch{}
+ }
+}
+window.addEventListener('pageshow',updateProgress);window.addEventListener('storage',updateProgress);updateProgress();
+</script></body></html>
