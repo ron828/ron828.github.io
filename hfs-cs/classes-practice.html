@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>מי מפעיל את מי? • תרגול מחלקות ב־C#</title>
+<style>
+:root{--ink:#183633;--muted:#526964;--green:#146653;--bg:#f3f6f1;--line:#d5e0d9;--soft:#e8f3ed;--bad:#8c381d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 Arial,"Segoe UI",sans-serif}main{max-width:1160px;margin:auto;padding:38px 24px 60px}header{margin-bottom:28px}.eyebrow{font-size:14px;letter-spacing:1px;color:var(--green);font-weight:bold}h1{font-size:clamp(32px,5vw,52px);line-height:1.2;margin:12px 0}h2{font-size:25px;margin:0 0 12px}h3{font-size:19px;margin:0 0 8px}p{margin:8px 0}.lead{max-width:780px;color:var(--muted)}.pill{display:inline-block;background:var(--soft);border-radius:30px;padding:3px 12px;font-size:14px;margin:12px 0 0 8px}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:24px;align-items:start}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:20px}.reference{font-size:16px}.reference code{font-size:14px}.muted{color:var(--muted)}code,.code{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:Consolas,monospace;background:#eef3f0;border-radius:6px;padding:1px 5px;max-width:100%;overflow-wrap:anywhere}code.block{display:block;text-align:left;margin:8px 0;padding:9px;font-size:14px}.ref-item{border-bottom:1px solid var(--line);padding:10px 0}.ref-item:last-child{border:0}.objects{display:flex;gap:12px;flex-wrap:wrap;margin:15px 0}.object{flex:1;min-width:130px;border-inline-start:4px solid var(--green);background:var(--soft);padding:12px;border-radius:8px}.object strong{display:block}.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}button,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);padding:10px 16px;min-height:46px}button:hover:not(:disabled){border-color:var(--green);background:var(--soft)}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #ce8c26;outline-offset:3px}button:disabled{opacity:.5;cursor:default}button.primary,.nav button[aria-current="step"]{background:var(--green);color:white;border-color:var(--green)}.nav button{font-size:15px;text-align:right}.nav small{display:block}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}progress{width:100%;height:10px;accent-color:var(--green);display:block;margin:10px 0 20px}.question-title{font-size:24px;line-height:1.55;margin:12px 0}.options{display:grid;gap:10px;margin:20px 0}.option{text-align:right;display:flex;align-items:center;gap:12px;width:100%;padding:14px}.letter{border:1px solid var(--line);width:30px;height:30px;flex-shrink:0;border-radius:50%;text-align:center;font-size:16px}.option[aria-pressed="true"]{border:2px solid var(--green);background:var(--soft)}.option code{background:transparent}.feedback{padding:16px;border-radius:12px;background:var(--soft);margin:16px 0}.feedback.bad{background:#fff0e5;color:var(--bad)}[hidden]{display:none!important}.hint{padding:12px;border-inline-start:3px solid #d19a37;background:#fff8e8;margin:12px 0}.steps{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}.steps button{min-width:40px;padding:6px;font-size:15px}.steps .done{background:var(--soft)}.steps [aria-current="true"]{outline:2px solid var(--green)}details{margin-top:12px}summary{cursor:pointer;font-weight:bold}.lab{background:#e9f0eb}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}label{display:block}select{display:block;width:100%;min-height:46px;padding:7px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink)}.call{direction:ltr;text-align:center;font:clamp(17px,3vw,25px) Consolas,monospace;padding:20px 4px;overflow-wrap:anywhere}.result{border-top:1px solid #c7d6cb;padding-top:14px}.score{direction:ltr;text-align:right;font-size:32px;font-weight:bold;color:var(--green)}.summary-grid{display:grid;gap:10px}.summary-grid p{padding:10px;background:var(--soft);border-radius:8px}.footer{font-size:14px;color:var(--muted);margin-top:28px}#storage-note{color:var(--bad)}@media(max-width:850px){.layout{grid-template-columns:1fr}.reference{order:2}.nav{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){main{padding:22px 14px}.card{padding:18px}.lab-grid{grid-template-columns:1fr}.question-title{font-size:21px}.row button{flex-grow:1}}@media print{body{background:white}main{padding:0}.layout{display:block}.nav,.steps,.actions,.lab,.footer,button,progress{display:none!important}.card{break-inside:avoid}#summary{display:block!important}}
+
+/* Focused worksheet: one question, with optional support. */
+main{max-width:750px;padding-top:24px}header{margin-bottom:22px}h1{font-size:30px;margin:0 0 4px}header p{font-size:16px}.card{padding:26px}#quiz>.row:first-child{font-size:14px}progress{height:5px;margin:14px 0 20px}#essentials{font-size:16px;border-inline-start:3px solid var(--line);padding-inline-start:14px;margin-bottom:22px}#essentials p{margin:4px 0}#essentials .people{color:var(--muted);margin-bottom:10px}#essentials code{font-size:15px}.question-title{font-size:23px}.option{padding:10px 14px}.options{margin:18px 0}.actions.between{border-top:1px solid var(--line);padding-top:14px;margin-top:18px}#tools{font-size:15px;color:var(--muted);margin:0 4px}#tools>summary{font-weight:normal}#tools details{margin:14px 0;padding:12px;background:white;border-radius:10px;color:var(--ink)}#tools .card{padding:12px;border:0;margin:0}#tools .lab{padding:16px;border-radius:10px}#tools #reset{margin-top:12px;font-size:15px}.nav{margin-top:14px}.reference h2,.lab h2{font-size:21px}#context:empty{display:none}.summary-grid{display:none}#summary h2{margin-bottom:16px}@media(max-width:480px){main{padding:18px 12px}.card{padding:18px}.question-title{font-size:21px}h1{font-size:27px}}@media print{header,#quiz,#tools{display:none!important}#summary{display:block!important}}
+#source-panel{margin:16px 0;font-size:15px}#source-panel summary{color:var(--green);font-weight:normal;min-height:32px}#source-panel pre{margin:10px 0;padding:16px;background:#eef3f0;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;text-align:left;line-height:1.65}#source-code{display:block;background:none;padding:0;font-size:14px;white-space:pre-wrap;direction:ltr;unicode-bidi:plaintext}#question{font:inherit;font-weight:400}
+/* Site navigation and accessible worksheet controls. */
+dialog{max-width:min(440px,calc(100% - 32px));border:1px solid var(--line);border-radius:16px;padding:24px;color:var(--ink);font:inherit}dialog::backdrop{background:#18363366}dialog h2{font-size:22px}dialog p{margin-bottom:20px}dialog .row{display:flex;gap:12px;flex-wrap:wrap}
+.site-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 22px;font-size:15px}.site-nav a{color:var(--green);text-underline-offset:4px}.site-nav button{font-size:15px;padding:7px 12px;min-height:42px}
+a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #bb7510;outline-offset:3px}button.primary:hover:not(:disabled){background:#0d5142;color:white}.option:disabled{opacity:1}.option>span:last-child{min-width:0}#quiz:focus,#summary:focus{outline:none}.study-tools{font-size:15px;margin:20px 0}.study-tools>summary{cursor:pointer;color:var(--green);min-height:44px;padding:8px 0}.study-tools label{display:block;margin:8px 0}.study-tools select{display:block;font:inherit;max-width:100%;width:100%;min-height:46px;padding:8px;background:white;color:var(--ink);border:1px solid var(--line);border-radius:9px}.study-tools button{margin-top:14px;font-size:15px}.study-note{font-size:14px;color:var(--muted);line-height:1.7;margin-top:16px}.review-note{padding:12px 14px;border-inline-start:3px solid var(--green);background:var(--soft);font-size:15px}.option code{white-space:normal;overflow-wrap:anywhere;text-align:left}noscript{display:block;background:#fff0e5;padding:18px;border-radius:12px}.summary-grid{display:grid}.summary-note{font-size:15px;color:var(--muted)}
+@media print{.site-nav,.study-tools,.study-note,.review-note,noscript{display:none!important}#quiz,header{display:none!important}#summary{display:block!important}.summary-grid{display:grid}.panel,.card{border:0;box-shadow:none}body{background:white}}
+</style>
+<meta name="description" content="תרגול אינטראקטיבי במדעי המחשב לכיתה י״א: שאלות, רמזים והסברים בשפת C#.">
+</head>
+<body><main><nav class="site-nav" aria-label="ניווט באתר"><a href="./index.html">→ כל דפי התרגול</a><button id="open-summary" type="button">סיכום ההתקדמות</button></nav><noscript>כדי להשתמש בתרגול יש להפעיל JavaScript בדפדפן. <a href="./index.html">חזרה לתוכן העניינים</a></noscript>
+<header><h1>מי מפעיל את מי?</h1><p class="muted">תרגול מחלקות ב־C# · שאלה אחת בכל פעם.</p></header><p id="review-note" class="review-note" hidden>תרגול חוזר: נסו לפתור שוב. תוצאת הניסיון הראשון נשמרת בסיכום.</p>
+<section class="card" id="quiz" tabindex="-1" aria-labelledby="counter topic" aria-label="שאלת תרגול"><div class="row between"><span id="counter"></span><span id="topic" class="muted"></span></div><progress id="progress" value="0" max="20" aria-label="מספר השאלות שנפתרו"></progress><span id="progress-text" hidden></span><div id="context"></div><h2 class="question-title" id="question"></h2><details id="source-panel"><summary id="source-title">קוד המחלקה</summary><pre dir="ltr"><code id="source-code"></code></pre></details><div class="options" id="options" role="group" aria-labelledby="question"></div><div class="actions row"><button class="primary" id="check">בדיקת תשובה</button></div><div id="feedback" class="feedback" aria-live="polite" hidden></div><div class="row between actions"><button id="prev">→ לשאלה הקודמת</button><button id="next">לשאלה הבאה ←</button></div></section>
+<section class="card" id="summary" tabindex="-1" hidden><h2>סיכום התרגול</h2><div id="summary-body" aria-live="polite"></div><div class="row actions"><button id="back">חזרה לשאלות</button><button id="review">חזרה על שאלות לתרגול נוסף</button><button id="print">הדפסת סיכום</button><button id="restart">התחלה מחדש</button></div></section>
+<p id="storage-note" class="footer" hidden>הדפדפן אינו מאפשר שמירה מקומית. ההתקדמות לא תישמר לאחר סגירת הדף.</p>
+<details class="study-tools"><summary>מעבר לשאלה או התחלה מחדש</summary><label for="question-jump">בחירת שאלה</label><select id="question-jump"></select><button type="button" id="restart-all">התחלה מחדש של הדף</button></details><p class="study-note">ההתקדמות נשמרת בדפדפן הזה בלבד ואינה נשלחת למורה. במחשב משותף התחילו מחדש לפני תלמיד חדש.</p></main><dialog id="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-description"><h2 id="restart-title">להתחיל מחדש?</h2><p id="restart-description">התשובות וההתקדמות בדף הזה יימחקו.</p><div class="row"><button id="restart-cancel" autofocus>ביטול</button><button id="restart-confirm" class="primary">מחיקה והתחלה מחדש</button></div></dialog><script>
+'use strict';
+const C=s=>'<code>'+s+'</code>';
+const units=['פעולות פנימיות','פעולות חיצוניות','עצם מול עצם','מחברים הכול'];
+const questions=[
+{q:'איך מבקשים את הציון של נועה?',o:['s1.GetGrade()','GetGrade(s1)','Student.GetGrade()','s1.GetGrade(s1)'],a:0,e:'GetGrade היא פעולה פנימית: s1 הוא העצם המפעיל. הסוגריים ריקים כי הפעולה אינה מקבלת פרמטרים.',h:'בפעולה פנימית כותבים את העצם לפני הנקודה. האם נדרש משהו בסוגריים?'},
+{q:'איך משנים את הציון של עידו ל־82?',o:['s2.SetGrade()','SetGrade(s2, 82)','s2.SetGrade(82)','s1.SetGrade(82)'],a:2,e:'s2 הוא עידו, ולכן הוא משמאל לנקודה. 82 הוא הערך שמועבר לפרמטר grade. הקריאה על s1 תקינה תחבירית, אך משנה את נועה.',h:'מי צריך להשתנות? איזה ערך הפעולה דורשת בסוגריים?'},
+{q:'מי משתנה בעקבות הקריאה הזאת?',c:C('s1.SetGrade(80);'),o:['רק הציון של s1','רק הציון של s2','הציונים של שני העצמים','לא משתנה אף ציון'],a:0,t:true,e:'פעולת SetGrade משנה את העצם שעליו הופעלה. לכן הציון של s1 נעשה 80, והציון של s2 נשאר 75.',h:'הסתכלו על מה שנמצא משמאל לנקודה.'},
+{q:'איזה ערך מחזיר הביטוי?',c:C('s2.GetGrade()'),o:['90','75','true','אין ערך מוחזר'],a:1,t:true,e:'GetGrade מחזירה int — את הציון של העצם המפעיל s2. הציון שלו הוא 75.',h:'בכל שאלה מתחילים מחדש: הציון של נועה 90 ושל עידו 75.'},
+{q:'למה הקריאה הזאת אינה תקינה?',c:C('s1.SetGrade(s2);'),o:['אסור לקרוא לפעולה על s1','SetGrade לא מקבלת פרמטרים','s2 הוא עצם מסוג Student, אך נדרש int','חייבים להעביר שני פרמטרים'],a:2,t:true,e:'מספר הפרמטרים נכון, אבל הטיפוס שגוי: SetGrade מצפה לציון מספרי. s2 הוא עצם Student, לא מספר.',h:'SetGrade מקבלת ציון מספרי. מה מייצג s2 — ציון או תלמיד?'},
+{q:'איך מפעילים מתוך Main את הפעולה החיצונית שמדפיסה את נועה?',o:['s1.PrintStudent()','PrintStudent(s1)','PrintStudent(s1, s2)','PrintStudent()'],a:1,e:'PrintStudent היא פעולה חיצונית שמקבלת Student אחד. קוראים לה בשמה ומעבירים את נועה בסוגריים: PrintStudent(s1).',h:'בפעולה החיצונית הזאת התלמיד מועבר בסוגריים.'},
+{q:'כמה עצמים צריך להעביר במפורש לפעולה החיצונית IsHigher?',o:['אפס','אחד','שניים','שלושה'],a:2,t:true,e:'בחתימה מופיעים שני פרמטרים מסוג Student: a ו־b. אין עצם מפעיל שמספק אחד מהם.',h:'בפעולה חיצונית אין עצם מפעיל. צריך להעביר את כל העצמים שמשתתפים בהשוואה.'},
+{q:'איזו קריאה בודקת אם הציון של נועה גדול מהציון של עידו?',o:['IsHigher(s2, s1)','s1.IsHigher(s2)','IsHigher(s1)','IsHigher(s1, s2)'],a:3,e:'לפי הגדרת הפעולה, בודקים אם ציון a גדול מציון b. לכן נועה (s1) ראשונה ועידו (s2) שני.',h:'סדר הפרמטרים קובע מי מושווה למי.'},
+{q:'למה הקריאה הזאת אינה תקינה?',c:C('s1.PrintStudent();'),o:['פעולה שמדפיסה תמיד חייבת להחזיר int','PrintStudent מוגדרת ב־Program, ואינה פעולה פנימית במחלקה Student','s1 הוא ציון ולא עצם','חייבים לשנות את הציון לפני הדפסה'],a:1,t:true,e:'PrintStudent אינה מוגדרת כפעולה פנימית במחלקה Student. קוראים לה מתוך Main באמצעות PrintStudent(s1).',h:'בדקו באיזו מחלקה הפעולה מוגדרת.'},
+{q:'איזו קריאה מדפיסה את פרטיו של עידו?',o:['PrintStudent(s2)','PrintStudent()','s2.PrintStudent()','PrintStudent(75)'],a:0,e:'PrintStudent היא פעולה חיצונית שמקבלת תלמיד אחד. מעבירים לה את העצם s2, שמייצג את עידו, ולא את הציון שלו.',h:'קראו לפעולה בשמה, והעבירו בסוגריים את התלמיד שרוצים להדפיס.'},
+{q:'מי העצם המפעיל, ומי מועבר כפרמטר?',c:C('s1.HasHigherGrade(s2)'),o:['המפעיל s2; הפרמטר s1','המפעיל Student; הפרמטר s1','המפעיל s1; הפרמטר s2','שניהם פרמטרים, ואין עצם מפעיל'],a:2,t:true,e:'משמאל לנקודה נמצא s1, העצם המפעיל. בתוך הסוגריים נמצא s2, שמועבר לפרמטר other.',h:'הפרידו בין מה שמשמאל לנקודה לבין מה שבסוגריים.'},
+{q:'כמה פרמטרים מפורשים יש כאן, וכמה עצמים משתתפים?',c:C('s1.HasHigherGrade(s2)'),o:['שני פרמטרים ושני עצמים','פרמטר אחד ושני עצמים','פרמטר אחד ועצם אחד','אפס פרמטרים ושני עצמים'],a:1,t:true,e:'מועבר פרמטר מפורש אחד: s2. בפעולה משתתפים שני עצמים: s1 בתפקיד המפעיל ו־s2 בתפקיד other.',h:'העצם המפעיל אינו נספר ברשימת הפרמטרים שבסוגריים.'},
+{q:'בתוך הפעולה הזאת, למי מתייחסים this ו־other?',c:'הקריאה היא '+C('s2.HasHigherGrade(s1)'),o:['this הוא s1, ו־other הוא s2','שניהם s1','שניהם s2','this הוא s2, ו־other הוא s1'],a:3,t:true,e:'this הוא תמיד העצם שעליו הופעלה הפעולה הפנימית — כאן s2. הפרמטר other מקבל את ההפניה ל־s1.',h:'this מתייחס לעצם שמשמאל לנקודה.'},
+{q:'מה מחזיר הביטוי?',c:C('s1.HasHigherGrade(s2)'),o:['true','false','90','75'],a:0,e:'הפעולה מחזירה bool. היא בודקת אם 90 גדול מ־75, ולכן התוצאה היא true. היא אינה מחזירה את הציון עצמו.',h:'בדקו גם את תנאי ההשוואה וגם את טיפוס הערך המוחזר.'},
+{q:'מה קורה כשמחליפים בין העצמים?',c:C('s2.HasHigherGrade(s1)'),o:['התוצאה true, כי אותם עצמים משתתפים','התוצאה 75','התוצאה false, כי 75 אינו גדול מ־90','הקריאה אינה תקינה'],a:2,t:true,e:'זו קריאה תקינה, אך עכשיו בודקים אם ציון s2 גדול מציון s1. הכיוון משנה: 75 אינו גדול מ־90.',h:'קראו את הביטוי במילים, החל מהעצם המפעיל.'},
+{q:'איזה ביטוי חיצוני בודק בדיוק את אותו תנאי?',c:C('s1.HasHigherGrade(s2)'),o:['IsHigher(s2, s1)','IsHigher(s1, s2)','PrintStudent(s1)','s1.SameGrade(s2)'],a:1,e:'בשני הביטויים בודקים אם ציון s1 גדול מציון s2. בפעולה הפנימית s1 הוא המפעיל; בפעולה החיצונית הוא הפרמטר הראשון.',h:'העבירו את העצם המפעיל למקום הראשון ברשימת הפרמטרים החיצונית.'},
+{q:'איזה ערך תחזיר פעולת ההשוואה בשלב 2?',c:'1. משנים את הציון של עידו באמצעות הקריאה: '+C('s2.SetGrade(90);')+'<br>2. לאחר השינוי, בודקים אם הציון של נועה גדול ממש מהציון של עידו: '+C('s1.HasHigherGrade(s2)'),o:['true','90','הקריאה אינה תקינה','false'],a:3,e:'בשלב 1 הציון של עידו משתנה מ־75 ל־90. הציון של נועה נשאר 90. בשלב 2 בודקים אם 90 גדול ממש מ־90. הציונים שווים, ולכן הפעולה מחזירה false.',h:'מה הציון של כל תלמיד אחרי שלב 1? האם ציון ששווה לציון אחר גם גדול ממנו?'},
+{q:'איזו קריאה תשנה את הציון של עידו ל־90, ואז תבדוק אם הציון של נועה גדול ממש מהציון של עידו?',o:['UpdateAndCompare(s1, s2)','UpdateAndCompare(s2, s1)','s1.UpdateAndCompare(s2)','UpdateAndCompare(s2, 90)'],a:0,e:'מעבירים את נועה (s1) לפרמטר first ואת עידו (s2) לפרמטר second. הפעולה משנה את הציון של second ל־90, ואז בודקת אם הציון של first גדול מציונו. שני התלמידים מועברים בסוגריים. את המספר 90 אין צורך להעביר: הוא כבר כתוב בתוך הפעולה.',h:'הפרמטר השני הוא התלמיד שהציון שלו משתנה. מי צריך להיות שם? ומי צריך להיות הפרמטר הראשון?'},
+{q:'למה הקריאה הזאת אינה תקינה?',c:C('s1.HasHigherGrade(75)'),o:['חייבים להחליף את s1 ב־Student','אסור להשוות ציונים','נדרש Student כפרמטר, אך 75 הוא int','חסרים שני פרמטרים'],a:2,t:true,e:'למרות שמשווים ציונים, החתימה מקבלת עצם Student. הפעולה משתמשת בציון שלו. הקריאה המתאימה להשוואה עם עידו היא s1.HasHigherGrade(s2).',h:'הפעולה מקבלת תלמיד אחר, וממנו לוקחת את הציון להשוואה.'},
+{q:'מה מחזיר הביטוי שבו אותו עצם מופיע בשני התפקידים?',c:C('s1.HasHigherGrade(s1)'),o:['true, כי שני התפקידים שייכים לאותו עצם','false, כי 90 אינו גדול מ־90','הקריאה תמיד אסורה','s1'],a:1,t:true,e:'מותר להעביר את s1 גם כפרמטר. this ו־other מתייחסים אז לאותו עצם, ולכן אותו ציון מושווה לעצמו: 90 אינו גדול מ־90.',h:'האם מספר כלשהו גדול ממש מעצמו?'}
+];
+
+const setups=[
+ 'נועה היא העצם '+C('s1')+'. הפעולה הפנימית '+C('GetGrade')+' מחזירה ציון ואינה מקבלת פרמטרים.',
+ 'עידו הוא העצם '+C('s2')+'. הפעולה הפנימית '+C('SetGrade')+' מקבלת ציון חדש מסוג '+C('int')+'.',
+ C('s1')+' ו־'+C('s2')+' הם שני תלמידים שונים. '+C('SetGrade')+' היא פעולה פנימית שמחליפה ציון.',
+ 'הציון של '+C('s1')+' הוא 90, ושל '+C('s2')+' הוא 75. '+C('GetGrade')+' מחזירה את הציון.',
+ C('s2')+' הוא עצם מסוג '+C('Student')+'. '+C('SetGrade')+' מקבלת '+C('int')+'.',
+ 'נועה היא '+C('s1')+'. '+C('PrintStudent')+' מוגדרת כ־'+C('static')+' ב־'+C('Program')+' ומקבלת תלמיד אחד. גם '+C('Main')+' נמצאת ב־'+C('Program')+'.',
+ C('IsHigher')+' היא פעולה חיצונית שמשווה ציונים של שני תלמידים.',
+ 'נועה היא '+C('s1')+' ועידו הוא '+C('s2')+'. '+C('IsHigher')+' בודקת אם ציון הפרמטר הראשון גדול מציון השני; היא מוגדרת באותה מחלקה כמו '+C('Main')+'.',
+ C('PrintStudent')+' היא פעולה חיצונית ב־'+C('Program')+', שמקבלת תלמיד אחד.',
+ C('PrintStudent')+' מוגדרת כ־'+C('static')+' ב־'+C('Program')+' ומקבלת '+C('Student')+'. '+C('s2')+' הוא עידו.',
+ C('HasHigherGrade')+' היא פעולה פנימית ב־'+C('Student')+'.',
+ C('s1')+' ו־'+C('s2')+' הם שני עצמים שונים מסוג '+C('Student')+'.',
+ C('other')+' הוא שם הפרמטר של הפעולה הפנימית.',
+ 'הציונים: '+C('s1')+' — 90, '+C('s2')+' — 75. הפעולה בודקת אם ציון המפעיל גדול מציון הפרמטר.',
+ 'הציונים: '+C('s1')+' — 90, '+C('s2')+' — 75. הפעולה בודקת אם ציון המפעיל גדול מציון הפרמטר.',
+ 'הפעולה הפנימית בודקת אם ציון המפעיל גדול מציון הפרמטר. '+C('IsHigher')+' בודקת אם ציון הפרמטר הראשון גדול מציון השני.',
+ 'בתחילת השאלה, לנועה ('+C('s1')+') ציון 90 ולעידו ('+C('s2')+') ציון 75. מבצעים את שני השלבים הבאים לפי הסדר:',
+ 'נועה היא '+C('s1')+' ועידו הוא '+C('s2')+'. הפעולה החיצונית '+C('UpdateAndCompare(Student first, Student second)')+' משנה את הציון של second ל־90, ואז מחזירה האם הציון של first גדול ממש מהציון של second. קוראים לה מתוך '+C('Main')+' שבאותה מחלקה.',
+ C('HasHigherGrade')+' היא פעולה פנימית שמקבלת פרמטר מסוג '+C('Student')+'.',
+ 'הציון של '+C('s1')+' הוא 90. הפעולה בודקת אם ציון המפעיל גדול ממש מציון הפרמטר.'
+];
+const wrong=[
+ [null,'זו צורת קריאה לפעולה חיצונית. GetGrade היא פעולה פנימית שצריכה עצם מפעיל.','Student הוא שם המחלקה, ולא העצם של נועה. הפעולה הזאת זקוקה לעצם מסוים.','העברת פרמטר לפעולה שאינה מקבלת פרמטרים.'],
+ ['חסר הציון החדש בסוגריים.','זו צורת קריאה חיצונית, אבל SetGrade היא פעולה פנימית.',null,'הקריאה תקינה, אבל היא משנה את נועה ולא את עידו.'],
+ [null,'s2 כלל אינו משתתף בקריאה.','הפעולה הפנימית משנה רק את העצם שעליו הופעלה, לא את כל עצמי המחלקה.','SetGrade היא פעולה שמשנה את הציון; העובדה שאין ערך מוחזר אינה אומרת שאין שינוי.'],
+ ['90 הוא הציון של s1, אך הקריאה נעשית על עצם אחר.',null,'GetGrade מחזירה ציון מספרי, לא ערך אמת.','GetGrade מחזירה את הציון; היא אינה פעולת void.'],
+ ['מותר לקרוא לפעולה על s1; הבעיה היא בערך שבסוגריים.','SetGrade כן מקבלת פרמטר: הציון החדש.',null,'נדרש רק פרמטר אחד. מספר הפרמטרים כאן מתאים, אך הטיפוס לא.'],
+ ['PrintStudent אינה פעולה פנימית של Student.',null,'הועברו שני תלמידים, אבל הפעולה מקבלת תלמיד אחד בלבד.','לא הועבר התלמיד שהפעולה צריכה להדפיס.'],
+ ['בלי פרמטרים הפעולה החיצונית לא מקבלת אף אחד מהתלמידים.','אין בפעולה חיצונית עצם מפעיל שישלים את התלמיד השני.',null,'ההשוואה היא בין שני תלמידים בלבד; אין צורך בעצם נוסף.'],
+ ['סדר הפרמטרים הפוך: כך בודקים אם עידו קיבל יותר מנועה.','IsHigher היא פעולה חיצונית, ולא פעולה שמפעילים על s1.','חסר תלמיד נוסף להשוואה.',null],
+ ['הדפסה אינה מחייבת החזרת int. הפעולה הזאת מוגדרת כ־void.',null,'s1 מייצג עצם Student, לא ציון.','אין צורך בשינוי ציון לפני הדפסה; הבעיה היא באופן הקריאה.'],
+ [null,'חסר בסוגריים התלמיד שהפעולה צריכה להדפיס.','PrintStudent היא פעולה חיצונית; מעבירים לה את התלמיד בסוגריים, ולא מפעילים אותה עליו.','75 הוא מספר, אבל הפעולה מקבלת עצם Student.'],
+ ['החלפת בין שני התפקידים: מה שבסוגריים אינו המפעיל.','שם הטיפוס Student אינו מופיע כאן בתור מפעיל.',null,'בפעולה פנימית יש עצם מפעיל לפני הנקודה; הוא אינו פרמטר מפורש.'],
+ ['העצם שמשמאל לנקודה אינו נספר כפרמטר מפורש.',null,'s1 ו־s2 הם שני עצמים נפרדים, גם אם רק אחד נכתב בסוגריים.','בסוגריים מופיע s2, ולכן יש פרמטר מפורש.'],
+ ['התפקידים התהפכו: this אינו העצם שהועבר בסוגריים.','s1 מופיע בסוגריים, אבל העצם המפעיל הוא אחר.','s2 הוא המפעיל, אבל הפרמטר שהועבר הוא עצם אחר.',null],
+ [null,'בדקו שוב את כיוון ההשוואה: משווים את ציון s1 לציון s2.','90 הוא ציון, אך פעולת ההשוואה מחזירה ערך אמת.','75 הוא ציון, אך פעולת ההשוואה מחזירה ערך אמת.'],
+ ['אותם עצמים משתתפים, אבל בהשוואת ״גדול מ־״ התפקידים שלהם משנים.','הפעולה מחזירה ערך אמת, לא את הציון.',null,'מותר להפעיל את הפעולה על s2 ולהעביר את s1.'],
+ ['הסדר הזה הופך את כיוון ההשוואה.',null,'PrintStudent מדפיסה פרטים ואינה בודקת מי קיבל ציון גדול יותר.','SameGrade בודקת שוויון, ולא מי קיבל ציון גדול יותר.'],
+ ['לאחר השינוי הציונים שווים; ״גדול ממש״ אינו כולל שוויון.','הפעולה מחזירה ערך אמת, לא את הציון החדש.','שתי הקריאות תקינות: מועבר מספר לשינוי הציון ועצם להשוואה.',null],
+ [null,'סדר העצמים הפוך: כך משתנה הציון של נועה, ואז נבדק אם הציון של עידו גדול משלה.','UpdateAndCompare היא פעולה חיצונית, ולא פעולה פנימית של s1. צריך להעביר לה את שני התלמידים בסוגריים.','הפרמטר השני צריך להיות Student, אבל 90 הוא מספר. הציון החדש כבר נקבע בתוך הפעולה.'],
+ ['s1 מתאים בתור עצם מפעיל; הבעיה היא בתוך הסוגריים.','מותר להשוות ציונים, אבל צריך להעביר את סוג הערך שהפעולה דורשת.',null,'הפעולה מקבלת פרמטר אחד בלבד; הבעיה היא בטיפוס שלו.'],
+ ['אותו עצם בשני התפקידים פירושו אותו ציון, לא ציון גדול יותר.',null,'מותר להשתמש באותו עצם כמפעיל וכפרמטר.','הפעולה מחזירה ערך אמת, לא עצם.']
+];
+
+const $=id=>document.getElementById(id), KEY='classes-practice-he-v1';
+let state={at:0,answers:questions.map(()=>({choice:null,attempts:0,solved:false,first:null}))};
+try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&Number.isInteger(saved.at)&&saved.at>=0&&saved.at<20&&saved.answers?.length===20&&saved.answers.every(x=>x&&Number.isInteger(x.attempts)&&x.attempts>=0&&typeof x.solved==='boolean'&&(x.first===null||typeof x.first==='boolean')&&(x.choice===null||Number.isInteger(x.choice)&&x.choice>=0&&x.choice<4)))state=saved;}catch(e){if(!(e instanceof SyntaxError))$('storage-note').hidden=false;}
+if(state.q18Version!==2){state.answers[17]={choice:null,attempts:0,solved:false,first:null};state.q18Version=2;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){if(!(e instanceof SyntaxError))$('storage-note').hidden=false;}}
+function stats(){const done=state.answers.filter(a=>a.solved).length,first=state.answers.filter(a=>a.first===true).length,checked=state.answers.filter(a=>a.attempts>0).length;return{done,first,checked};}
+
+
+const methodSources={"get":"    public int GetGrade()\n    {\n        return this.grade;\n    }","set":"    public void SetGrade(int grade)\n    {\n        this.grade = grade;\n    }","higher":"    public bool HasHigherGrade(Student other)\n    {\n        return this.grade > other.grade;\n    }","same":"    public bool SameGrade(Student other)\n    {\n        return this.grade == other.grade;\n    }","print":"    public static void PrintStudent(Student s)\n    {\n        System.Console.WriteLine(s.GetName());\n        System.Console.WriteLine(s.GetGrade());\n    }","external":"    public static bool IsHigher(Student a, Student b)\n    {\n        return a.GetGrade() > b.GetGrade();\n    }"};
+methodSources.updateCompare='    public static bool UpdateAndCompare(Student first, Student second)\n    {\n        second.SetGrade(90);\n        return first.HasHigherGrade(second);\n    }';
+const sourceKeys=['get','set','set','get','set','print','external','external','print','print','higher','higher','higher','higher','higher','higher','higher','updateCompare','higher','higher'];
+function studentSource(keys){return 'public class Student\n{\n    private string name;\n    private int grade;\n\n    public Student(string name, int grade)\n    {\n        this.name = name;\n        this.grade = grade;\n    }\n\n'+keys.map(k=>methodSources[k]).join('\n\n')+'\n}';}
+function programSource(key){return 'public class Program\n{\n'+methodSources[key]+'\n\n    public static void Main()\n    {\n        Student s1 = new Student("Noa", 90);\n        Student s2 = new Student("Ido", 75);\n\n        // כאן נכתבת הקריאה שבשאלה\n    }\n}';}
+methodSources.name='    public string GetName()\n    {\n        return this.name;\n    }';
+function sourceForQuestion(){
+ const i=state.at,key=sourceKeys[i];
+ if((i>=5&&i<=9)||i===17){
+  $('source-title').textContent='הצגת קוד המחלקה והתוכנית';
+  const keys=key==='print'?['name','get']:key==='updateCompare'?['set','higher']:['get'];
+  $('source-code').textContent=studentSource(keys)+'\n\n'+programSource(key);
+ }else if(i===15){
+  $('source-title').textContent='הצגת קוד המחלקה והתוכנית';
+  $('source-code').textContent=studentSource(['get','higher','same'])+'\n\n'+programSource('external');
+ }else{
+  $('source-title').textContent='הצגת קוד המחלקה Student';
+  $('source-code').textContent=studentSource(i===16?['set',key]:[key]);
+ }
+}
+
+function showSummary(){ $('quiz').hidden=true;$('summary').hidden=false;$('source-panel').open=false;$('summary').scrollIntoView({block:'start'}); }
+
+function draw(){const q=questions[state.at],a=state.answers[state.at],unit=Math.floor(state.at/5),s=stats();
+ sourceForQuestion();$('quiz').hidden=false;$('summary').hidden=true;
+ $('counter').textContent=`שאלה ${state.at+1} מתוך 20`;$('progress-text').textContent=`${s.done} שאלות נפתרו`;$('progress').value=s.done;$('topic').textContent=units[unit];$('question').textContent=q.q;$('context').innerHTML='<p>'+setups[state.at]+'</p>'+(q.c?'<p>'+q.c+'</p>':'');
+ $('options').innerHTML=q.o.map((o,i)=>`<button class="option" data-choice="${i}" aria-pressed="${a.choice===i}" ${a.solved?'disabled':''}><span class="letter" aria-hidden="true">${'אבגד'[i]}</span><span>${q.t?o:C(o)}</span></button>`).join('');
+ $('feedback').hidden=!a.solved;$('feedback').className='feedback';if(a.solved)$('feedback').innerHTML='<b>נכון ✓</b><p>'+q.e+'</p>';
+ $('check').disabled=a.solved;$('check').hidden=a.solved;$('next').classList.toggle('primary',a.solved);$('prev').disabled=state.at===0;$('next').textContent=state.at===19?'לסיכום התרגול ←':'לשאלה הבאה ←';
+ $('summary-body').innerHTML=`<div class="score">${s.done} / 20</div><p>שאלות שנפתרו${s.done===20?' — השלמתם את הדף!':''}</p><p>${s.first} תשובות נכונות בניסיון הראשון מתוך ${s.checked} שאלות שנבדקו.</p><div class="summary-grid">${units.map((n,i)=>`<p><b>${n}</b>: ${state.answers.slice(i*5,i*5+5).filter(x=>x.solved).length} מתוך 5 נפתרו</p>`).join('')}</div><p>${s.done===20?'כלל לזכור: בפעולה פנימית מזהים את העצם שמשמאל לנקודה; בכל קריאה בודקים את מספר הפרמטרים, הטיפוסים והסדר.':'אפשר להמשיך בשאלות שלא נפתרו או לפתוח תשובה לתרגול חוזר.'}</p>`;
+}
+function go(i){$('source-panel').open=false;state.at=i;save();draw();$('quiz').scrollIntoView({block:'start',behavior:'auto'});}
+$('options').addEventListener('click',e=>{const b=e.target.closest('[data-choice]');if(!b||state.answers[state.at].solved)return;state.answers[state.at].choice=Number(b.dataset.choice);save();for(const x of $('options').children)x.setAttribute('aria-pressed',x===b);$('feedback').hidden=true;});
+$('check').addEventListener('click',()=>{const q=questions[state.at],a=state.answers[state.at];if(a.solved)return;$('feedback').hidden=false;if(a.choice===null){$('feedback').className='feedback bad';$('feedback').textContent='בחרו תשובה לפני הבדיקה.';return;}const ok=a.choice===q.a;if(a.attempts===0)a.first=ok;a.attempts++;a.solved=ok;save();if(ok){draw();}else{$('feedback').className='feedback bad';$('feedback').innerHTML='<b>עוד ניסיון — אפשר לתקן.</b><p>'+wrong[state.at][a.choice]+'</p><p><b>רמז:</b> '+q.h+'</p>';}});
+$('prev').onclick=()=>go(state.at-1);$('next').onclick=()=>state.at<19?go(state.at+1):showSummary();
+$('review').onclick=()=>{let i=-1;for(let offset=1;offset<=20;offset++){const candidate=(state.at+offset)%20,a=state.answers[candidate];if(!a.solved||a.first===false){i=candidate;break;}}if(i<0){alert('כל השאלות נפתרו נכון בניסיון הראשון. אפשר לחזור לכל שלב או להתחיל מחדש.');return;}go(i);};$('print').onclick=()=>window.print();$('back').onclick=()=>go(state.at);
+
+// Shared navigation behavior; original first-attempt results survive a retry.
+const buildPage=false;
+let retryAt=-1;
+function restartWorksheet(){$('restart-dialog').showModal();}
+function applyRestart(){
+ $('restart-dialog').close();
+ state={at:0,answers:questions.map(q=>buildPage?{values:q.type==='choice'?[null]:q.slots.map(()=>null),attempts:0,solved:false,first:null}:{choice:null,attempts:0,solved:false,first:null})};
+ if(typeof KEY!=='undefined'&&KEY==='classes-practice-he-v1')state.q18Version=2;
+ retryAt=-1;$('review-note').hidden=true;go(0);
+}
+const originalDraw=draw;
+draw=function(){
+ originalDraw();
+ $('review-note').hidden=state.at!==retryAt;
+ const done=state.answers.filter(a=>a.solved).length;
+ $('progress').setAttribute('aria-valuetext',done+' מתוך '+questions.length+' נפתרו');
+ $('question-jump').replaceChildren(...questions.map((q,i)=>{
+  const option=document.createElement('option');option.value=String(i);
+  const topic=q.unit||(typeof phases!=='undefined'?phases[q.phase]:units[Math.floor(i/5)]);
+  option.textContent=(i+1)+'. '+topic+(state.answers[i].solved?' — נפתרה':'');
+  return option;
+ }));
+ $('question-jump').value=String(state.at);
+};
+const originalGo=go;
+go=function(i){
+ if(!Number.isInteger(i)||i<0||i>=questions.length)return;
+ originalGo(i);$('quiz').focus({preventScroll:true});
+};
+$('question-jump').onchange=event=>go(Number(event.target.value));
+$('restart-all').onclick=restartWorksheet;
+$('restart-confirm').onclick=applyRestart;
+$('restart-cancel').onclick=()=>$('restart-dialog').close();
+for(const id of ['restart','reset'])if($(id))$(id).onclick=restartWorksheet;
+$('open-summary').onclick=()=>{showSummary();$('summary').focus({preventScroll:true});};
+$('review').onclick=()=>{
+ let target=-1;
+ // Unfinished questions take priority; then revisit questions missed initially.
+ for(const test of [a=>!a.solved,a=>a.first===false]){
+  for(let offset=1;offset<=questions.length;offset++){
+   const i=(state.at+offset)%questions.length;
+   if(test(state.answers[i])){target=i;break;}
+  }
+  if(target>=0)break;
+ }
+ if(target<0){go(0);return;}
+ const answer=state.answers[target];
+ retryAt=answer.solved?target:-1;
+ if(answer.solved){
+  answer.solved=false;
+  if(buildPage)answer.values=questions[target].type==='choice'?[null]:questions[target].slots.map(()=>null);
+  else answer.choice=null;
+ }
+ go(target);
+};
+// Render the print summary from current data even when printing mid-worksheet.
+window.addEventListener('beforeprint',()=>{showSummary();});
+window.addEventListener('afterprint',()=>draw());
+
+draw();
+</script></body></html>
