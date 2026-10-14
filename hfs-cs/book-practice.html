@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#146653"><title>Book — מתרגלים כתיבת קוד בעצמנו</title><meta name="description" content="11 תרגילי כתיבה מדורגים במחלקה Book, עם תרשימים ופרויקט Visual Studio 2026 להורדה. תרגול עצמאי לאחר Swimmer, כהכנה למשימה בפטל."><style>
+:root{--ink:#183633;--muted:#526964;--green:#146653;--bg:#f3f6f1;--line:#d5e0d9;--soft:#e8f3ed}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:18px}body{margin:0;color:var(--ink);background:var(--bg);font:18px/1.8 Arial,"Segoe UI",sans-serif}main{max-width:920px;margin:auto;padding:28px 24px 60px}a{color:var(--green);text-underline-offset:4px}a:focus-visible,summary:focus-visible{outline:3px solid #bb7510;outline-offset:4px}.home{font-size:15px;display:inline-block;margin-bottom:28px}h1{font-size:clamp(29px,5vw,43px);line-height:1.25;margin:0 0 12px}header>p{color:var(--muted);margin:0 0 20px}h2{font-size:25px;line-height:1.4;margin:0 0 16px}h3{font-size:19px;margin:24px 0 8px}p{margin:12px 0}li{margin:7px 0}ol,ul{padding-inline-start:26px}code{font:0.91em/1.65 Consolas,monospace;direction:ltr;unicode-bidi:isolate;display:inline-block;background:#eef3f0;border-radius:5px;padding:1px 5px;max-width:100%;overflow-wrap:anywhere}pre{direction:ltr;text-align:left;unicode-bidi:isolate;background:#eef3f0;border:1px solid var(--line);border-radius:10px;padding:16px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;font-size:15px;max-width:100%}pre code{padding:0;background:none;display:block;font:inherit;white-space:inherit;direction:ltr;unicode-bidi:isolate}.download{display:inline-block;background:var(--green);color:white;text-decoration:none;padding:12px 20px;border-radius:12px;font-weight:bold}.download:hover{background:#0d5142}.meta{font-size:14px;color:var(--muted);margin-top:8px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:28px;margin:22px 0}.start{border-inline-start:4px solid var(--green)}.note{padding:12px 16px;background:var(--soft);border-radius:10px;font-size:16px}.toc{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 28px}.toc a{display:grid;place-items:center;min-width:43px;min-height:43px;border:1px solid var(--line);border-radius:10px;background:white;text-decoration:none;font-size:16px;font-family:Consolas,monospace}.toc a:hover{background:var(--soft)}.qhead{display:flex;gap:14px;align-items:baseline}.qnum{color:var(--green);font:24px/1.2 Consolas,monospace}.where{font-size:14px;color:var(--muted);margin:0 0 18px}.signature pre{border-inline-start:3px solid var(--green);font-size:15px}details{margin-top:14px}summary{cursor:pointer;color:var(--green)}details>p{font-size:16px}.hint{border-top:1px solid var(--line);padding-top:12px}.hint summary{font-size:16px}.sample{margin:16px 0}.label{font-size:14px;color:var(--muted)}.sample pre{margin-top:5px}figure{margin:24px 0;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fbfcfa}svg{display:block;width:100%;height:auto}figcaption{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.7}.table-wrap{max-width:100%;overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:16px;margin:16px 0}th,td{border-bottom:1px solid var(--line);text-align:right;padding:9px 12px}th{background:var(--soft)}.end{font-size:15px;margin-top:30px}.backtop{font-size:14px}.filelist{display:flex;gap:16px;flex-wrap:wrap}.filelist p{margin:0}.assumptions{font-size:16px}footer{color:var(--muted);font-size:15px;margin-top:24px}
+@media(max-width:600px){main{padding:20px 12px 40px}.card{padding:20px 16px}h2{font-size:23px}.qhead{gap:10px}pre,.signature pre{font-size:13px;padding:12px}figure{padding:6px}figcaption{padding:6px}body{font-size:17px}}
+.diagram-scroll{overflow-x:auto}.diagram-scroll:focus-visible{outline:3px solid #bb7510;outline-offset:3px}@media(max-width:600px){.diagram-scroll svg{min-width:560px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:white;font-size:11pt}main{max-width:none;padding:0}.home,.download,.toc,.backtop,.end{display:none}.card{border:0;border-radius:0;padding:0;margin:20px 0}h1{font-size:24pt}h2{font-size:17pt;break-after:avoid}h3,.where{break-after:avoid}figure,pre,table{break-inside:avoid}figure{max-width:650px}details.hint{display:none}a{color:inherit}pre{font-size:10pt}header{margin-bottom:22px}}
+</style></head>
+<body><main id="top"><a class="home" href="index.html">→ כל דפי התרגול</a>
+<header><h1><bdi dir="ltr">Book</bdi> — מתרגלים כתיבת קוד בעצמנו</h1><p>11 תרגילים לעבודה עצמאית לאחר ההדגמה עם Swimmer, כהכנה למשימה בפטל.</p><a class="download" href="BookPractice.zip" download>הורדת הפרויקט ל־Visual Studio</a><p class="meta">Visual Studio 2026 · <bdi dir="ltr">.NET 10</bdi> · קובץ ZIP</p></header>
+<section class="card start" aria-labelledby="start-title"><h2 id="start-title">מתחילים</h2><ol><li>הורידו את הפרויקט וחלצו את ה־ZIP לתיקייה רגילה במחשב.</li><li>לחצו פעמיים על <code>BookPractice.sln</code>. הפרויקט ייפתח ב־Visual Studio.</li><li>פתחו את <code>Program.cs</code> ואת <code>Book.cs</code>. בכל תרגיל מצוין היכן כותבים.</li><li>הריצו עם <code>Ctrl+F5</code>. <code>Main</code> כבר מפעילה את <code>Tests.RunAll()</code>.</li></ol>
+<p>השלד מתקמפל גם לפני שמתחילים. בכל פעולה שטרם הושלמה יש שורת <code>throw new NotImplementedException(...)</code>. <strong>כשמממשים את הסעיף, מסירים את שורת ה־throw שלו</strong> וכותבים את הקוד במקום המסומן. בפעולה שמחזירה ערך צריך להשלים גם <code>return</code>.</p>
+<p>לא משנים את חתימות הפעולות ולא צריך לשנות את <code>Tests.cs</code>. בסעיפים 4 ו־10 יש שני חלקים; שניהם צריכים לעבוד כדי שהסעיף יעבור.</p>
+<pre dir="ltr"><code>01 PASSED
+02 FAILED - 02 not implemented
+03 FAILED - higher rating: expected True, got False</code></pre>
+<p class="note">כל שורה מתייחסת למספר התרגיל. <code>not implemented</code> פירושו שיש סעיף שטרם הושלם; <code>expected</code> הוא הערך הרצוי ו־<code>got</code> הוא הערך שהתקבל. אם סעיף נעזר בפעולה קודמת שלא הושלמה, ההודעה תציין את מספרה. שגיאת תחביר מונעת הידור — יש לתקן אותה לפני שהבדיקות ירוצו.</p></section>
+<section class="card" aria-labelledby="class-title"><h2 id="class-title">המחלקה Book</h2><p>כל עצם מייצג ספר. במחלקה שלוש תכונות:</p>
+<div class="table-wrap"><table><thead><tr><th>תכונה</th><th>טיפוס</th><th>משמעות</th></tr></thead><tbody><tr><td><code>genre</code></td><td><code>string</code></td><td>סוגה — הקטגוריה של הספר</td></tr><tr><td><code>pages</code></td><td><code>int</code></td><td>מספר העמודים, מספר חיובי</td></tr><tr><td><code>rating</code></td><td><code>int</code></td><td>דירוג שלם מ־0 עד 10, כולל</td></tr></tbody></table></div>
+<p>הסוגות האפשריות: <code>&quot;fantasy&quot;</code> — פנטזיה; <code>&quot;mystery&quot;</code> — תעלומה; <code>&quot;science&quot;</code> — מדע; <code>&quot;biography&quot;</code> — ביוגרפיה. כתבו אותן בדיוק כפי שהן מופיעות כאן, באותיות קטנות.</p>
+<p class="note"><strong>דירוג גבוה יותר הוא טוב יותר.</strong> דירוג 9 טוב מדירוג 7. מספר העמודים אינו קובע את איכות הספר.</p>
+<p>הפעולה הבונה מקבלת את הנתונים בסדר <code>genre, pages, rating</code>. היא ופעולות <code>GetGenre()</code>, <code>GetPages()</code>, <code>GetRating()</code> כבר ממומשות. בתרגילים 2–3 כותבים פעולות פנימיות ב־<code>Book</code>; בשאר התרגילים כותבים פעולות חיצוניות ב־<code>Program</code>.</p>
+<details><summary>קוד המחלקה והשלדים של תרגילים 2–3</summary><pre dir="ltr"><code>using System;
+
+namespace BookPractice
+{
+    public class Book
+    {
+        private string genre;
+        private int pages;
+        private int rating;
+
+        // דירוג שלם מ־0 עד 10. דירוג גבוה יותר טוב יותר.
+        public Book(string genre, int pages, int rating)
+        {
+            this.genre = genre;
+            this.pages = pages;
+            this.rating = rating;
+        }
+
+        public string GetGenre()
+        {
+            return this.genre;
+        }
+
+        public int GetPages()
+        {
+            return this.pages;
+        }
+
+        public int GetRating()
+        {
+            return this.rating;
+        }
+
+        // תרגיל 02: האם העצם המפעיל והספר other שייכים לאותה סוגה?
+        public bool SameGenre(Book other)
+        {
+            // TODO 02: החליפו את שורת ה־throw במימוש שלכם.
+            throw new NotImplementedException(&quot;02&quot;);
+        }
+
+        // תרגיל 03: אותה סוגה, ולמפעיל דירוג גבוה ממש מדירוגו של other.
+        public bool IsBetterRatedInSameGenre(Book other)
+        {
+            // TODO 03: השתמשו גם בפעולה SameGenre שכתבתם.
+            throw new NotImplementedException(&quot;03&quot;);
+        }
+    }
+}
+</code></pre></details>
+<h3>מערך דוגמה</h3><p>כשנאמר בהמשך ״מערך הדוגמה״, הכוונה למערך הבא. הבדיקות יריצו את הפעולות גם על נתונים אחרים.</p>
+<pre dir="ltr"><code>Book[] books = {
+    new Book(&quot;mystery&quot;, 180, 8),
+    new Book(&quot;fantasy&quot;, 320, 7),
+    new Book(&quot;fantasy&quot;, 240, 9),
+    new Book(&quot;science&quot;, 210, 6)
+};</code></pre>
+<p class="assumptions"><strong>הנחות לכל הדף:</strong> מערכי הספרים אינם ריקים, כל התאים מכילים ספרים תקינים, מספרי העמודים חיוביים, הדירוגים שלמים מ־0 עד 10 והסוגות הן ארבע הסוגות הנתונות. בתרגילי החיפוש 7–9 ובדוח שבתרגיל 11 יש ספר יחיד בדירוג הגבוה ביותר בקבוצה המתאימה, אם היא קיימת. אין צורך לטפל בנתונים לא תקינים או בתיקו בחיפוש.</p></section>
+<nav class="toc" aria-label="מעבר לתרגיל"><a href="#q1" aria-label="תרגיל 1: ספר אחד, שתי הוראות הדפסה">01</a><a href="#q2" aria-label="תרגיל 2: האם הסוגה זהה?">02</a><a href="#q3" aria-label="תרגיל 3: אותה סוגה, דירוג טוב יותר">03</a><a href="#q4" aria-label="תרגיל 4: עוברים על מערך ומדפיסים">04</a><a href="#q5" aria-label="תרגיל 5: סופרים ספרים בסוגה נתונה">05</a><a href="#q6" aria-label="תרגיל 6: מוצאים את הדירוג הגבוה ביותר">06</a><a href="#q7" aria-label="תרגיל 7: כמה עמודים בספר המומלץ?">07</a><a href="#q8" aria-label="תרגיל 8: הספר המומלץ בסוגה המבוקשת">08</a><a href="#q9" aria-label="תרגיל 9: מוסיפים מקרה של אין התאמה">09</a><a href="#q10" aria-label="תרגיל 10: מערך מונים לפי סוגה">10</a><a href="#q11" aria-label="תרגיל 11: מחברים את הפעולות לדוח קצר">11</a></nav>
+<section class="card exercise" id="q1" aria-labelledby="q1-title"><div class="qhead"><span class="qnum" aria-hidden="true">01</span><h2 id="q1-title">ספר אחד, שתי הוראות הדפסה</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>ShowBook</code></p>
+<p>הפעולה מקבלת את <code>b</code>, הפניה לספר שכבר נוצר. השלימו את גוף הפעולה:</p>
+<ol><li>שמרו את מספר העמודים במשתנה מסוג <code>int</code>, באמצעות <code>GetPages()</code>.</li><li>שמרו את דירוג הספר במשתנה נוסף מסוג <code>int</code>, באמצעות <code>GetRating()</code>.</li><li>הדפיסו את מספר העמודים בשורה הראשונה ואת הדירוג בשורה השנייה, ללא כותרות או תוספות.</li></ol>
+<div class="signature"><pre dir="ltr"><code>public static void ShowBook(Book b)</code></pre></div>
+<p>למשל, עבור <code>new Book(&quot;mystery&quot;, 180, 8)</code>:</p><div class="sample"><span class="label">פלט לדוגמה</span><pre dir="ltr"><code>180
+8</code></pre></div>
+<p>הפעולה היא <code>void</code>: היא מדפיסה ואינה מחזירה ערך.</p>
+<details class="hint"><summary>רמז קטן</summary><p>את פעולות ה־Get מפעילים על הספר b. את הערך שחוזר מכל פעולה אפשר לשמור במשתנה.</p></details></section>
+<section class="card exercise" id="q2" aria-labelledby="q2-title"><div class="qhead"><span class="qnum" aria-hidden="true">02</span><h2 id="q2-title">האם הסוגה זהה?</h2></div><p class="where">כותבים ב־<code>Book.cs</code> · <code>SameGenre</code></p>
+<p>כתבו פעולה <strong>פנימית</strong> שמקבלת ספר אחר, <code>other</code>, ומחזירה <code>true</code> אם הסוגה שלו זהה לסוגה של העצם המפעיל. אחרת תחזיר <code>false</code>.</p>
+<div class="signature"><pre dir="ltr"><code>public bool SameGenre(Book other)</code></pre></div>
+<p>בדקו את הסוגה בלבד. מספר העמודים והדירוג יכולים להיות שונים. שני ספרי <code>fantasy</code> יתאימו; ספר <code>fantasy</code> וספר <code>mystery</code> לא יתאימו.</p>
+<p>הפעולה מחזירה תשובה באמצעות <code>return</code>; אין להדפיס בתוכה.</p>
+<details class="hint"><summary>רמז קטן</summary><p>בתוך Book אפשר לגשת לתכונות של העצם המפעיל דרך this, ולתכונות של הספר האחר דרך other. להשוואת הסוגות אפשר להשתמש ב־<code>==</code>.</p></details></section>
+<section class="card exercise" id="q3" aria-labelledby="q3-title"><div class="qhead"><span class="qnum" aria-hidden="true">03</span><h2 id="q3-title">אותה סוגה, דירוג טוב יותר</h2></div><p class="where">כותבים ב־<code>Book.cs</code> · <code>IsBetterRatedInSameGenre</code></p>
+<p>כתבו פעולה פנימית שמחזירה <code>true</code> רק כשמתקיימים <strong>שני התנאים יחד</strong>: הסוגה זהה, והדירוג של העצם המפעיל גבוה ממש מהדירוג של <code>other</code>.</p>
+<div class="signature"><pre dir="ltr"><code>public bool IsBetterRatedInSameGenre(Book other)</code></pre></div>
+<p>השתמשו בפעולה <code>SameGenre</code> שכתבתם בתרגיל 2. אם הסוגות שונות, אם הדירוגים שווים או אם דירוג המפעיל נמוך יותר — הפעולה תחזיר <code>false</code>.</p>
+<figure><div class="diagram-scroll" tabindex="0" aria-label="עצם מפעיל ועצם שמועבר כפרמטר"><svg viewBox="0 0 660 210" role="img" aria-labelledby="compare-title compare-desc" xmlns="http://www.w3.org/2000/svg"><title id="compare-title">עצם מפעיל ועצם שמועבר כפרמטר</title><desc id="compare-desc">בקריאה הזו b1 הוא העצם המפעיל, ו־other מפנה ל־b2. שני הספרים באותה סוגה ול־b1 דירוג גבוה יותר, לכן התוצאה היא true. בסרטוט מוצגות רק התכונות הדרושות להשוואה.</desc>
+<path d="M286 96 H374" stroke="#287566" stroke-width="3"/><path d="m360 87 14 9-14 9" fill="none" stroke="#287566" stroke-width="3"/>
+<rect x="20" y="30" width="260" height="145" rx="14" fill="#e8f3ed"/><rect x="380" y="30" width="260" height="145" rx="14" fill="#eef4fa"/>
+<g font-family="Consolas,monospace" font-size="18" fill="#183633" text-anchor="start" direction="ltr"><text x="40" y="63">b1 → this</text><text x="40" y="97">genre: "fantasy"</text><text x="40" y="129">rating: 9</text><text x="400" y="63">b2 → other</text><text x="400" y="97">genre: "fantasy"</text><text x="400" y="129">rating: 7</text></g>
+<text x="330" y="202" text-anchor="middle" font-family="Consolas,monospace" font-size="18" fill="#183633" direction="ltr">b1.IsBetterRatedInSameGenre(b2)</text></svg></div><figcaption>בקריאה הזו b1 הוא העצם המפעיל, ו־other מפנה ל־b2. שני הספרים באותה סוגה ול־b1 דירוג גבוה יותר, לכן התוצאה היא true. בסרטוט מוצגות רק התכונות הדרושות להשוואה.</figcaption></figure><details class="hint"><summary>רמז קטן</summary><p>שלבו את התוצאה של SameGenre עם השוואת הדירוגים באמצעות <code>&amp;&amp;</code>. חשבו איזה סימן השוואה מתאים לדירוג טוב יותר.</p></details></section>
+<section class="card exercise" id="q4" aria-labelledby="q4-title"><div class="qhead"><span class="qnum" aria-hidden="true">04</span><h2 id="q4-title">עוברים על מערך ומדפיסים</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>PrintAllPages / PrintFantasyPages</code></p>
+<p>בכל אחת משתי הפעולות כבר נתונה לולאה שעוברת על המערך <code>books</code>. בכל סיבוב, <code>books[i]</code> מפנה לספר הנוכחי.</p>
+<h3>א. מספר העמודים של כל ספר</h3><div class="signature"><pre dir="ltr"><code>public static void PrintAllPages(Book[] books)</code></pre></div>
+<p>השלימו בתוך הלולאה הוראה שמדפיסה את מספר העמודים של הספר הנוכחי. כל מספר בשורה נפרדת, לפי סדר המערך.</p>
+<h3>ב. רק ספרי פנטזיה</h3><div class="signature"><pre dir="ltr"><code>public static void PrintFantasyPages(Book[] books)</code></pre></div>
+<p>בפעולה השנייה הוסיפו תנאי: מדפיסים את מספר העמודים רק אם הסוגה היא <code>&quot;fantasy&quot;</code>. אם אין ספרי פנטזיה, הפעולה לא תדפיס דבר.</p>
+<p>עבור מערך הדוגמה שבפתיחה, חלק א מדפיס:</p><div class="sample"><span class="label">פלט לדוגמה</span><pre dir="ltr"><code>180
+320
+240
+210</code></pre></div>
+<p>חלק ב מדפיס:</p><div class="sample"><span class="label">פלט לדוגמה</span><pre dir="ltr"><code>320
+240</code></pre></div>
+<details class="hint"><summary>רמז קטן</summary><p>את פעולות ה־Get מפעילים על הספר שבתא <code>books[i]</code>. לא צריך ליצור ספרים חדשים.</p></details></section>
+<section class="card exercise" id="q5" aria-labelledby="q5-title"><div class="qhead"><span class="qnum" aria-hidden="true">05</span><h2 id="q5-title">סופרים ספרים בסוגה נתונה</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>CountGenre</code></p>
+<p>הפעולה מקבלת מערך ספרים ואת הסוגה המבוקשת בפרמטר <code>genre</code>. החזירו כמה ספרים במערך שייכים לסוגה הזו.</p>
+<div class="signature"><pre dir="ltr"><code>public static int CountGenre(Book[] books, string genre)</code></pre></div>
+<p>בשלד כבר נתונים מונה שמתחיל ב־0 ולולאה. השלימו את התנאי ואת הגדלת המונה. בסיום החזירו את המונה; אין להדפיס.</p>
+<p>עבור מערך הדוגמה: חיפוש <code>&quot;fantasy&quot;</code> יחזיר <code>2</code>, חיפוש <code>&quot;mystery&quot;</code> יחזיר <code>1</code>, וחיפוש <code>&quot;biography&quot;</code> יחזיר <code>0</code>.</p>
+<p>השתמשו בפרמטר <code>genre</code>: הפעולה צריכה לעבוד עבור כל אחת מארבע הסוגות.</p>
+<details class="hint"><summary>רמז קטן</summary><p>במקום להדפיס כשיש התאמה, מגדילים את המונה. את return כותבים אחרי שהלולאה הסתיימה.</p></details></section>
+<section class="card exercise" id="q6" aria-labelledby="q6-title"><div class="qhead"><span class="qnum" aria-hidden="true">06</span><h2 id="q6-title">מוצאים את הדירוג הגבוה ביותר</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>MaxRating</code></p>
+<p>בתרגיל הזה <strong>כל הספרים במערך שייכים לאותה סוגה</strong>. החזירו את הדירוג הגבוה ביותר במערך, מסוג <code>int</code>.</p>
+<div class="signature"><pre dir="ltr"><code>public static int MaxRating(Book[] books)</code></pre></div>
+<p>בשלד כבר נשמר הדירוג של הספר הראשון במשתנה <code>best</code>, והלולאה מתחילה בתא 1. בכל סיבוב החליטו אם צריך לעדכן את <code>best</code>. בסיום החזירו אותו.</p>
+<figure><div class="diagram-scroll" tabindex="0" aria-label="מעקב אחר הדירוג הגבוה ביותר"><svg viewBox="0 0 660 210" role="img" aria-labelledby="maximum-title maximum-desc" xmlns="http://www.w3.org/2000/svg"><title id="maximum-title">מעקב אחר הדירוג הגבוה ביותר</title><desc id="maximum-desc">מתחילים בדירוג של הספר הראשון. אחרי כל ספר, best מכיל את הדירוג הגבוה ביותר מבין הדירוגים שנבדקו עד כה.</desc>
+<g font-family="Consolas,monospace" font-size="17" text-anchor="middle" direction="ltr" fill="#183633">
+<text x="110" y="26">books[0]</text><text x="330" y="26">books[1]</text><text x="550" y="26">books[2]</text>
+<rect x="25" y="42" width="170" height="62" rx="12" fill="#eef4fa"/><rect x="245" y="42" width="170" height="62" rx="12" fill="#eef4fa"/><rect x="465" y="42" width="170" height="62" rx="12" fill="#eef4fa"/>
+<text x="110" y="80">6</text><text x="330" y="80">9</text><text x="550" y="80">7</text>
+<text x="110" y="151">best = 6</text><text x="330" y="151">best = 9</text><text x="550" y="151">best = 9</text></g>
+<path d="M195 73 H237 M415 73 H457" stroke="#287566" stroke-width="3"/><path d="m227 65 10 8-10 8m220-16 10 8-10 8" stroke="#287566" stroke-width="3" fill="none"/>
+<path d="M110 108 V123 M330 108 V123 M550 108 V123" stroke="#c6d7cf" stroke-width="2"/></svg></div><figcaption>מתחילים בדירוג של הספר הראשון. אחרי כל ספר, best מכיל את הדירוג הגבוה ביותר מבין הדירוגים שנבדקו עד כה.</figcaption></figure><p>גם מערך עם ספר אחד הוא קלט תקין: במקרה כזה מחזירים את הדירוג שלו. אין צורך לטפל במערך ריק.</p>
+<details class="hint"><summary>רמז קטן</summary><p>כאן מחפשים דירוג גבוה יותר. מספר העמודים אינו משפיע על החיפוש.</p></details></section>
+<section class="card exercise" id="q7" aria-labelledby="q7-title"><div class="qhead"><span class="qnum" aria-hidden="true">07</span><h2 id="q7-title">כמה עמודים בספר המומלץ?</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>BestRatedPages</code></p>
+<p>גם כאן כל הספרים באותה סוגה, ויש ספר אחד שדירוגו גבוה משל כל האחרים. נקרא לו ״הספר המומלץ״. כתבו פעולה שמחזירה את <strong>מספר העמודים שלו</strong>.</p>
+<div class="signature"><pre dir="ltr"><code>public static int BestRatedPages(Book[] books)</code></pre></div>
+<p>הפעם נתונה רק החתימה. היעזרו ברעיון מתרגיל 6, אבל שמרו גם דרך להגיע לספר שנבחר — למשל אינדקס, או הפניה לעצם. כשנמצא דירוג גבוה יותר, עדכנו את הבחירה.</p>
+<div class="table-wrap"><table><thead><tr><th>אינדקס</th><th>עמודים</th><th>דירוג</th></tr></thead><tbody><tr><td>0</td><td>400</td><td>6</td></tr><tr><td>1</td><td>250</td><td>9</td></tr><tr><td>2</td><td>100</td><td>7</td></tr></tbody></table></div>
+<p>בדוגמה הזו כל הספרים הם <code>fantasy</code>. הפעולה תחזיר <code>250</code>: מספר העמודים של הספר בדירוג 9. <strong>הדירוג קובע איזה ספר בוחרים; מספר העמודים הוא הערך שמחזירים.</strong> אין לחפש את הספר הארוך או הקצר ביותר, ואין להדפיס.</p>
+<details class="hint"><summary>רמז קטן</summary><p>אם שומרים אינדקס של הספר בעל הדירוג הגבוה ביותר, אפשר להשתמש בו גם להשוואת הדירוגים וגם לקבלת מספר העמודים בסיום.</p></details></section>
+<section class="card exercise" id="q8" aria-labelledby="q8-title"><div class="qhead"><span class="qnum" aria-hidden="true">08</span><h2 id="q8-title">הספר המומלץ בסוגה המבוקשת</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>BestRatedPagesInGenre</code></p>
+<p>כעת המערך מכיל סוגות שונות. הפעולה מקבלת גם <code>genre</code>, ומחזירה את מספר העמודים של הספר בעל הדירוג הגבוה ביותר <strong>מבין הספרים בסוגה המבוקשת בלבד</strong>.</p>
+<div class="signature"><pre dir="ltr"><code>public static int BestRatedPagesInGenre(Book[] books, string genre)</code></pre></div>
+<p>בסעיף הזה אפשר להניח שקיים לפחות ספר אחד בסוגה המבוקשת ושיש ביניהם ספר יחיד בעל הדירוג הגבוה ביותר.</p>
+<ol><li><strong>נקודת התחלה:</strong> מצאו את הספר הראשון בסוגה המתאימה. שמרו את מיקומו או את ההפניה אליו.</li><li><strong>שיפור הבחירה:</strong> עברו על שאר הספרים. החליפו את הבחירה רק כשגם הסוגה מתאימה וגם הדירוג גבוה יותר.</li><li>החזירו את מספר העמודים של הספר שנבחר.</li></ol>
+<figure><div class="diagram-scroll" tabindex="0" aria-label="חיפוש רק בתוך הסוגה המבוקשת"><svg viewBox="0 0 660 210" role="img" aria-labelledby="filter-title filter-desc" xmlns="http://www.w3.org/2000/svg"><title id="filter-title">חיפוש רק בתוך הסוגה המבוקשת</title><desc id="filter-desc">בחיפוש mystery בוחרים בין שני הספרים המסומנים בירוק. לספר בעל 260 העמודים דירוג 8, ולכן מחזירים 260. הספר בעל דירוג 10 אינו בסוגה המבוקשת.</desc>
+<g font-family="Consolas,monospace" font-size="15" text-anchor="middle" direction="ltr" fill="#183633">
+<rect x="15" y="48" width="147" height="115" rx="12" fill="#f0f1f0"/><rect x="177" y="48" width="147" height="115" rx="12" fill="#e8f3ed" stroke="#287566"/><rect x="339" y="48" width="147" height="115" rx="12" fill="#e8f3ed" stroke="#287566"/><rect x="501" y="48" width="147" height="115" rx="12" fill="#f0f1f0"/>
+<text x="89" y="79">500 pages</text><text x="89" y="109">fantasy</text><text x="89" y="139">rating: 10</text><text x="251" y="79">170 pages</text><text x="251" y="109">mystery</text><text x="251" y="139">rating: 5</text><text x="413" y="79">260 pages</text><text x="413" y="109">mystery</text><text x="413" y="139">rating: 8</text><text x="575" y="79">400 pages</text><text x="575" y="109">biography</text><text x="575" y="139">rating: 9</text>
+<text x="330" y="26">genre = "mystery"</text></g></svg></div><figcaption>בחיפוש mystery בוחרים בין שני הספרים המסומנים בירוק. לספר בעל 260 העמודים דירוג 8, ולכן מחזירים 260. הספר בעל דירוג 10 אינו בסוגה המבוקשת.</figcaption></figure><details class="hint"><summary>רמז קטן</summary><p>הספר בתא 0 לא בהכרח מתאים. תחילה צריך למצוא מועמד בסוגה המבוקשת; רק אז אפשר להשוות אליו דירוגים.</p></details></section>
+<section class="card exercise" id="q9" aria-labelledby="q9-title"><div class="qhead"><span class="qnum" aria-hidden="true">09</span><h2 id="q9-title">מוסיפים מקרה של אין התאמה</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>BestRatedPagesOrMinusOne</code></p>
+<p>כתבו פעולה נוספת עם אותה מטרת חיפוש. הפעם <strong>ייתכן שאין במערך אף ספר בסוגה המבוקשת</strong>.</p>
+<div class="signature"><pre dir="ltr"><code>public static int BestRatedPagesOrMinusOne(Book[] books, string genre)</code></pre></div>
+<p>אם קיימת התאמה, החזירו את מספר העמודים של הספר בעל הדירוג הגבוה ביותר בסוגה הזו. אם אין התאמה, החזירו <code>-1</code>. הערך הזה מסמן ״לא נמצא ספר״, והוא מתאים כי מספר העמודים של ספר תקין תמיד חיובי.</p>
+<p>אפשר להיעזר ב־<code>CountGenre</code> וב־<code>BestRatedPagesInGenre</code> שכבר כתבתם. שמרו את הפעולה מתרגיל 8 והשלימו את הפעולה החדשה במקומה המסומן.</p>
+<p>במערך הדוגמה, עבור <code>&quot;biography&quot;</code> יוחזר <code>-1</code>; עבור <code>&quot;fantasy&quot;</code> יוחזר <code>240</code>. המערך עצמו אינו ריק. דירוג 0 הוא דירוג תקין ואינו מציין ״לא נמצא״.</p>
+<details class="hint"><summary>רמז קטן</summary><p>אם אין ספר מתאים, מחזירים את ערך הסימון. אם יש התאמה, כבר כתבתם פעולה שמבצעת את החיפוש. אין להדפיס מתוך הפעולה.</p></details></section>
+<section class="card exercise" id="q10" aria-labelledby="q10-title"><div class="qhead"><span class="qnum" aria-hidden="true">10</span><h2 id="q10-title">מערך מונים לפי סוגה</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>AddToGenreCounts / CountGenres</code></p>
+<p>כעת רוצים לספור את ארבע הסוגות יחד. לכל סוגה יהיה תא במערך מונים באורך 4. הפעולה <code>GenreIndex(string genre)</code> כבר ממומשת בפרויקט ואין צורך לשנות אותה:</p>
+<div class="table-wrap"><table><thead><tr><th>הסוגה</th><th>האינדקס המוחזר</th></tr></thead><tbody><tr><td><code>fantasy</code></td><td>0</td></tr><tr><td><code>mystery</code></td><td>1</td></tr><tr><td><code>science</code></td><td>2</td></tr><tr><td><code>biography</code></td><td>3</td></tr></tbody></table></div>
+<h3>א. מוסיפים ספר אחד</h3><div class="signature"><pre dir="ltr"><code>public static void AddToGenreCounts(int[] counts, Book b)</code></pre></div>
+<p>המערך <code>counts</code> כבר קיים ואורכו 4. מצאו את האינדקס המתאים לסוגה של <code>b</code> בעזרת <code>GenreIndex</code>, והגדילו באחד רק את התא הזה. אין ליצור מערך חדש בחלק א ואין לאפס מונים קיימים.</p>
+<figure><div class="diagram-scroll" tabindex="0" aria-label="מסוגה לאינדקס במערך מונים"><svg viewBox="0 0 660 210" role="img" aria-labelledby="counters-title counters-desc" xmlns="http://www.w3.org/2000/svg"><title id="counters-title">מסוגה לאינדקס במערך מונים</title><desc id="counters-desc">כשמוסיפים ספר mystery, רק המונה בתא 1 גדל באחד. אינדקס התא מציין סוגה; הערך שבתא הוא מספר הספרים בסוגה הזו.</desc>
+<g font-family="Consolas,monospace" font-size="16" text-anchor="middle" direction="ltr" fill="#183633">
+<text x="330" y="25">b.GetGenre() → "mystery" → GenreIndex(...) → 1</text>
+<path d="M330 36 V62 H248 V80" stroke="#287566" stroke-width="3" fill="none"/><path d="m240 69 8 11 8-11" stroke="#287566" stroke-width="3" fill="none"/>
+<rect x="18" y="86" width="154" height="62" rx="10" fill="#eef4fa"/><rect x="176" y="86" width="154" height="62" rx="10" fill="#e8f3ed" stroke="#287566" stroke-width="2"/><rect x="334" y="86" width="154" height="62" rx="10" fill="#eef4fa"/><rect x="492" y="86" width="154" height="62" rx="10" fill="#eef4fa"/>
+<text x="95" y="112">counts[0]</text><text x="253" y="112">counts[1]</text><text x="411" y="112">counts[2]</text><text x="569" y="112">counts[3]</text>
+<text x="95" y="135">2</text><text x="253" y="135">4 → 5</text><text x="411" y="135">1</text><text x="569" y="135">3</text>
+<text x="95" y="178">fantasy</text><text x="253" y="178">mystery</text><text x="411" y="178">science</text><text x="569" y="178">biography</text></g></svg></div><figcaption>כשמוסיפים ספר mystery, רק המונה בתא 1 גדל באחד. אינדקס התא מציין סוגה; הערך שבתא הוא מספר הספרים בסוגה הזו.</figcaption></figure><h3>ב. סופרים את כל הספרים</h3><div class="signature"><pre dir="ltr"><code>public static int[] CountGenres(Book[] books)</code></pre></div>
+<p>צרו מערך מונים חדש באורך 4. עברו על כל הספרים והפעילו עבור כל אחד את <code>AddToGenreCounts</code>. החזירו את מערך המונים. יצירת מערך <code>int</code> חדש מאתחלת את תאיו ל־0.</p>
+<p>עבור מערך הדוגמה מוחזר <code>[2, 1, 1, 0]</code>: שני ספרי פנטזיה, ספר תעלומה אחד, ספר מדע אחד ואפס ספרי ביוגרפיה.</p>
+<details class="hint"><summary>רמז קטן</summary><p>GenreIndex מחזירה אינדקס, לא את מספר הספרים. מספר הספרים נשמר בתא של מערך המונים.</p></details></section>
+<section class="card exercise" id="q11" aria-labelledby="q11-title"><div class="qhead"><span class="qnum" aria-hidden="true">11</span><h2 id="q11-title">מחברים את הפעולות לדוח קצר</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>ShowLibrarySummary</code></p>
+<p>הפעולה מקבלת מערך ספרים שכבר נוצר. השתמשו ב־<code>BestRatedPagesOrMinusOne</code> וב־<code>CountGenres</code> כדי להדפיס דוח בן <strong>חמש שורות</strong>:</p>
+<div class="signature"><pre dir="ltr"><code>public static void ShowLibrarySummary(Book[] books)</code></pre></div>
+<ol><li>בשורה הראשונה: מספר העמודים של הספר בעל הדירוג הגבוה ביותר בסוגה <code>fantasy</code>. אם אין ספר כזה, הדפיסו <code>none</code>.</li><li>בארבע השורות הבאות: הסוגה ומספר הספרים בה, לפי הסדר המופיע בתרגיל 10. בין הסוגה למספר כתבו נקודתיים ורווח.</li></ol>
+<p>למשל, עבור מערך הדוגמה הפלט הוא:</p><div class="sample"><span class="label">פלט לדוגמה</span><pre dir="ltr"><code>240
+fantasy: 2
+mystery: 1
+science: 1
+biography: 0</code></pre></div>
+<p>אפשר להניח שיש ספר יחיד בעל הדירוג הגבוה ביותר בין ספרי הפנטזיה, אם יש כאלה. אם פעולת החיפוש החזירה <code>-1</code>, הדוח מדפיס <code>none</code> בשורה הראשונה.</p>
+<p>אין להדפיס כותרת, שורות ריקות או הודעות נוספות. אין צורך לכתוב מחדש את לולאות החיפוש והספירה או לקלוט נתונים מהמשתמש. <code>Main</code> כבר קוראת לבדיקות, והן יפעילו את הדוח עם מערכים שונים.</p>
+<details class="hint"><summary>רמז קטן</summary><p>שמרו במשתנים את התוצאות שחזרו משתי הפעולות. אחר כך כתבו את הוראות ההדפסה. השאירו את הקריאה לבדיקות ב־Main.</p></details></section>
+<div class="end"><a class="download" href="BookPractice.zip" download>הורדת הפרויקט</a></div><footer><a class="backtop" href="#top">חזרה לראש הדף ↑</a></footer></main></body></html>
