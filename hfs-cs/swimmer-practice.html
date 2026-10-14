@@ -8,7 +8,8 @@
 @media print{body{background:white;font-size:11pt}main{max-width:none;padding:0}.home,.download,.toc,.backtop,.end{display:none}.card{border:0;border-radius:0;padding:0;margin:20px 0}h1{font-size:24pt}h2{font-size:17pt;break-after:avoid}h3,.where{break-after:avoid}figure,pre,table{break-inside:avoid}figure{max-width:650px}details.hint{display:none}a{color:inherit}pre{font-size:10pt}header{margin-bottom:22px}}
 </style></head><body><main id="top"><a class="home" href="index.html">→ כל דפי התרגול</a>
 <header><h1><bdi dir="ltr">Swimmer</bdi> — כותבים קוד בצעדים קטנים</h1><p>11 תרגילי כתיבה כהכנה למשימת המחלקות ומערכי העצמים בפטל.</p><a class="download" href="SwimmerPractice.zip" download>הורדת הפרויקט ל־Visual Studio</a><p class="meta">Visual Studio 2026 · <bdi dir="ltr">.NET 10</bdi> · קובץ ZIP</p></header>
-<section class="card start" aria-labelledby="start-title"><h2 id="start-title">מתחילים</h2><ol><li>הורידו את הפרויקט וחלצו את ה־ZIP לתיקייה רגילה במחשב.</li><li>לחצו פעמיים על <code>SwimmerPractice.sln</code>. הפרויקט ייפתח ב־Visual Studio.</li><li>פתחו את <code>Program.cs</code> ואת <code>Swimmer.cs</code>. בכל תרגיל מצוין היכן כותבים.</li><li>הריצו עם <code>Ctrl+F5</code>. <code>Main</code> כבר מפעילה את <code>Tests.RunAll()</code>.</li></ol>
+<section class="card start" aria-labelledby="start-title"><h2 id="start-title">מתחילים</h2><ol><li>לחצו על כפתור ההורדה ושמרו את <code>SwimmerPractice.zip</code> במחשב.</li><li>פתחו את סייר הקבצים ועברו לתיקייה שבה נשמר הקובץ — בדרך כלל <strong>הורדות</strong> (<bdi dir="ltr">Downloads</bdi>).</li><li>לחצו <strong>קליק ימני על קובץ ה־ZIP</strong> ובחרו <strong>״חלץ הכל…״</strong> (<bdi dir="ltr">Extract All...</bdi>).</li><li>בחלון שנפתח בחרו היכן לשמור את התיקייה, או השאירו את המקום המוצע, ולחצו <strong>״חלץ״</strong> (<bdi dir="ltr">Extract</bdi>). המתינו לסיום החילוץ.</li><li>פתחו את <strong>התיקייה הרגילה שנוצרה לאחר החילוץ</strong>. בתוכה לחצו פעמיים על <code>SwimmerPractice.sln</code> כדי לפתוח את הפרויקט ב־Visual Studio.</li><li>ב־Visual Studio פתחו את <code>Program.cs</code> ואת <code>Swimmer.cs</code>. הריצו עם <code>Ctrl+F5</code>; <code>Main</code> כבר מפעילה את <code>Tests.RunAll()</code>.</li></ol>
+<p class="note"><strong>פותחים את הפרויקט רק אחרי החילוץ.</strong> לחיצה כפולה על ה־ZIP מציגה את תוכנו, אבל אינה מחלצת את הפרויקט. אל תפתחו את ה־<code>sln</code> מתוך ה־ZIP, ואל תוציאו רק אותו: כל קובצי הפרויקט צריכים להישאר יחד בתיקייה שחולצה.</p>
 <p>השלד מתקמפל גם לפני שמתחילים. בכל פעולה שטרם הושלמה יש שורת <code>throw new NotImplementedException(...)</code>. <strong>כשמממשים את הסעיף, מסירים את שורת ה־throw שלו</strong> וכותבים את הקוד במקום המסומן. בפעולה שמחזירה ערך צריך להשלים גם <code>return</code>.</p>
 <p>לא משנים את חתימות הפעולות ולא צריך לשנות את <code>Tests.cs</code>. בסעיפים 4 ו־10 יש שני חלקים; שניהם צריכים לעבוד כדי שהסעיף יעבור.</p>
 <pre dir="ltr"><code>01 PASSED
@@ -30,7 +31,7 @@ namespace SwimmerPractice
         private string style;
         private double record;
 
-        // זמן בשניות ל־50 מטר בסגנון החזק של השחיין. זמן נמוך יותר טוב יותר.
+        // Best 50 m time in seconds, in the swimmer's strongest style. Lower is better.
         public Swimmer(string name, string style, double record)
         {
             this.name = name;
@@ -53,17 +54,17 @@ namespace SwimmerPractice
             return this.record;
         }
 
-        // תרגיל 02: האם השחיין המפעיל והשחיין other מתמחים באותו סגנון?
+        // Exercise 02: Do this swimmer and other have the same style?
         public bool SameStyle(Swimmer other)
         {
-            // TODO 02: החליפו את שורת ה־throw במימוש שלכם.
+            // TODO 02: Replace the following throw with your code.
             throw new NotImplementedException(&quot;02&quot;);
         }
 
-        // תרגיל 03: אותו סגנון, ולמפעיל זמן נמוך ממש מזמנו של other.
+        // Exercise 03: Same style, and this swimmer's time is strictly lower than other's.
         public bool IsFasterInSameStyle(Swimmer other)
         {
-            // TODO 03: השתמשו גם בפעולה SameStyle שכתבתם.
+            // TODO 03: Reuse your SameStyle method.
             throw new NotImplementedException(&quot;03&quot;);
         }
     }
