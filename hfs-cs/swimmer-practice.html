@@ -103,7 +103,7 @@ namespace SwimmerPractice
 <g font-family="Consolas,monospace" font-size="18" fill="#183633" text-anchor="start" direction="ltr"><text x="40" y="63">s1 → this</text><text x="40" y="97">style: "freestyle"</text><text x="40" y="129">record: 25.7</text><text x="400" y="63">s2 → other</text><text x="400" y="97">style: "freestyle"</text><text x="400" y="129">record: 26.8</text></g>
 <text x="330" y="202" text-anchor="middle" font-family="Consolas,monospace" font-size="18" fill="#183633" direction="ltr">s1.IsFasterInSameStyle(s2)</text></svg></div><figcaption>בקריאה הזו s1 הוא העצם המפעיל, ו־other מפנה ל־s2. הפעולה צריכה לבדוק גם את הסגנון וגם את הזמן.</figcaption></figure><details class="hint"><summary>רמז קטן</summary><p>הקריאה ל־SameStyle כבר נותנת ערך bool. אפשר לשלב אותו עם תוצאת השוואת הזמנים באמצעות <code>&amp;&amp;</code>.</p></details></section>
 <section class="card exercise" id="q4" aria-labelledby="q4-title"><div class="qhead"><span class="qnum" aria-hidden="true">04</span><h2 id="q4-title">עוברים על מערך ומדפיסים</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>PrintAllNames / PrintFreestyleNames</code></p>
-<p>בכל אחת משתי הפעולות כבר נתונה לולאה שעוברת על המערך <code>swimmers</code>. בכל סיבוב, <code>swimmers[i]</code> מפנה לשחיין הנוכחי.</p>
+<p>בכל אחת משתי הפעולות כבר נתונה לולאה שעוברת על המערך <code>swimmers</code>. בחלק א משתמשים ב־<code>for</code>: האינדקס <code>i</code> מציין את התא, ו־<code>swimmers[i]</code> מפנה לשחיין הנוכחי. בחלק ב משתמשים ב־<code>foreach (Swimmer swimmer in swimmers)</code>: המשתנה <code>swimmer</code> מפנה ישירות לשחיין הנוכחי, בלי אינדקס.</p>
 <h3>א. כל השמות</h3><div class="signature"><pre dir="ltr"><code>public static void PrintAllNames(Swimmer[] swimmers)</code></pre></div>
 <p>השלימו בתוך הלולאה הוראה שמדפיסה את שם השחיין הנוכחי. כל שם בשורה נפרדת, לפי סדר המערך.</p>
 <h3>ב. רק סגנון חופשי</h3><div class="signature"><pre dir="ltr"><code>public static void PrintFreestyleNames(Swimmer[] swimmers)</code></pre></div>
@@ -114,11 +114,11 @@ Maya
 Dan</code></pre></div>
 <p>חלק ב מדפיס:</p><div class="sample"><span class="label">פלט לדוגמה</span><pre dir="ltr"><code>Ido
 Maya</code></pre></div>
-<details class="hint"><summary>רמז קטן</summary><p>האינדקס i הוא מספר. את פעולות ה־Get מפעילים על השחיין שבתא <code>swimmers[i]</code>.</p></details></section>
+<details class="hint"><summary>רמז קטן</summary><p>בחלק א מפעילים את פעולות ה־Get על <code>swimmers[i]</code>; בחלק ב מפעילים אותן על <code>swimmer</code>. האינדקס <code>i</code> הוא מספר, ואילו <code>swimmer</code> הוא הפניה לעצם.</p></details></section>
 <section class="card exercise" id="q5" aria-labelledby="q5-title"><div class="qhead"><span class="qnum" aria-hidden="true">05</span><h2 id="q5-title">סופרים שחיינים בסגנון נתון</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>CountStyle</code></p>
 <p>הפעולה מקבלת מערך שחיינים ואת הסגנון המבוקש בפרמטר <code>style</code>. החזירו כמה שחיינים במערך מתמחים בסגנון הזה.</p>
 <div class="signature"><pre dir="ltr"><code>public static int CountStyle(Swimmer[] swimmers, string style)</code></pre></div>
-<p>בשלד כבר נתונים מונה שמתחיל ב־0 ולולאה. השלימו את התנאי ואת הגדלת המונה. בסיום החזירו את המונה; אין להדפיס.</p>
+<p>בשלד כבר נתונים מונה שמתחיל ב־0 ולולאת <code>foreach</code>. בכל סיבוב <code>swimmer</code> מפנה לשחיין הנוכחי. השלימו את התנאי ואת הגדלת המונה. בסיום החזירו את המונה; אין להדפיס.</p>
 <p>עבור מערך הדוגמה: חיפוש <code>&quot;freestyle&quot;</code> יחזיר <code>2</code>, חיפוש <code>&quot;backstroke&quot;</code> יחזיר <code>1</code>, וחיפוש <code>&quot;butterfly&quot;</code> יחזיר <code>0</code>.</p>
 <p>השתמשו בפרמטר <code>style</code>: הפעולה צריכה לעבוד עבור כל אחד מארבעת הסגנונות.</p>
 <details class="hint"><summary>רמז קטן</summary><p>ההבדל מתרגיל 4ב: במקום להדפיס כשיש התאמה, מגדילים את המונה. את return כותבים אחרי שהלולאה הסתיימה.</p></details></section>

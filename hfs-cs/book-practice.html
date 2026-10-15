@@ -103,7 +103,7 @@ namespace BookPractice
 <g font-family="Consolas,monospace" font-size="18" fill="#183633" text-anchor="start" direction="ltr"><text x="40" y="63">b1 → this</text><text x="40" y="97">genre: "fantasy"</text><text x="40" y="129">rating: 9</text><text x="400" y="63">b2 → other</text><text x="400" y="97">genre: "fantasy"</text><text x="400" y="129">rating: 7</text></g>
 <text x="330" y="202" text-anchor="middle" font-family="Consolas,monospace" font-size="18" fill="#183633" direction="ltr">b1.IsBetterRatedInSameGenre(b2)</text></svg></div><figcaption>בקריאה הזו b1 הוא העצם המפעיל, ו־other מפנה ל־b2. שני הספרים באותה סוגה ול־b1 דירוג גבוה יותר, לכן התוצאה היא true. בסרטוט מוצגות רק התכונות הדרושות להשוואה.</figcaption></figure><details class="hint"><summary>רמז קטן</summary><p>שלבו את התוצאה של SameGenre עם השוואת הדירוגים באמצעות <code>&amp;&amp;</code>. חשבו איזה סימן השוואה מתאים לדירוג טוב יותר.</p></details></section>
 <section class="card exercise" id="q4" aria-labelledby="q4-title"><div class="qhead"><span class="qnum" aria-hidden="true">04</span><h2 id="q4-title">עוברים על מערך ומדפיסים</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>PrintAllPages / PrintFantasyPages</code></p>
-<p>בכל אחת משתי הפעולות כבר נתונה לולאה שעוברת על המערך <code>books</code>. בכל סיבוב, <code>books[i]</code> מפנה לספר הנוכחי.</p>
+<p>בכל אחת משתי הפעולות כבר נתונה לולאה שעוברת על המערך <code>books</code>. בחלק א משתמשים ב־<code>for</code>: האינדקס <code>i</code> מציין את התא, ו־<code>books[i]</code> מפנה לספר הנוכחי. בחלק ב משתמשים ב־<code>foreach (Book book in books)</code>: המשתנה <code>book</code> מפנה ישירות לספר הנוכחי, בלי אינדקס.</p>
 <h3>א. מספר העמודים של כל ספר</h3><div class="signature"><pre dir="ltr"><code>public static void PrintAllPages(Book[] books)</code></pre></div>
 <p>השלימו בתוך הלולאה הוראה שמדפיסה את מספר העמודים של הספר הנוכחי. כל מספר בשורה נפרדת, לפי סדר המערך.</p>
 <h3>ב. רק ספרי פנטזיה</h3><div class="signature"><pre dir="ltr"><code>public static void PrintFantasyPages(Book[] books)</code></pre></div>
@@ -114,11 +114,11 @@ namespace BookPractice
 210</code></pre></div>
 <p>חלק ב מדפיס:</p><div class="sample"><span class="label">פלט לדוגמה</span><pre dir="ltr"><code>320
 240</code></pre></div>
-<details class="hint"><summary>רמז קטן</summary><p>את פעולות ה־Get מפעילים על הספר שבתא <code>books[i]</code>. לא צריך ליצור ספרים חדשים.</p></details></section>
+<details class="hint"><summary>רמז קטן</summary><p>בחלק א מפעילים את פעולות ה־Get על <code>books[i]</code>; בחלק ב מפעילים אותן על <code>book</code>. המשתנה <code>book</code> מפנה לספר שכבר נמצא במערך; לא צריך ליצור ספרים חדשים.</p></details></section>
 <section class="card exercise" id="q5" aria-labelledby="q5-title"><div class="qhead"><span class="qnum" aria-hidden="true">05</span><h2 id="q5-title">סופרים ספרים בסוגה נתונה</h2></div><p class="where">כותבים ב־<code>Program.cs</code> · <code>CountGenre</code></p>
 <p>הפעולה מקבלת מערך ספרים ואת הסוגה המבוקשת בפרמטר <code>genre</code>. החזירו כמה ספרים במערך שייכים לסוגה הזו.</p>
 <div class="signature"><pre dir="ltr"><code>public static int CountGenre(Book[] books, string genre)</code></pre></div>
-<p>בשלד כבר נתונים מונה שמתחיל ב־0 ולולאה. השלימו את התנאי ואת הגדלת המונה. בסיום החזירו את המונה; אין להדפיס.</p>
+<p>בשלד כבר נתונים מונה שמתחיל ב־0 ולולאת <code>foreach</code>. בכל סיבוב <code>book</code> מפנה לספר הנוכחי. השלימו את התנאי ואת הגדלת המונה. בסיום החזירו את המונה; אין להדפיס.</p>
 <p>עבור מערך הדוגמה: חיפוש <code>&quot;fantasy&quot;</code> יחזיר <code>2</code>, חיפוש <code>&quot;mystery&quot;</code> יחזיר <code>1</code>, וחיפוש <code>&quot;biography&quot;</code> יחזיר <code>0</code>.</p>
 <p>השתמשו בפרמטר <code>genre</code>: הפעולה צריכה לעבוד עבור כל אחת מארבע הסוגות.</p>
 <details class="hint"><summary>רמז קטן</summary><p>במקום להדפיס כשיש התאמה, מגדילים את המונה. את return כותבים אחרי שהלולאה הסתיימה.</p></details></section>
