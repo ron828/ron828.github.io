@@ -1,0 +1,70 @@
+:root{--paper:#fff4da;--board:#eaf5ea}
+body{padding-bottom:32px}.site-header{max-width:1100px}.site-header>a:last-child{font-size:14px;text-underline-offset:4px}main{max-width:1100px;margin-top:8px}.title-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:22px}.title-row h1{margin:0;font-size:42px}.eyebrow{font-size:13px;margin-bottom:6px}.game-layout{display:grid;grid-template-columns:minmax(0,735px);gap:0;justify-content:center;align-items:start}.play-panel{position:relative;background:#81d8ef;border:3px solid var(--ink);box-shadow:inset 2px 2px #c4f3ff,inset -2px -2px #2e8bb3,6px 6px var(--ink);padding:18px}.hud{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;margin:0 2px 13px}.hud strong{font-size:19px}.board-wrap{background:var(--board);border:3px solid var(--ink);line-height:0}canvas{display:block;width:100%;height:auto;image-rendering:pixelated;touch-action:none}canvas:focus-visible{outline:3px dashed var(--ink);outline-offset:6px}#announcement{min-height:29px;padding-top:7px;font-size:12px}.actions{display:flex;gap:10px;flex-wrap:wrap}.actions .btn{flex:1;white-space:nowrap;font-size:13px;padding:9px;min-height:42px}aside{padding-top:3px}.instructions{background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px var(--ink);padding:23px 20px}.instructions h2{font-size:24px;line-height:1.3;margin-bottom:15px}.instructions p,.instructions li{font-size:14px;line-height:1.7}.instructions ul{padding-inline-start:19px;margin-bottom:20px}.instructions li{margin-bottom:10px}.keys{border-top:2px solid #14284725;padding-top:14px;margin:0}.keys kbd{font-size:12px;direction:ltr;display:inline-block;font-family:monospace}.progress{margin-top:22px;font-size:14px}.credits{font-size:12px;margin-top:15px;line-height:1.7}.credits summary{cursor:pointer}.credits p{margin-top:12px}.dpad{display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(2,42px);gap:7px;justify-content:center;margin-top:17px}.dpad button{font-size:25px;font-weight:900;background:#a5edff;border:3px solid var(--ink);box-shadow:inset 2px 2px #e3fbff,inset -2px -2px #4c9caf,3px 3px var(--ink);touch-action:none;user-select:none}.dpad button:active{transform:translate(2px,2px);box-shadow:1px 1px var(--ink)}.dpad [data-action=up]{grid-column:2}.dpad [data-action=left]{grid-column:1;grid-row:2}.dpad [data-action=down]{grid-column:2;grid-row:2}.dpad [data-action=right]{grid-column:3;grid-row:2}[hidden]{display:none!important}.win{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:85%;max-width:420px;background:var(--paper);border:4px solid var(--ink);box-shadow:8px 8px var(--ink);padding:28px;text-align:center}.win strong{font-size:30px}.win p{font-size:15px;margin-top:12px}.win .btn{margin:5px;font-size:14px;padding:10px 14px}dialog{background:var(--paper);color:var(--ink);padding:25px;border:3px solid var(--ink);box-shadow:7px 7px var(--ink);width:min(700px,calc(100% - 35px));max-height:85svh}dialog::backdrop{background:#112640b0}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:15px}.dialog-head h2{margin:0}.dialog-head .btn{min-height:36px;padding:3px 10px}dialog>p{font-size:14px;margin:18px 0}#level-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}#level-grid button{min-height:45px;min-width:0;font:900 18px "Courier New",monospace;background:#a5edff;border:2px solid var(--ink);box-shadow:2px 2px var(--ink)}#level-grid button.done{background:var(--green)}#level-grid button.current{outline:3px solid #dd6a41;outline-offset:2px}#level-grid button:hover{filter:brightness(1.1)}
+@media(max-width:900px){.game-layout{grid-template-columns:minmax(0,1fr);max-width:700px;margin:auto}.title-row{max-width:700px;margin-inline:auto}aside{display:grid;grid-template-columns:1fr auto;gap:0 20px}.instructions{grid-column:1/-1}.instructions ul{display:grid;grid-template-columns:1fr 1fr;gap:0 25px}.credits{grid-column:1/-1}}
+@media(max-width:500px){body{padding-inline:13px}.site-header{padding-block:20px}.title-row h1{font-size:33px}.title-row>.btn{font-size:13px;padding:9px 12px}.eyebrow{font-size:12px}.play-panel{padding:10px;box-shadow:4px 4px var(--ink)}.hud{font-size:11px;gap:5px}.hud strong{font-size:16px}.actions{gap:7px}.actions .btn{font-size:11px;padding:7px 5px}.instructions ul{display:block}.instructions{padding:19px}.game-layout{gap:26px}.dpad{grid-template-columns:repeat(3,55px);grid-template-rows:repeat(2,44px)}#level-grid{grid-template-columns:repeat(5,1fr)}dialog{padding:18px}.win{padding:20px}.win strong{font-size:25px}}
+
+/* Size the board from the space left after the header and controls, in both axes.
+   Container units keep its original 11:9 ratio without changing canvas pixels. */
+body{height:100dvh;min-height:0;margin:0;padding:0 24px 16px;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.site-header{width:100%;padding-block:16px}
+main{width:100%;min-height:0;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr);gap:12px}
+.title-row{width:100%;max-width:none;margin:0;gap:12px}
+.title-row h1{font-size:34px}
+.eyebrow{margin:0 0 3px}
+.game-layout{width:100%;height:100%;max-width:none;min-height:0;margin:0;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:10px}
+.play-panel{height:100%;min-height:0;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) 212px;gap:18px;padding:14px}
+.board-space{min-width:0;min-height:0;container-type:size;display:grid;place-items:center}
+.board-wrap{width:min(100cqw,calc((100cqh - 6px) * 11 / 9 + 6px));max-width:100%;margin:auto}
+canvas{width:100%;height:auto}
+.game-controls{display:flex;flex-direction:column;align-self:center;min-width:0;min-height:0;gap:14px}
+.hud{margin:0;flex-wrap:wrap;gap:4px 12px;font-size:13px}
+.hud strong{width:100%;font-size:20px}
+#announcement{min-height:0;padding:0;line-height:1.45}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.actions .btn{min-width:0;white-space:normal;min-height:42px;padding:8px 6px;font-size:13px}
+.actions #restart,.actions #switch{grid-column:1/-1}
+.dpad{margin:0;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(2,42px)}
+aside{display:block;min-width:0;padding:0}
+.progress{margin:0;font-size:12px;text-align:center;line-height:1.4}
+#storage-note{margin:3px 0 0;text-align:center}
+.win{top:50%;max-height:calc(100% - 16px);overflow:auto;padding:20px}
+@media(max-width:700px) and (min-height:501px){
+  body{padding:0 12px 12px}
+  .site-header{padding-block:13px}
+  main{gap:10px}
+  .title-row h1{font-size:28px}
+  .title-row>.btn{min-height:40px;padding:7px 10px;font-size:13px}
+  .eyebrow{font-size:11px}
+  .play-panel{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:10px;padding:10px}
+  .game-controls{display:grid;grid-template-columns:minmax(0,1fr) 158px;grid-template-rows:auto auto auto;gap:6px 10px;align-items:center}
+  .hud{grid-column:1;grid-row:1;font-size:11px;gap:3px 8px}
+  .hud strong{font-size:17px}
+  #announcement{grid-column:1;grid-row:2;font-size:11px}
+  .dpad{grid-column:2;grid-row:1/3;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(2,44px);gap:6px;align-self:center}
+  .actions{grid-column:1/-1;grid-row:3;gap:7px;margin-top:3px}
+  .actions .btn{min-height:40px;font-size:12px;padding:7px}
+  .actions #restart,.actions #switch{grid-column:auto}
+  .game-layout{gap:8px}
+  .progress{font-size:11px}
+}
+@media(max-height:500px){
+  body{padding:0 12px 10px}
+  .site-header{padding-block:8px}
+  .site-header .brand{font-size:19px}
+  main{gap:6px}
+  .title-row h1{font-size:25px}
+  .eyebrow{display:none}
+  .title-row>.btn{min-height:32px;padding:4px 10px;font-size:12px}
+  .game-layout{gap:5px}
+  .play-panel{grid-template-columns:minmax(0,1fr) 190px;gap:12px;padding:8px}
+  .game-controls{gap:7px}
+  .hud{font-size:11px;gap:0 10px}
+  .hud strong{font-size:16px;width:auto}
+  #announcement{font-size:10px;line-height:1.3}
+  .actions{gap:6px}
+  .actions .btn{min-height:32px;padding:4px;font-size:11px}
+  .actions #restart,.actions #switch{grid-column:auto}
+  .dpad{grid-template-columns:repeat(4,38px);grid-template-rows:34px;gap:6px}
+  .dpad [data-action]{grid-column:auto;grid-row:1;font-size:22px}
+  .progress{font-size:10px}
+}
