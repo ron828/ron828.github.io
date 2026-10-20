@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4bbded">
+  <title>חתול וחברה · RON828</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/tracker.css">
+  <link rel="stylesheet" href="style.css?v=20261016-fit-window">
+  <script type="module" src="app.js?v=20261016-ladder-v2"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">RON828</a>
+  </header>
+  <main>
+    <div class="title-row"><div><p class="eyebrow">חושבים לפני שזזים</p><h1>חתול וחברה</h1></div><button id="levels-open" class="btn secondary">בחירת שלב</button></div>
+    <div class="game-layout">
+      <section class="play-panel" aria-label="לוח המשחק">
+        <div class="board-space">
+          <div class="board-wrap"><canvas id="board" width="572" height="468" tabindex="0" aria-label="לוח המשחק. השתמשו בחצים לתנועה ובכפתורי המשחק לפעולות נוספות."></canvas></div>
+        </div>
+        <div class="game-controls">
+        <div class="hud"><strong id="level-title"></strong><span id="remaining"></span><span id="move-count"></span></div>
+        <div id="announcement" role="status" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn secondary" id="undo" disabled>↶ ביטול</button>
+          <button class="btn secondary" id="redo" disabled>↷ שוב</button>
+          <button class="btn secondary" id="restart">↻ התחלה מחדש</button>
+          <button class="btn" id="switch" hidden>החלפת חתול ⇄</button>
+        </div>
+        <div class="dpad" dir="ltr" aria-label="כפתורי תנועה">
+          <button data-action="up" aria-label="למעלה">↑</button>
+          <button data-action="left" aria-label="שמאלה">←</button>
+          <button data-action="down" aria-label="למטה">↓</button>
+          <button data-action="right" aria-label="ימינה">→</button>
+        </div>
+        </div>
+        <div id="win" class="win" hidden><strong>מיאו, הצלחתם!</strong><p id="win-message"></p><button id="next" class="btn">לשלב הבא ←</button><button id="win-levels" class="btn secondary">כל השלבים</button></div>
+      </section>
+      <aside>
+        <p id="progress" class="progress"></p>
+        <p id="storage-note" class="small" hidden>השמירה בדפדפן אינה זמינה. אפשר להמשיך לשחק כרגיל.</p>
+      </aside>
+    </div>
+  </main>
+  <dialog id="level-picker"><div class="dialog-head"><h2>לאיזה חדר נכנסים?</h2><button id="levels-close" class="btn secondary" aria-label="סגירה">✕</button></div><p>אפשר לבחור כל שלב. ✓ מסמן שלב שפתרתם.</p><div id="level-grid"></div></dialog>
+</body>
+</html>
