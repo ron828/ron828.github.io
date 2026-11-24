@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#113e41">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; form-action 'none'; base-uri 'none'">
+<title>תרגול זוויות לכיתה ז׳</title>
+<style>
+:root{color-scheme:light;--ink:#153839;--muted:#4b6565;--teal:#09665e;--teal-dark:#084f4a;--mint:#e3f3ed;--line:#cddcda;--amber:#934510;--paper:#fff;--bg:#f2f6f5}
+*{box-sizing:border-box}body{margin:0;font:1.0625rem/1.55 "Arial Hebrew",Arial,sans-serif;color:var(--ink);background:var(--bg)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,[tabindex="-1"]:focus-visible{outline:3px solid #2676a0;outline-offset:4px}button{color:inherit}button:disabled{cursor:default}h1,h2,h3,p,figure{margin:0}[hidden]{display:none!important}bdi,.math{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:"Segoe UI",Arial,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}.wrap{width:min(1096px,calc(100% - 48px));margin-inline:auto}
+.step-meta,.stage-controls,.legend{display:flex;align-items:center}
+main{padding:clamp(16px,3vw,36px) 0}.counter{display:block;width:fit-content;margin-inline-start:auto;margin-bottom:8px}
+.sheet{background:var(--paper);border:1px solid #c8d7d3;border-radius:20px;box-shadow:0 5px 20px #163a3409;overflow:hidden}.counter{color:var(--muted);font-size:.93rem}
+.exercise{padding:clamp(18px,3vw,36px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);grid-template-rows:auto 1fr;gap:22px clamp(22px,4vw,50px);align-items:start}.prompt{grid-column:1;grid-row:1;display:grid;gap:6px;color:var(--muted);line-height:1.65}.result h2{font-size:clamp(1.45rem,2.8vw,2.02rem);letter-spacing:-.032em;line-height:1.38}.controls{grid-column:1;grid-row:2;min-width:0}.controls label{font-size:.98rem;font-weight:700}.field{display:flex;align-items:center;gap:12px}.num-box{position:relative;width:131px;flex:none}.num-box input{direction:ltr;text-align:center;padding:9px 31px 9px 13px;width:100%;height:46px;border-radius:9px;border:1.5px solid #869d97;color:var(--ink);font-size:1.26rem;background:white}.degree{position:absolute;top:8px;right:13px;pointer-events:none;color:var(--muted)}.btn{border:1px solid transparent;border-radius:9px;background:var(--teal);color:white;padding:10px 18px;font-weight:700;line-height:1.35;min-height:44px}.btn:hover{background:var(--teal-dark)}.btn.secondary{background:white;border-color:#9cb5ac;color:var(--teal-dark)}.btn.secondary:hover{background:var(--mint)}.plain{border:0;background:transparent;color:var(--teal);font-weight:bold;text-decoration:underline;text-underline-offset:4px;padding:6px}.validation{margin-top:8px;color:#893914;font-size:.96rem}
+.choices{padding:0;border:0;margin:0}.choice-list{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.choice{cursor:pointer;display:inline-flex;align-items:center;gap:7px;min-height:43px;border-radius:8px;border:1px solid #b5c9c1;padding:7px 10px;background:white}.choice:has(input:checked){border-color:var(--teal);box-shadow:0 0 0 1px var(--teal);background:#edf8f2}.choice input{accent-color:var(--teal);margin:0;width:16px;height:16px}
+.board{grid-column:2;grid-row:1 / 3;align-self:stretch;border:1px solid #c5d9d0;border-radius:13px;overflow:hidden;background:#f5faf7;display:flex;flex-direction:column}.board-main{position:relative;flex:1;min-height:270px;background-image:radial-gradient(#c6dcd3 1px,transparent 1px);background-size:16px 16px;display:flex;align-items:center;justify-content:center;padding:14px 10px}.drawing{display:block;width:100%;height:clamp(210px,20vw,265px);overflow:visible;direction:ltr}.legend{border-top:1px solid #d5e4dc;min-height:46px;gap:6px 20px;flex-wrap:wrap;justify-content:center;padding:8px 12px;background:#f3f8f5;font-size:.91rem}.legend span{display:inline-flex;align-items:center;gap:6px}.legend i{width:11px;height:11px;border:2px solid #198271;background:#aedbc6;border-radius:3px}.legend .wanted{border-color:#a15116;background:#ffdbb4}.legend .neutral{border-color:#466560;background:#f3f8f5}
+.point{font:600 15px "Segoe UI",Arial,sans-serif;fill:#234540;paint-order:stroke;stroke:#f5faf7;stroke-width:4px;stroke-linejoin:round}.measure{font:700 16px "Segoe UI",Arial,sans-serif;paint-order:stroke;stroke:#f5faf7;stroke-width:3px;stroke-linejoin:round}.vertex{fill:#173f38}.guide-line{stroke:#136c60;stroke-width:2.3;fill:none;stroke-linecap:round}.trace{stroke-dasharray:1;stroke-dashoffset:0;animation:draw 1.55s ease-out both}.replay{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.88rem;border:0;background:transparent;color:var(--teal-dark);text-decoration:underline;text-underline-offset:3px;padding:4px 6px}.replay svg{width:15px;height:15px}@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition:none!important}}
+.feedback{border:1px solid #c0d7cd;border-radius:12px;background:#eff8f3;padding:17px}.feedback.help{background:#fffbf2;border-color:#e3d3b5}.feedback h3{font-size:1.13rem;margin:5px 0;line-height:1.38}.feedback p{font-size:1rem;line-height:1.52}.step-meta{justify-content:space-between;gap:6px;font-size:.86rem;font-weight:700;color:#6a511e}.step-dots{display:flex;gap:4px}.step-dots i{width:14px;height:4px;background:#ddcfb0;border-radius:3px}.step-dots i.on{background:#8f702f}.equation{margin-top:10px;display:inline-block;direction:ltr;unicode-bidi:isolate;background:white;border:1px solid #d7ded5;border-radius:6px;padding:3px 10px;font-family:"Segoe UI",Arial,sans-serif;font-weight:600;letter-spacing:.01em}.stage-controls{gap:8px;flex-wrap:wrap;margin-top:14px}.stage-controls .btn,.stage-controls .plain{font-size:.94rem}.stage-controls .plain{margin-inline-start:auto}.diag{margin-bottom:7px;color:#7a431d}.result{padding:clamp(22px,4vw,45px);text-align:center}.result .result-icon{display:inline-grid;place-items:center;background:var(--mint);color:var(--teal);border-radius:50%;width:60px;height:60px;margin-bottom:12px}.result-icon svg{width:32px;height:32px}.result p{color:var(--muted);margin:10px auto 18px}
+@media(max-width:760px){.wrap{width:min(100% - 30px,610px)}.exercise{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:16px}.prompt,.board,.controls{grid-column:1}.prompt{grid-row:1}.board{grid-row:2}.controls{grid-row:3}.board-main{min-height:184px;padding:8px}.drawing{height:clamp(158px,35vw,205px)}.legend{min-height:36px}.stage-controls .plain{margin-inline-start:0}}
+@media(max-width:540px){.sheet{border-radius:14px}}
+.legend .known{border-color:#416899;background:#d7e7fb}
+.drawing.advanced{height:clamp(250px,24vw,285px)}
+@media(max-width:760px){.drawing.advanced{height:clamp(218px,59vw,280px)}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="counter" id="counter" role="status"></div>
+<section class="sheet" aria-label="תרגול">
+<div id="exercise" class="exercise"><div class="prompt" id="prompt" role="group" aria-labelledby="given question" tabindex="-1"><p id="given"></p><p id="question"></p></div>
+<figure class="board"><div class="board-main"><svg id="drawing" class="drawing" role="img" preserveAspectRatio="xMidYMid meet"></svg></div><figcaption class="legend" id="legend"></figcaption></figure>
+<div class="controls"><form id="answer-form" novalidate><div id="field"></div><p id="validation" class="validation" aria-live="polite"></p></form><section id="feedback" class="feedback" aria-label="משוב לתשובה" hidden></section></div></div>
+<div class="result" id="result" hidden></div></section>
+<noscript>יש להפעיל JavaScript בדפדפן כדי לפתור את התרגילים.</noscript>
+</main>
+<script>
+"use strict";
+const el = id => document.getElementById(id);
+const M = s => '<bdi dir="ltr">' + s + '</bdi>';
+const deg = n => n + '°';
+const families = {adjacent:['adjSize','adjName'], vertical:['oppSize','oppName'], bisector:['half','whole','twin','bisName']};
+const iconPaths = {
+  check:'<path d="m5 14 6 6L24 7"/>',
+  replay:'<path d="M6 10a9 9 0 1 1-1 7M5 4v7h7"/>'
+};
+const icon = key => '<svg viewBox="0 0 28 28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+iconPaths[key]+'</svg>';
+const practiceRandom=Math.random;
+function shuffled(values) {
+  const copy=[...values];
+  for(let i=copy.length-1;i>0;i--){const j=Math.floor(practiceRandom()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
+  return copy;
+}
+const pick = items => items[Math.floor(practiceRandom()*items.length)];
+const angle = (q, i, j) => '∡'+q.labels[i]+'O'+q.labels[j];
+const ray = (q, i) => 'O'+q.labels[i];
+const nameOf = (q, pair) => angle(q,...pair);
+const equation = (name,n) => M(name+' = '+deg(n));
+const basicOrder=['adjSize','oppName','half','adjName','oppSize','whole','bisName','twin'];
+const advancedOrder=['oppositeSum','oppositePart','rightPart','threeLines','bisectRemainder','twoBisectors'];
+function makeAdvancedQuestion(kind,previous){
+  const variants=[[28,46],[33,52],[38,43],[42,59],[46,62],[51,55],[54,65]];
+  const [a,b]=pick(variants.filter(([first])=>first!==previous?.value));
+  const q={kind,family:'advanced',value:a,labels:['A','B','C','D','E','F'],choices:null,bisectors:[]};
+  const named=(i,j)=>M(angle(q,i,j));
+  const total=a+b;
+  let structure;
+  switch(kind){
+    case 'oppositeSum':
+    case 'oppositePart':
+      q.rays=[0,a,total,180,180+total];
+      structure='הישרים '+M('AD')+' ו־'+M('CE')+' נחתכים ב־'+M('O')+'. הקרן '+M('OB')+' מחלקת את '+named(0,2)+' לשתי זוויות.';
+      if(kind==='oppositeSum'){
+        q.givens=[[0,1],[1,2]];
+        q.parts=[part([0,2],'add',[0,1],[1,2]),part([3,4],'opposite',[0,2])];
+      }else{
+        q.givens=[[3,4],[0,1]];
+        q.parts=[part([0,2],'opposite',[3,4]),part([1,2],'subtract',[0,2],[0,1])];
+      }
+      break;
+    case 'rightPart':
+      q.rays=[0,a,90,180,180+a]; q.givens=[[3,4]]; q.right=[0,2];
+      structure='הישרים '+M('AD')+' ו־'+M('BE')+' נחתכים ב־'+M('O')+'. '+named(0,2)+' היא זווית ישרה.';
+      q.parts=[part([0,1],'opposite',[3,4]),part([1,2],'subtract',90,[0,1])];
+      break;
+    case 'threeLines':
+      q.rays=[0,a,180-b,180,180+a,360-b]; q.givens=[[3,4],[2,3]];
+      structure='שלושת הישרים '+M('AD')+', '+M('BE')+' ו־'+M('CF')+' נחתכים ב־'+M('O')+'.';
+      q.parts=[part([0,1],'opposite',[3,4]),part([1,3],'subtract',180,[0,1]),part([1,2],'subtract',[1,3],[2,3])];
+      break;
+    case 'bisectRemainder':
+      q.rays=[0,2*a,90+a,180,180+2*a]; q.givens=[[3,4]]; q.bisectors=[[1,2,3]];
+      structure='הישרים '+M('AD')+' ו־'+M('BE')+' נחתכים ב־'+M('O')+'. הקרן '+M('OC')+' חוצה את '+named(3,1)+'.';
+      q.parts=[part([3,1],'subtract',180,[3,4]),part([2,3],'half',[3,1])];
+      break;
+    case 'twoBisectors':
+      q.labels=['P','F','D','E','M'];
+      q.rays=[0,a,2*a,90+a,180]; q.givens=[[1,2]]; q.bisectors=[[0,1,2],[2,3,4]];
+      structure='הנקודות '+M('M')+', '+M('O')+' ו־'+M('P')+' על ישר אחד. '+M('OF')+' חוצה את '+named(0,2)+', ו־'+M('OE')+' חוצה את '+named(2,4)+'.';
+      q.parts=[part([0,2],'double',[1,2]),part([2,4],'subtract',180,[0,2]),part([2,3],'half',[2,4])];
+      break;
+  }
+
+  function measure(pair){
+    return typeof pair==='number'?pair:Math.abs(q.rays[pair[1]]-q.rays[pair[0]]);
+  }
+  // Each subquestion uses only the original givens and previously solved angles.
+  function part(pair,operation,source,other){
+    const name=nameOf(q,pair),answer=measure(pair),v=measure(source);
+    const sourceName=typeof source==='number'?M(deg(v)):M(nameOf(q,source));
+    const number=M(deg(v));
+    const result={name,answer,target:[Math.min(...pair),Math.max(...pair)],ring:Math.abs(pair[1]-pair[0])>1,mistakes:[]};
+    // A full right or straight angle spans the unknown and its adjacent known part.
+    result.support=typeof source==='number'
+      ? [[Math.min(...pair,...other),Math.max(...pair,...other)]]
+      : [source,other].filter(Array.isArray);
+    let rule,reading,working,formula;
+    switch(operation){
+      case 'add':{
+        const w=measure(other);
+        rule='אם זווית מחולקת לשני חלקים, מחברים אותם כדי למצוא את הזווית כולה.';
+        reading='שני החלקים בתוך '+M(name)+' הם '+sourceName+' ו־'+M(nameOf(q,other))+'.';
+        working='מחברים את שתי הזוויות הירוקות.';
+        formula=deg(v)+' + '+deg(w)+' = '+deg(answer);
+        result.mistakes=[[v,'זה הגודל של חלק אחד. צריך גם את החלק השני.'],[w,'זה הגודל של חלק אחד. צריך גם את החלק השני.']];
+        break;
+      }
+      case 'opposite':
+        rule='כששני ישרים נחתכים, הזוויות שנמצאות זו מול זו שוות.';
+        reading=M(name)+' נמצאת מול '+sourceName+'.';
+        working='הזווית שממול היא בגודל '+number+', ולכן גם '+M(name)+' באותו גודל.';
+        formula=name+' = '+deg(answer);
+        result.mistakes=[[180-v,'מצאתם את גודל הזווית שלידה. כאן מחפשים את הזווית שמולה.']];
+        break;
+      case 'subtract':{
+        const w=measure(other),otherName=M(nameOf(q,other));
+        rule=source===180?'שתי זוויות צמודות יוצרות יחד זווית של '+M('180°')+'.':
+          source===90?'הריבוע הקטן מסמן זווית ישרה. שני החלקים שבתוכה הם יחד '+M('90°')+'.':
+          'כשיודעים את הזווית השלמה ואת אחד החלקים, אפשר למצוא את החלק שנשאר.';
+        reading=(typeof source==='number'?'הזווית השלמה היא '+number:'כבר מצאתם שגודל '+sourceName+' הוא '+number)+'. חלק אחד הוא '+otherName+', בגודל '+M(deg(w))+'.';
+        working='מחסרים את החלק הידוע מהזווית השלמה.';
+        formula=deg(v)+' − '+deg(w)+' = '+deg(answer);
+        result.mistakes=[[v,'זה הגודל של הזווית השלמה. מחפשים רק חלק ממנה.'],[w,'זה החלק הידוע. כמה נשאר לחלק השני?']];
+        break;
+      }
+      case 'double':
+        rule='חוצה זווית מחלק אותה לשתי זוויות שוות.';
+        reading='הקרן '+M('OF')+' מחלקת את הזווית לשני חצאים שווים. '+sourceName+' היא אחד החצאים.';
+        working='כל חצי הוא '+number+'. מחברים את שני החצאים.';
+        formula=deg(v)+' + '+deg(v)+' = '+deg(answer);
+        result.mistakes=[[v,'זה הגודל של חצי אחד. מחפשים את כל הזווית.']];
+        break;
+      case 'half':
+        rule='חוצה זווית מחלק אותה לשני חצאים שווים.';
+        reading='כבר מצאתם שגודל '+sourceName+' הוא '+number+'. הזווית הכתומה היא חצי ממנה.';
+        working='כדי למצוא חצי, מחלקים את גודל הזווית השלמה בשתיים.';
+        formula=deg(v)+' ÷ 2 = '+deg(answer);
+        result.mistakes=[[v,'זה הגודל של שני החצאים יחד. מחפשים חצי אחד.']];
+        break;
+    }
+    result.steps=[['מה הכלל?',rule],['מה רואים בשרטוט?',reading],['איך פותרים?',working,formula]];
+    return result;
+  }
+
+  q.reference=q.givens[0]; q.givenSize=measure(q.reference);
+  q.data=structure+'<br>'+q.givens.map(pair=>equation(nameOf(q,pair),measure(pair))).join(', ');
+  return q;
+}
+function makeQuestion(kind,used,previous=null) {
+  if(advancedOrder.includes(kind))return makeAdvancedQuestion(kind,previous);
+  const family=Object.keys(families).find(f=>families[f].includes(kind));
+  const bis=family==='bisector', cross=family==='vertical';
+  const pool=bis ? [28,32,36,40,44,48,52,56,60,64,68] : [48,54,62,68,74,82,100,106,114,122,128];
+  const candidates=pool.filter(n=>n!==previous?.value);
+  if(candidates.every(n=>used[family].has(n)))used[family].clear();
+  const value=pick(candidates.filter(n=>!used[family].has(n)));
+  used[family].add(value);
+  const base=previous?.rays[0] ?? pick(cross?[-12,-6,0,8,14]:[-8,0,6,12]);
+  const labelSets=[['A','B','C','D'],['K','L','M','N'],['P','Q','R','S'],['E','F','G','H']];
+  let labels=previous?.labels;
+  if(!previous || previous.choices)labels=pick(labelSets.filter(set=>set[0]!==previous?.labels[0]));
+  const rays=(cross?[0,value,180,180+value]:[0,value,bis?value*2:180]).map(a=>base+a);
+  const q={kind,family,value,labels,rays,reference:[0,1],target:cross?[2,3]:[1,2],givenSize:value,answer:null,choices:null};
+  if(kind==='half'){q.reference=[0,2];q.givenSize=2*value;q.target=previous?.target ?? pick([[0,1],[1,2]]);}
+  if(kind==='whole')q.target=[0,2];
+  const given=nameOf(q,q.reference), target=nameOf(q,q.target);
+  const full=angle(q,0,2), mid=ray(q,1);
+  const straight=M(q.labels[0])+', '+M('O')+' ו־'+M(q.labels[2])+' נמצאות על ישר אחד.';
+  const parts='הקרן '+M(mid)+' חוצה את הזווית '+M(full)+'.';
+  q.prompt='מה גודל הזווית '+M(target)+'?';
+  q.data=(bis?parts+' ':cross?'שני ישרים נחתכים בנקודה '+M('O')+'. ':'הנקודות '+straight+' ')+'נתון '+equation(given,q.givenSize)+'.';
+  if(kind==='adjSize')q.answer=180-value;
+  if(kind==='oppSize'||kind==='half'||kind==='twin')q.answer=value;
+  if(kind==='whole')q.answer=2*value;
+  if(kind==='adjName'||kind==='oppName'){
+    q.prompt=(cross?'איזו זווית קודקודית ל־':'איזו זווית צמודה ל־')+M(given)+'?';
+    q.data=cross?'שני ישרים נחתכים בנקודה '+M('O')+'. הזווית הנתונה מסומנת בירוק.':'הנקודות '+straight+' הזווית הנתונה מסומנת בירוק.';
+    q.answer=target;
+    q.choices=shuffled(cross?[target,angle(q,1,2),angle(q,3,0)]:[target,given,full]);
+  }
+  if(kind==='bisName'){
+    q.prompt='איזו קרן חוצה את הזווית '+M(full)+'?';
+    q.data='שתי הזוויות המסומנות שוות בגודלן. כל אחת מהן בת '+M(deg(value))+'.';
+    q.answer=mid;q.choices=shuffled([ray(q,0),mid,ray(q,2)]);
+  }
+  return q;
+}
+function lesson(q) {
+  if(q.family==='advanced')return q.steps;
+  const {kind,value:v,givenSize:n}=q;
+  const target=M(nameOf(q,q.target)), middle=M(ray(q,1));
+  if(q.family==='adjacent'){
+    const identify=kind==='adjName';
+    return [
+      ['מהן זוויות צמודות?','לשתי הזוויות יש שוק משותפת. שתי השוקיים האחרות יוצרות קו ישר. סכום הזוויות הוא '+M('180°')+'.'],
+      identify?['איפה הזווית הצמודה?','מצאו את הקרן '+middle+'. בצד אחד שלה נמצאת הזווית הירוקה. בצד השני נמצאת הזווית הכתומה.']:
+      ['כמה מעלות חסרות?','הקשת עוברת מעל שתי הזוויות. יחד הן '+M('180°')+'. הזווית הירוקה היא '+M(deg(v))+'. כמה מעלות נשארו לכתומה?'],
+      identify?['מה שם הזווית הכתומה?','היא נמצאת בין הקרניים '+middle+' ו־'+M(ray(q,2))+'. כותבים את '+M('O')+' באמצע ומקבלים '+target+'.']:
+      ['מחסרים מ־'+M('180°'),'כדי למצוא את הזווית הכתומה, מחסרים מ־'+M('180°')+' את גודל הזווית הירוקה.','180° − '+deg(v)+' = '+deg(q.answer)]
+    ];
+  }
+  if(q.family==='vertical'){
+    const identify=kind==='oppName';
+    return [
+      ['מהן זוויות קודקודיות?','שני ישרים נחתכים בנקודה '+M('O')+'. הזוויות שנמצאות זו מול זו נקראות זוויות קודקודיות. הן שוות בגודלן.'],
+      ['איזו זווית נמצאת ממול?','מצאו את הזווית הירוקה. הזווית הכתומה שמולה שווה לה בגודלה.'],
+      identify?['מה שם הזווית שממול?','מול הזווית הירוקה נמצאת '+target+'.']:
+      ['מוצאים את גודל הזווית','הזווית הירוקה היא '+M(deg(v))+'. הזווית שמולה שווה לה.',nameOf(q,q.target)+' = '+deg(v)]
+    ];
+  }
+  const first=['מה עושה חוצה זווית?','זו קרן שיוצאת מהקודקוד ומחלקת את הזווית לשתי זוויות שוות. בשרטוט רואים את אותו סימן על שתי הקשתות.'];
+  if(kind==='bisName')return [first,
+    ['איפה הקרן החוצה?','מצאו את שתי הקשתות הקטנות. הקרן שביניהן מחלקת את הזווית לשניים.'],
+    ['מה שם הקרן?','הקרן האמצעית מתחילה ב־'+M('O')+' ועוברת דרך '+M(q.labels[1])+'. לכן שמה '+middle+'.']];
+  if(kind==='half')return [first,
+    ['איפה החצי שמחפשים?','הקשת הירוקה מסמנת את כל הזווית, '+M(deg(n))+'. סימן השאלה נמצא בחצי הכתום.'],
+    ['מחלקים ב־2','כדי למצוא חצי מהזווית, מחלקים את '+M(deg(n))+' ב־2.',deg(n)+' ÷ 2 = '+deg(v)]];
+  if(kind==='whole')return [first,
+    ['איפה הזווית השלמה?','עקבו אחרי הקשת הכתומה. היא עוברת מעל שני החצאים. החצי הירוק הוא '+M(deg(v))+', וגם החצי השני שווה לו.'],
+    ['מחברים את החצאים','כדי למצוא את הזווית השלמה, מחברים את שתי הזוויות השוות.',deg(v)+' + '+deg(v)+' = '+deg(2*v)]];
+  return [first,
+    ['מה רואים משני צדי הקרן?','בצד אחד של '+middle+' רואים '+M(deg(v))+'. בצד השני רואים סימן שאלה. כל צד הוא חצי מהזווית.'],
+    ['מוצאים את החצי השני','שני החצאים שווים. אם החצי הירוק הוא '+M(deg(v))+', גם החצי הכתום הוא '+M(deg(v))+'.',nameOf(q,q.target)+' = '+deg(v)]];
+}
+function diagnose(q,answer){
+  if(q.family==='advanced'){
+    const mistake=q.mistakes.find(([value])=>value===answer);
+    return mistake?mistake[1]:'כתבתם '+M(deg(answer))+'. נבדוק את הזווית הכתומה.';
+  }
+  const v=q.value, shown=M(typeof answer==='number'?deg(answer):answer);
+  const choice='בחרתם ב־'+shown+'. ';
+  switch(q.kind){
+    case 'adjName': return choice+(answer===nameOf(q,q.reference)?'זו הזווית הירוקה. חפשו את הזווית שלידה.':'זו כל הזווית השטוחה. חפשו את הזווית שליד הירוקה.');
+    case 'oppName': return choice+'היא ליד הזווית הירוקה. חפשו את הזווית שממול.';
+    case 'bisName': return choice+'הקרן הזאת נמצאת בקצה הזווית. חפשו את הקרן שבאמצע.';
+    case 'adjSize':
+      if(answer===v)return 'זה הגודל של הזווית הירוקה. מחפשים את גודל הכתומה.';
+      if(answer===180)return M('180°')+' הוא הסכום של שתי הזוויות. מחפשים רק את הזווית הכתומה.';
+      return 'נסו לחבר את התשובה שלכם, '+shown+', לזווית הירוקה. האם הסכום הוא '+M('180°')+'?';
+    case 'oppSize':
+      if(answer===180-v)return 'מצאתם את גודל הזווית שליד הירוקה. סימן השאלה נמצא ממול.';
+      return 'כתבתם '+shown+'. הסתכלו על הזווית שמול סימן השאלה. מה הגודל שלה?';
+    case 'half':
+      if(answer===2*v)return 'זה הגודל של כל הזווית. מחפשים רק חצי ממנה.';
+      return 'הזווית השלמה היא '+M(deg(2*v))+'. כמה מעלות יש בחצי ממנה?';
+    case 'whole':
+      if(answer===v)return 'מצאתם חצי אחד. צריך להוסיף גם את החצי השני.';
+      return 'כל חצי הוא '+M(deg(v))+'. כמה מעלות יש בשני החצאים יחד?';
+    case 'twin':
+      if(answer===2*v)return 'מצאתם את הזווית השלמה. סימן השאלה נמצא רק בחצי אחד.';
+      if(answer===v/2)return M(deg(v))+' הוא כבר חצי מהזווית. חפשו את החצי ששווה לו.';
+      return 'החצי הירוק הוא '+M(deg(v))+'. מה זה אומר על החצי הכתום?';
+  }
+}
+const polar=(a,r)=>[r*Math.cos(a*Math.PI/180),-r*Math.sin(a*Math.PI/180)];
+const xy=(a,r)=>polar(a,r).map(v=>v.toFixed(2)).join(' ');
+const arc=(a,b,r)=>'M '+xy(a,r)+' A '+r+' '+r+' 0 '+(b-a>180.0001?1:0)+' 0 '+xy(b,r);
+const sector=(a,b,r)=>arc(a,b,r)+' L 0 0 Z';
+const band=(a,b,r,inner)=>arc(a,b,r)+' L '+xy(b,inner)+' A '+inner+' '+inner+' 0 0 1 '+xy(a,inner)+' Z';
+const colors={given:['#a8dfc6','#1a7464','#0e574a'],target:['#ffd5a6','#ac561d','#893d0b'],known:['#d7e7fb','#416899','#2c5485']};
+function draw(q,stage=-1,solved=false,wrong=null){
+  const board=el('drawing'),rays=q.rays, bis=q.family==='bisector', vertical=q.family==='vertical';
+  const advanced=q.family==='advanced';
+  board.classList.toggle('advanced',advanced);
+  const explain=stage>=1 || solved, reveal=stage===2 || solved;
+  const isChoice=Boolean(q.choices);
+  let fills='',edges='',values='',extra='',keys=[];
+  function mark(pair,tone,label,whole=false){
+    const a=rays[pair[0]], b=rays[pair[1]], [fill,stroke,ink]=colors[tone];
+    const r=whole?112:69;
+    fills+='<path d="'+(whole?band(a,b,r,96):sector(a,b,r))+'" fill="'+fill+'" fill-opacity=".79"/>';
+    edges+='<path d="'+arc(a,b,r)+'" fill="none" stroke="'+stroke+'" stroke-width="2"/>';
+    if(label){
+      const [x,y]=polar(a+(b-a)*(whole?.76:.5),whole?120:(b-a<58?87:47));
+      values+='<text x="'+x+'" y="'+y+'" dy=".34em" text-anchor="middle" fill="'+ink+'" class="measure">'+label+'</text>';
+    }
+  }
+  function key(tone,label,m){keys.push('<span><i class="'+tone+'" aria-hidden="true"></i>'+label+' '+M(m)+'</span>');}
+  mark(q.reference,'given',isChoice&&q.kind!=='bisName'?'':deg(q.givenSize),bis&&q.kind==='half');
+  key('','נתון',nameOf(q,q.reference));
+  if(advanced){
+    for(const pair of q.givens.slice(1)){
+      mark(pair,'given',deg(rays[pair[1]]-rays[pair[0]]));
+      key('','נתון',nameOf(q,pair));
+    }
+  }
+  if(q.kind==='bisName'){
+    mark([1,2],'given',deg(q.value));
+    key('','נתון',angle(q,1,2));
+  }else if(!isChoice || explain){
+    const symbol=advanced&&q.isLastPart?'α':'?';
+    mark(q.target,'target',isChoice?'':reveal?deg(q.answer):symbol,advanced?q.ring:bis&&q.kind==='whole');
+    key('wanted',reveal?'פתרון':'מבוקש',advanced?q.name:nameOf(q,q.target));
+  }
+  if(advanced){
+    for(const known of q.known){
+      mark(known.target,'known',deg(known.answer),known.ring);
+      key('known','מצאתם',known.name);
+    }
+    if(stage===1){
+      for(const pair of q.support){
+        const i=Math.min(...pair),j=Math.max(...pair);
+        extra+='<path d="'+arc(rays[i],rays[j],j-i>1?129:76)+'" fill="none" stroke="#345e6a" stroke-width="2.8" stroke-dasharray="5 3"/>';
+      }
+    }
+  }
+  if(q.right){
+    const [i,j]=q.right,r=17;
+    const [x1,y1]=polar(rays[i],r),[x2,y2]=polar(rays[j],r);
+    edges+='<path d="M '+x1+' '+y1+' l '+x2+' '+y2+' L '+x2+' '+y2+'" fill="none" stroke="#355d53" stroke-width="1.8"/>';
+  }
+  const bisectors=bis?[[0,1,2]]:(q.bisectors||[]);
+  bisectors.forEach(([start,middle,end],setIndex)=>{
+    for(const [i,j] of [[start,middle],[middle,end]]){
+      const a=rays[i],b=rays[j],m=(a+b)/2;
+      let path=arc(a,b,26);
+      for(const offset of (setIndex===0?[0]:[-4,4]))path+=' M '+xy(m+offset,22)+' L '+xy(m+offset,30);
+      edges+='<path d="'+path+'" fill="none" stroke="#355d53" stroke-width="1.7"/>';
+    }
+  });
+  if(isChoice && stage===0 && wrong){
+    if(bis){
+      const idx=q.labels.indexOf(wrong.slice(1));
+      extra+='<path d="M 0 0 L '+xy(rays[idx],140)+'" stroke="#965214" stroke-width="5" stroke-dasharray="7 4"/>';
+    }else{
+      const idx1=q.labels.indexOf(wrong[1]),idx2=q.labels.indexOf(wrong[3]);
+      const a=rays[idx1], b=rays[idx2]+(rays[idx2]<a?360:0);
+      extra+='<path d="'+arc(a,b,84)+'" fill="none" stroke="#965214" stroke-width="3" stroke-dasharray="6 4"/>';
+    }
+    key('wanted','הבחירה שלך',wrong);
+  }
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(explain&&!vertical&&!advanced){
+    const spans=bis?[[rays[0],rays[1]],[rays[1],rays[2]]]:[[rays[0],rays[2]]];
+    spans.forEach(([a,b],i)=>{
+      extra+='<path d="'+arc(a,b,bis?82:102)+'" class="guide-line'+(stage===1?' trace':'')+'" pathLength="1" style="animation-delay:'+i*.65+'s;animation-duration:'+(bis?.85:1.55)+'s"/>';
+    });
+    if(bis)extra+='<path d="M 0 0 L '+xy(rays[1],142)+'" fill="none" stroke="#14675b" stroke-width="3.7"/>';
+    if(q.kind==='bisName')key('neutral','חוצה הזווית',ray(q,1));
+  }
+  const points=rays.map(a=>polar(a,159));
+  // Include the circular overlays as well as the ends of the rays in the bounds.
+  for(let a=rays[0];a<=(advanced?rays.at(-1):rays[2]);a+=5)points.push(polar(a,125));
+  points.push([0,23]);
+  let xmin=Math.min(...points.map(p=>p[0]))-16,xmax=Math.max(...points.map(p=>p[0]))+16;
+  let ymin=Math.min(...points.map(p=>p[1]))-18,ymax=Math.max(...points.map(p=>p[1]))+18;
+  if(xmax-xmin<294){const pad=(294-xmax+xmin)/2;xmin-=pad;xmax+=pad;}
+  const descRays=q.labels.slice(0,rays.length).map((l,i)=>ray(q,i)).join(', ');
+  const structural=bis?'קרן '+ray(q,1)+' עוברת בתוך '+angle(q,0,2)+'.':q.family==='vertical'?'הנקודות '+q.labels[0]+', O, '+q.labels[2]+' על ישר אחד, והנקודות '+q.labels[1]+', O, '+q.labels[3]+' על ישר שני.':'הקרניים '+ray(q,0)+' ו־'+ray(q,2)+' מנוגדות.';
+  let desc='הקרניים היוצאות מ־O הן '+descRays+'. '+structural+' הזווית הנתונה '+nameOf(q,q.reference)+(isChoice&&q.kind!=='bisName'?'.':' בגודל '+deg(q.givenSize)+'.');
+  if(advanced)desc=el('given').innerText+'. הזווית הכתומה היא '+q.name+(q.isLastPart?' ומסומנת באות אלפא.':'.');
+  if(vertical&&explain)desc+=' הזווית שמולה היא '+nameOf(q,q.target)+'.';
+  if(!isChoice&&!advanced)desc+=' הזווית המבוקשת '+nameOf(q,q.target)+'.';
+  board.setAttribute('viewBox',[xmin,ymin,xmax-xmin,ymax-ymin].join(' '));
+  board.setAttribute('aria-label',desc);
+  let lines='',letters='';
+  rays.forEach((a,i)=>{
+    const [x,y]=polar(a,158);
+    lines+='<path d="M 0 0 L '+xy(a,144)+'" fill="none" stroke="#254a43" stroke-width="2.5" stroke-linecap="round"/>';
+    letters+='<text x="'+x+'" y="'+y+'" dy=".33em" text-anchor="middle" class="point">'+q.labels[i]+'</text>';
+  });
+  let vertexPos=vertical?(rays[1]+rays[2])/2:((rays[2]+rays[0]+360)/2);
+  if(advanced){
+    const gaps=rays.map((a,i)=>(rays[i+1]??rays[0]+360)-a);
+    const widest=gaps.indexOf(Math.max(...gaps));
+    vertexPos=rays[widest]+gaps[widest]/2;
+  }
+  const [ox,oy]=polar(vertexPos,q.family==='vertical'?17:16);
+  board.innerHTML=fills+lines+edges+extra+values+letters+'<circle cx="0" cy="0" r="3.8" class="vertex"/><text x="'+ox+'" y="'+oy+'" dy=".34em" text-anchor="middle" class="point">O</text>';
+  if(stage===1&&!vertical&&!advanced&&!reduced)keys.push('<button class="replay" type="button" id="replay">'+icon('replay')+'הפעלה חוזרת</button>');
+  el('legend').innerHTML=keys.join('');
+  if(el('replay'))el('replay').onclick=()=>{
+    draw(q,stage,solved,wrong);
+    el('replay')?.focus({preventScroll:true});
+  };
+}
+function newSession(){
+  const order=[...basicOrder,...advancedOrder];
+  const used={adjacent:new Set(),vertical:new Set(),bisector:new Set()};
+  return {questions:order.map(k=>makeQuestion(k,used)),used,index:0,substep:0,mode:'answer',draft:'',hadError:false,firstTry:0,stage:0,lastWrong:null};
+}
+let session;
+function current(){
+  const exercise=session.questions[session.index];
+  if(!exercise?.parts)return exercise;
+  const part=exercise.parts[session.substep];
+  const isLastPart=session.substep===exercise.parts.length-1;
+  return {...exercise,...part,isLastPart,known:exercise.parts.slice(0,session.substep),
+    prompt:'מה גודל הזווית '+M(isLastPart?'α':part.name)+'?'};
+}
+function answerField(q){
+  const submit='<button type="submit" class="btn">בדיקת תשובה</button>';
+  if(q.choices){
+    return '<fieldset class="choices" aria-label="בחירת תשובה"><div class="choice-list">'+q.choices.map(opt=>'<label class="choice"><input type="radio" name="choice" value="'+opt+'">'+M(opt)+'</label>').join('')+'</div></fieldset>'+submit;
+  }
+  return '<div class="field"><div class="num-box"><input type="text" dir="ltr" id="number" aria-label="תשובה במעלות" inputmode="decimal" autocomplete="off" aria-describedby="validation" maxlength="16"><span class="degree" aria-hidden="true">°</span></div>'+submit+'</div>';
+}
+function focusArea(id){
+  const node=el(id);
+  if(node)node.focus({preventScroll:false});
+}
+function render(focus=false){
+  const s=session,total=s.questions.length;
+  const finished=s.index===total;
+  el('exercise').hidden=finished;el('result').hidden=!finished;
+  if(finished){
+    el('counter').hidden=true;
+    el('result').innerHTML='<div class="result-icon">'+icon('check')+'</div><h2 id="done-title" tabindex="-1">התרגול הושלם</h2><p>'+M(s.firstTry+' / '+total)+' נכונות בניסיון הראשון</p><button type="button" class="btn" id="again">סבב נוסף</button>';
+    el('again').onclick=()=>{session=newSession();render(true);};
+    if(focus)focusArea('done-title');
+    return;
+  }
+  const q=current();
+  const number=s.index+1;
+  el('counter').hidden=false;
+  const stepCount=q.parts?' · שלב '+(s.substep+1)+' מתוך '+q.parts.length:'';
+  el('counter').innerHTML=M(number+' / '+total)+stepCount;
+  el('counter').setAttribute('aria-label','תרגיל '+number+' מתוך '+total+stepCount);
+  el('question').innerHTML=q.prompt;el('given').innerHTML=q.data;
+  if(q.known?.length)el('given').innerHTML+='<br>מצאתם '+q.known.map(p=>equation(p.name,p.answer)).join(', ')+'.';
+  el('validation').textContent='';el('field').innerHTML=answerField(q);
+  if(el('number'))el('number').value=s.draft;
+  else el('field').querySelectorAll('input').forEach(input=>input.checked=input.value===s.draft);
+  const answering=s.mode==='answer', help=s.mode==='help';
+  el('answer-form').hidden=!answering;el('feedback').hidden=answering;
+  draw(q,help?s.stage:-1,s.mode==='correct',s.lastWrong);
+  if(!answering)renderFeedback(s,q);
+  if(focus){
+    focusArea(answering?'prompt':'feedback-title');
+    if(help && s.stage===1 && window.matchMedia('(max-width:760px)').matches){
+      document.querySelector('.board').scrollIntoView({block:'start'});
+    }
+  }
+}
+function renderFeedback(s,q){
+  const host=el('feedback'),steps=lesson(q),correct=s.mode==='correct';
+  host.className='feedback'+(correct?'':' help');
+  if(correct){
+    const [,body,formula]=steps[2];
+    const nextLabel=s.index===s.questions.length-1?'לסיכום התרגול':'לתרגיל הבא';
+    const solution=typeof q.answer==='number'?M(deg(q.answer)):M(q.answer);
+    host.innerHTML='<h3 id="feedback-title" tabindex="-1">נכון! '+solution+'</h3><p>'+body+'</p>'+(formula?'<div class="equation">'+formula+'</div>':'')+'<div class="stage-controls"><button class="btn" id="next" type="button">'+nextLabel+'</button></div>';
+    el('next').onclick=()=>{
+      s.index++;s.substep=0;s.mode='answer';s.draft='';s.lastWrong=null;s.stage=0;s.hadError=false;render(true);
+    };
+    return;
+  }
+  const [title,body,formula]=steps[s.stage];
+  const step=s.stage;
+  const lastStep=step===steps.length-1;
+  const action=lastStep
+    ? '<button class="btn" type="button" id="retry">ניסיון עם נתונים חדשים</button>'
+    : '<button class="btn secondary" type="button" id="advance">'+(step===0?'להמחשה בשרטוט':'לפתרון המלא')+'</button>';
+  host.innerHTML='<div class="step-meta"><span>הסבר · שלב '+(step+1)+' מתוך '+steps.length+'</span><span class="step-dots" aria-hidden="true">'+steps.map((_,i)=>'<i class="'+(i<=step?'on':'')+'"></i>').join('')+'</span></div><h3 id="feedback-title" tabindex="-1">'+title+'</h3>'+(step===0?'<p class="diag">'+diagnose(q,s.lastWrong)+'</p>':'')+'<p>'+body+'</p>'+(formula?'<div class="equation">'+formula+'</div>':'')+'<div class="stage-controls">'+action+(step>0?'<button class="plain" type="button" id="backstep">לשלב הקודם</button>':'')+'</div>';
+  if(el('advance'))el('advance').onclick=()=>{s.stage++;render(true);};
+  if(el('backstep'))el('backstep').onclick=()=>{s.stage--;render(true);};
+  if(lastStep)el('retry').onclick=()=>{
+    s.questions[s.index]=makeQuestion(q.kind,s.used,q);
+
+    s.mode='answer';s.substep=0;s.stage=0;s.draft='';s.lastWrong=null;
+    render(true);
+  };
+}
+function normalizeDegrees(text){
+  const normalized=text.trim().replace(/[٠-٩]/g,c=>String(c.charCodeAt(0)-1632)).replace(/[۰-۹]/g,c=>String(c.charCodeAt(0)-1776)).replace(/[٫,]/g,'.').replace(/\s*°$/,'').replace(/^−/,'-');
+  return /^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(normalized)?Number(normalized):null;
+}
+el('answer-form').addEventListener('input',event=>{
+  session.draft=event.target.value;el('validation').textContent='';
+});
+el('answer-form').addEventListener('submit',event=>{
+  event.preventDefault();
+  const s=session,q=current();
+  if(s.mode!=='answer')return;
+  const val=q.choices?el('field').querySelector('input:checked')?.value:normalizeDegrees(el('number').value);
+  if(val==null){
+    el('validation').textContent=q.choices?'בחרו אחת מהתשובות כדי לבדוק.':'כתבו מספר במעלות כדי לבדוק.';
+    (el('number')||el('field').querySelector('input')).focus();return;
+  }
+  if(val===q.answer){
+    if(q.parts&&!q.isLastPart){
+      s.substep++;s.draft='';
+    }else{
+      if(!s.hadError)s.firstTry++;
+      s.mode='correct';
+    }
+  }else{
+    s.hadError=true;s.lastWrong=val;s.stage=0;s.mode='help';
+  }
+  render(true);
+});
+session=newSession();
+render();
+</script>
+</body></html>
